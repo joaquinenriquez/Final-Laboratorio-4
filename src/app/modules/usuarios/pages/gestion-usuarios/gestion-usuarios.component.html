@@ -1,0 +1,42 @@
+<div class="container" fxLayout="column" fxFlexFill>
+
+    <app-datos-usuario-bar [usuario]="this.datosUsuarioActual"></app-datos-usuario-bar>
+  
+    <div fxFlex style="margin-bottom: 20px;">
+  
+  
+        <mat-tab-group>
+  
+          <mat-tab>
+              <ng-template mat-tab-label>
+                  <mat-icon class="example-tab-icon">account_circle</mat-icon>
+                  Profesionales
+              </ng-template>
+              <app-listado-usuarios [filtroRol]="Roles.Profesional"></app-listado-usuarios>
+          </mat-tab>
+  
+            
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon color-pendiente">supervised_user_circle</mat-icon>
+                    Pacientes
+                </ng-template>
+                <app-listado-usuarios [filtroRol]="Roles.Paciente"></app-listado-usuarios>
+            </mat-tab>
+  
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon">admin_panel_settings</mat-icon>
+                    Administradores
+                </ng-template>
+                <app-listado-usuarios [filtroRol]="Roles.Administrador"></app-listado-usuarios>
+            </mat-tab>
+  
+        </mat-tab-group>
+  
+    </div>
+  
+  </div>
+  
+  
+  

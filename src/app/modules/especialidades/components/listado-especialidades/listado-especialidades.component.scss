@@ -1,0 +1,44 @@
+table {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    min-width: 500px;
+}
+th.mat-header-cell {
+    text-align: left;
+    max-width: 300px;
+}
+
+.contenedor-principal {
+    margin: 10px;
+    height: 98%;
+    // padding: 20px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+    margin-left: 20px;
+  }
+
+
+.tabla {
+    margin-top: 20px;
+}
+
+// table {
+//     width: 100%;
+//   }
+
+  .w-75{
+    width: 75px;
+}
+
+.texto-boton {
+    padding-left: 50px;
+    padding-right: 74px;
+}
+
+.alta-modificacion-dialog {
+    background-color: salmon !important;
+    color: seagreen !important;
+}
+

@@ -1,0 +1,20 @@
+    mat-card {
+        padding: 2em;
+        // margin: -24px;
+    }
+
+:host {
+    display: flex;
+    justify-content: center;
+    // margin: 100px 0;
+}
+
+
+.datos-login {
+      width: 100%;
+      min-width: 300px;
+    }
+
+.btn-login {
+    width: 100%;
+}

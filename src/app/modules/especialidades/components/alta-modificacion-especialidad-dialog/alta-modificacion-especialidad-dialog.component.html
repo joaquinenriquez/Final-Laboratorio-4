@@ -1,0 +1,40 @@
+<form div class="contenedor-principal" fxLayout="column" [formGroup]="formEspecialidad"
+  (ngSubmit)="crearEspecialidad(formEspecialidad.value)">
+
+  <h1 mat-dialog-title>{{datos.titulo}}</h1>
+  <div mat-dialog-content>
+    <p>{{datos.mensaje}}</p>
+
+    <mat-form-field>
+
+      <mat-label>Ej: otorrinonaringólogue</mat-label>
+      <input type="text" matInput [matAutocomplete]="auto" formControlName="nombreEspecialidad"
+        [(ngModel)]="datos.nombreEspecialidad" #inputEspecialidad>
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.nombreEspecialidad">
+          {{option.nombreEspecialidad}}
+        </mat-option>
+      </mat-autocomplete>
+
+      <mat-error
+        *ngIf="formEspecialidad.controls['nombreEspecialidad'].hasError('pattern') && !formEspecialidad.controls['nombreEspecialidad'].hasError('required')">
+        El nombre de la especialidad tiene caractéres no válidos
+      </mat-error>
+
+      <mat-error *ngIf="formEspecialidad.controls['nombreEspecialidad'].hasError('required')">
+        Tenés que ingresar un nombre para la especialidad
+      </mat-error>
+
+    </mat-form-field>
+
+
+  </div>
+
+  <div mat-dialog-actions fxLayout fxLayoutGap="10" fxFlexAlign="end">
+    <button type="button" mat-raised-button (click)="cancelar()">{{datos.textoBotonCancelar}}</button>
+    <button type="submit" [disabled]="!this.formEspecialidad.valid" mat-raised-button color="primary"
+      cdkFocusInitial>{{datos.textoBotonAceptar}}</button>
+  </div>
+
+
+</form>

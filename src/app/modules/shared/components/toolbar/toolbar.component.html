@@ -1,0 +1,35 @@
+<mat-toolbar color="primary">
+    
+    <a routerLink="/" routerLinkActive="active">AUTOGESTIÓN</a>
+
+    <a routerLink="/gestion-turnos" routerLinkActive="active"><button mat-button>GESTIÓN DE TURNOS</button></a>
+
+    <a routerLink="/gestion-usuarios" routerLinkActive="active"><button mat-button>GESTIÓN DE USUARIOS</button></a>
+
+    <a routerLink="/mis-turnos" routerLinkActive="active"><button mat-button>MIS TURNOS</button></a>
+    
+    <a routerLink="/home-usuario" routerLinkActive="active"><button mat-button>SOLICITAR TURNOS</button></a>
+        
+    <a routerLink="/especialidades" routerLinkActive="active"><button mat-button>ESPECIALIDADES</button></a>
+
+
+    <span class="fill-remaining-space"></span>
+
+    <a routerLink="/admin" routerLinkActive="active" *ngIf="this.auth.datosUsuario | async"><button mat-button>Admin</button></a>
+
+    <a routerLink="/registro-pacientes" routerLinkActive="active"><button mat-button>Pacientes</button></a>
+
+    <a routerLink="/registro-profesionales" routerLinkActive="active"><button mat-button>Profesionales</button></a>
+
+    <a routerLink="/login" routerLinkActive="active" *ngIf="!(this.auth.datosUsuario | async); else showLogOut"><button mat-button>Login</button></a>
+
+    <ng-template #showLogOut>
+        <a><button mat-button (click)="onLogOut()">LogOut</button></a>
+    </ng-template>
+
+
+
+       
+</mat-toolbar>
+
+

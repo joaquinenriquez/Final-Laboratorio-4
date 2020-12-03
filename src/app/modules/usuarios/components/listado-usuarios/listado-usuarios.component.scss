@@ -1,0 +1,39 @@
+table {
+    width: 100%;
+  }
+
+  .icono-boton {
+      margin-right: 0.5em;
+  }
+
+
+  
+  .usuario-habilitado {
+    color: #3BAF55;
+    font-weight: bold;
+  }
+
+  .usuario-pendiente-confirmacion {
+    color: #FFC925;
+    font-weight: bold;
+  }
+
+  .usuario-deshabilitado {
+    color: #8E959B;
+    font-weight: bold;
+  }
+
+  .sin-datos {
+    font-size: 16px;
+    text-align: center;
+    color:#8BC34A;
+  }
+
+//   .w-75{
+//     width: 200px;
+// }
+
+.button-text {
+  padding-left: 8px;
+  padding-right: 4px; /* Add 24px to align the text in the center since the icon's width is 24px */
+}

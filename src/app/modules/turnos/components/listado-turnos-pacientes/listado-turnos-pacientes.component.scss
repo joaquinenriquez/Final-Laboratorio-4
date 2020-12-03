@@ -1,0 +1,61 @@
+.wrapper {
+    height: 400px;
+  }
+  
+  table {
+    width: 100%;
+  }
+
+  .example-tab-icon {
+    margin-right: 8px;
+    font-weight: bold;
+  }
+
+  .turno-cancelado {
+    color: #F44336;
+    font-weight: bold;
+  }
+
+  .turno-confirmado {
+    color: #3BAF55;
+    font-weight: bold;
+  }
+
+  .turno-pendiente-confirmacion {
+    color: #FFC925;
+    font-weight: bold;
+  }
+
+  .turno-finalizado {
+    color: #17A2B8;
+    font-weight: bold;
+  }
+
+  .turno-atendiendo {
+    color: #007BFF;
+    font-weight: bold;
+  }
+
+  .turno-suspendido {
+    color: #8E959B;
+    font-weight: bold;
+  }
+
+
+  table {
+    width: 100%;
+  }
+  
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+
+  table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
