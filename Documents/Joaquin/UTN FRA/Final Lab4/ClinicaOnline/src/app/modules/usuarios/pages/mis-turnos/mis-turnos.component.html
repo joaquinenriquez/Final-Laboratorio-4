@@ -1,0 +1,29 @@
+<div class="container" fxLayout="column" fxFlexFill>
+
+    <app-datos-usuario-bar [usuario]="this.datosUsuarioActual"></app-datos-usuario-bar>
+
+    <div fxFlex style="margin-bottom: 20px;">
+
+
+        <mat-tab-group>
+            
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon">book_online</mat-icon>
+                    Próximos turnos
+                </ng-template>
+                <app-listado-turnos-pacientes tipoFiltro="proximos"></app-listado-turnos-pacientes>
+            </mat-tab>
+
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon">history</mat-icon>
+                    Turnos anteriores
+                </ng-template>
+                <app-listado-turnos-pacientes tipoFiltro="anteriores"></app-listado-turnos-pacientes>
+            </mat-tab>
+
+        </mat-tab-group>
+    </div>
+
+</div>

@@ -1,0 +1,41 @@
+<div class="container" fxLayout="column" fxFlexFill>
+
+  <app-datos-usuario-bar [usuario]="this.datosUsuarioActual"></app-datos-usuario-bar>
+
+  <div fxFlex style="margin-bottom: 20px;">
+
+
+      <mat-tab-group>
+
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">book_online</mat-icon>
+                Turnos confirmados
+            </ng-template>
+            <app-listado-turnos-profesionales tipoFiltro="confirmados"></app-listado-turnos-profesionales>
+        </mat-tab>
+
+          
+          <mat-tab>
+              <ng-template mat-tab-label>
+                  <mat-icon class="example-tab-icon color-pendiente">pending_actions</mat-icon>
+                  Pendientes de confirmar
+              </ng-template>
+              <app-listado-turnos-profesionales tipoFiltro="pendientes"></app-listado-turnos-profesionales>
+          </mat-tab>
+
+          <mat-tab>
+              <ng-template mat-tab-label>
+                  <mat-icon class="example-tab-icon">history</mat-icon>
+                  Turnos anteriores
+              </ng-template>
+              <app-listado-turnos-profesionales tipoFiltro="anteriores"></app-listado-turnos-profesionales>
+          </mat-tab>
+
+      </mat-tab-group>
+
+  </div>
+
+</div>
+
+

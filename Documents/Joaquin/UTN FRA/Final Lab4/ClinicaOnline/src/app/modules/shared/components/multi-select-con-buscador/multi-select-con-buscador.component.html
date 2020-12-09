@@ -1,0 +1,31 @@
+<p>
+  <mat-form-field class="datos-login">
+    <mat-select [formControl]="selectControl" placeholder="Especialidades" [multiple]="true" #multiSelect>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="controlFiltro" placeholderLabel="Buscar..."
+          noEntriesFoundLabel="No se encontraron especialidades con ese nombre"></ngx-mat-select-search>
+      </mat-option>
+
+      <mat-option *ngFor="let item of listaFiltrada | async" [value]="item">
+        {{item}}
+      </mat-option>
+
+    </mat-select>
+  </mat-form-field>
+</p>
+
+<div>
+
+  <p *ngIf="selectControl?.value">
+    <strong>Especialidades seleccionadas:</strong>
+  </p>
+
+  <ul *ngFor="let item of selectControl?.value">
+    <li>{{item}}</li>
+  </ul>
+
+</div>
+
+
+
+

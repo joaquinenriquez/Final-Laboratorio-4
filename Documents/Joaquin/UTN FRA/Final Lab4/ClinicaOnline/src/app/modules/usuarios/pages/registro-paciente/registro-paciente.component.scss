@@ -1,0 +1,53 @@
+:host {
+    display: flex;
+    justify-content: center;
+    margin: 100px 0;
+}
+
+
+.datos-login {
+      width: 100%;
+      min-width: 300px;
+    }
+
+.btn-login {
+    width: 100%;
+}
+
+mat-card-title,
+mat-card-content {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+
+.mat-toolbar-single-row {
+    height: auto !important;
+    background: transparent;
+}
+
+.mat-toolbar-single-row button {
+    width: 200px;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+#uploadFile {
+    top: 0px;
+    left: 0px;
+    width: 100%;    
+    z-index: 9;
+    opacity: 0;
+    height: 100%;
+    cursor: pointer;
+    position: absolute;
+}
+
+.chips-imagenes 
+{
+        width: 100%;
+}

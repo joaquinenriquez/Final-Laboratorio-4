@@ -1,0 +1,17 @@
+<div fxLayout="row">
+    <mat-card fxFlex="100%" class="container">
+        
+        <div fxLayout="row">
+            <mat-label class="encabezado" fxFlex="20%">Paciente</mat-label>
+            <mat-label class="encabezado" fxFlex="20%">DNI</mat-label>
+            <mat-label class="encabezado" fxFlex="20%">Nro Afiliado</mat-label>
+        </div>
+
+        <div fxLayout="row">
+            <mat-label class="fila" fxFlex="20%">{{usuario?.displayName}}</mat-label>
+            <mat-label class="fila" fxFlex="20%">{{usuario?.dni}}</mat-label>
+            <mat-label class="fila" fxFlex="20%">{{usuario?.nroAfiliado}}</mat-label>
+        </div>
+
+    </mat-card>
+</div>

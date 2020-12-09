@@ -1,0 +1,45 @@
+:host {
+    display: flex;
+    justify-content: center;
+    vertical-align: center;
+    // margin: 100px 0;
+    align-items: center;
+  
+}
+
+
+// .contenedor-principal {
+//   height: 80vh;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+
+.datos-login {
+      width: 100%;
+      min-width: 300px;
+    }
+
+.btn-login {
+  min-width: 300px;
+  max-width: 300px;
+  justify-content: center;
+}
+
+mat-card-title,
+mat-card-content {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+  
+
+
+.check {
+
+    position:relative;
+    top:15px;
+}

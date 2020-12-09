@@ -1,0 +1,7 @@
+<div fxLayout="row" fxLayoutGap="5%" fxLayoutAlign="center">
+    
+    <mat-button-toggle-group>
+        <mat-button-toggle *ngFor="let dia of this.proximasFechasTrabajables" (click)="seleccionarDia(dia)" [value]="dia">{{dia | date:"EEEE d " | titlecase}} de {{dia | date: " MMMM" | titlecase}}</mat-button-toggle>
+    </mat-button-toggle-group>
+
+</div>  

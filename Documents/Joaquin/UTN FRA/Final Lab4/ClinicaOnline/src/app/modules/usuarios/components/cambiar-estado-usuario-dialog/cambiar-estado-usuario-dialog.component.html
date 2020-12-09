@@ -1,0 +1,61 @@
+<div>
+
+
+    <mat-card>
+
+
+        <mat-card-title-group>
+            <mat-card-title mat-dialog-title>Cambiar estado</mat-card-title>
+            <mat-card-subtitle>{{usuario.displayName}}</mat-card-subtitle>
+        </mat-card-title-group>
+
+
+        <mat-card-content>
+            <br>
+            <div mat-dialog-content>
+
+
+                <p>
+                    <mat-form-field class="controles">
+                        <mat-label><strong>Estado Actual:</strong></mat-label>
+                        <input matInput [(ngModel)]="usuario.estado" readonly [ngClass]="{
+                        'usuario-habilitado': 'Habilitado' == usuario.estado, 
+                        'usuario-deshabilitado': 'Deshabilitado' == usuario.estado,
+                        'usuario-pendiente-confirmacion': 'Pendiente Aprobación' == usuario.estado
+                        }">
+                    </mat-form-field>
+
+                </p>
+
+
+                <p>
+
+                    <mat-form-field appearance="fill" class="controles">
+                        <mat-label><strong>Cambiar a:</strong></mat-label>
+                        <mat-select [(ngModel)]="nuevoEstado">
+                            <mat-option [value]="estado" *ngFor="let estado of this.opcionesEstado">{{estado}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                </p>
+
+            </div>
+
+        </mat-card-content>
+
+        <mat-card-actions>
+            <br>
+            <div mat-dialog-actions fxLayout fxLayoutAlign="end">
+
+                <button type="button" mat-raised-button (click)="cancelar()">Cancelar</button>
+                <button (click)="cambiarEstado()" mat-raised-button color="primary" cdkFocusInitial [disabled]="nuevoEstado == undefined">Cambiar</button>
+            </div>
+
+        </mat-card-actions>
+
+    </mat-card>
+
+
+
+</div>

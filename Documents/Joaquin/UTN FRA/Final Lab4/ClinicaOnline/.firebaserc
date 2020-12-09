@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "clinicaonline-utnfra": {
+      "hosting": {
+        "ClinicaOnline": [
+          "clinicaonline-utnfra"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "clinicaonline-utnfra"
+  }
+}

@@ -1,0 +1,21 @@
+<div class="container" fxLayout="column" fxFlexFill>
+    
+    <app-datos-usuario-bar  [usuario]="this.datosUsuarioActual"></app-datos-usuario-bar>
+
+    <!-- <div fxFlex style="margin-bottom: 20px;">
+        <app-selector-dias 
+        [tipoBusqueda]="this.tipoDeBusqueda" 
+        [idProfesionalSeleccionado]="this.idProfesionalSeleccionado"
+        (CambioDia)="mostrarHorarios($event)"></app-selector-dias> -->
+        <!-- <app-solicitar-turno  [usuario]="this.datosUsuarioActual"></app-solicitar-turno> --> -->
+    <!-- </div> -->
+
+    <div fxFlex style="margin-bottom: 20px;">
+        <app-selector-horarios [datosDiaSeleccionado]="datosDiaSeleccionado" #selectorHorarios></app-selector-horarios>
+    </div>
+
+</div> 
+
+
+
+

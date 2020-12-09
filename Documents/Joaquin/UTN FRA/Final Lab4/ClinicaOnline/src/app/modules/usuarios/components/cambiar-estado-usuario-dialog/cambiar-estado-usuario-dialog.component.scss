@@ -1,0 +1,25 @@
+mat-card {
+    padding: 2em;
+    margin: -24px;
+}
+
+.controles {
+    width: 100%;
+}
+
+.usuario-habilitado {
+    color: #3BAF55;
+    font-weight: bold;
+  }
+
+  .usuario-pendiente-confirmacion {
+    color: #FFC925;
+    font-weight: bold;
+  }
+
+  .usuario-deshabilitado {
+    color: #8E959B;
+    font-weight: bold;
+  }
+
+

@@ -1,0 +1,52 @@
+<div class="container" fxLayout="column" fxFlexFill>
+
+    <app-datos-turnos-bar [turno]="this.turnoSeleccionado"></app-datos-turnos-bar>
+
+
+
+    <div fxLayout="row">
+
+        <mat-card class="container">
+            <mat-icon *ngIf="!datosUsuarioActual?.imagen1">account_circle</mat-icon><img
+                *ngIf="datosUsuarioActual?.imagen1" [src]="datosUsuarioActual?.imagen1" />
+        </mat-card>
+
+        <mat-card fxFlex class="container">
+
+            <mat-card-title>Datos del paciente</mat-card-title>
+
+            <div fxLayout="row">
+                <mat-label class="encabezado" fxFlex="20%">Paciente</mat-label>
+                <mat-label class="encabezado" fxFlex="20%">DNI</mat-label>
+                <mat-label class="encabezado" fxFlex="20%">Nro Afiliado</mat-label>
+            </div>
+
+            <div fxLayout="row">
+                <mat-label class="fila" fxFlex="20%">{{turnoSeleccionado?.nombreUsuario}}</mat-label>
+                <mat-label class="fila" fxFlex="20%">{{usuarioTurno?.dni}}</mat-label>
+                <mat-label class="fila" fxFlex="20%">{{usuarioTurno?.nroAfiliado}}</mat-label>
+            </div>
+
+        </mat-card>
+
+    </div>
+
+    <div>
+        <mat-card >
+
+
+            <mat-card-title>Observaciones del turno</mat-card-title>
+            <button (click)="agregarDato()">asd</button>
+
+
+
+            <div #target>
+                <p>sda</p>
+            </div>
+
+        </mat-card>
+    </div>
+
+
+
+</div>

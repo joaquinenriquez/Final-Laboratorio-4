@@ -1,0 +1,46 @@
+.contenedor-principal {
+    margin: 10px;
+    height: 100%;
+    // padding: 20px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+    margin-left: 20px;
+  }
+
+
+.tabla {
+    margin-top: 20px;
+}
+
+// table {
+//     width: 100%;
+//   }
+
+  .w-75{
+    width: 75px;
+}
+
+
+
+
+.wrapper {
+  height: 260px;
+}
+
+table {
+  width: 100%;
+}
+
+// html, body {
+//   box-sizing: border-box;
+//   height: 100vh;
+//   margin: 0;
+// }
+
+
+.btn-confirmar {
+  min-width: 300px;
+  max-width: 300px;
+  justify-content: center;
+}

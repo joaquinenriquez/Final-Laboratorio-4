@@ -1,0 +1,49 @@
+<!-- <div style="background-color: blanchedalmond;">
+        <span>(1)</span>
+        {{this.datosDiaSeleccionado?.diaSeleccionado | date: 'fullDate'}}
+    </div>
+
+    <div style="background-color: cadetblue;">
+        <span>(2)</span>
+        {{this.datosDiaSeleccionado?.profesionalSeleccionado | json }}
+    </div>
+
+    <div style="background-color: darkgray;">
+        <span>(3)</span>
+        {{ this.datosDiaSeleccionado?.turnosSolicitados | json }}
+    </div>
+
+    <div style="background-color: darkseagreen;">
+        <span>(3)</span>
+        {{ this.horariosDisponibles | json }}
+    </div>-->
+
+<div fxLayout="column" fxLayoutAlign="center center" *ngIf="this.datosDiaSeleccionado?.length" style="widows: 50vh;">
+
+    <div *ngFor="let datosUnProfesional of this.datosDiaSeleccionado" fxFlexAlign="center">
+
+        <mat-card style="width:100%;" *ngIf="datosUnProfesional?.horariosDisponibles.length > 0">
+
+            <mat-card-subtitle style="text-align: center;">Horarios disponibles para
+                {{this.datosUnProfesional?.diaSeleccionado | date:"EEEE d " | titlecase}} de
+                {{this.datosUnProfesional?.diaSeleccionado  | date: " MMMM" | titlecase}} con
+                {{this.datosUnProfesional?.profesionalSeleccionado.displayName}}
+            </mat-card-subtitle>
+    
+            <mat-card-content>
+    
+                <div fxLayout fxLayoutGap="5%" fxLayoutAlign="center">
+                    <div fxFlex="50%">
+                        <button style="padding:5px; margin: 5px 5px;"
+                            *ngFor="let unHorario of datosUnProfesional.horariosDisponibles" mat-stroked-button
+                            color="primary" (click)="confirmarTurno(datosUnProfesional, unHorario)">{{unHorario}}</button>
+                    </div>
+                </div>
+    
+            </mat-card-content>
+    
+        </mat-card>
+
+    </div>
+
+</div>

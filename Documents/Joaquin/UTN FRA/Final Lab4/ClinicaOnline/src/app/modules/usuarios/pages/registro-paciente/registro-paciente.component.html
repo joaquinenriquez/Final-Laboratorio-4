@@ -1,0 +1,89 @@
+<mat-card>
+
+    <mat-card-title>Bienvenido</mat-card-title>
+
+    <mat-card-content>
+
+        <form [formGroup]="formRegistro" (ngSubmit)="registrarConEmail(formRegistro.value)">
+
+            <p>
+                <mat-form-field class="datos-login">
+                    <mat-label>Nombre</mat-label>
+                    <input type="text" matInput formControlName="nombre" placeholder="Ingrese su nombre, por favor">
+                    <mat-error
+                        *ngIf="formRegistro.controls['nombre'].hasError('pattern') && !formRegistro.controls['nombre'].hasError('required')">
+                        El nombre no puede contener números ni caractéres especiales</mat-error>
+                    <mat-error *ngIf="formRegistro.controls['nombre'].hasError('required')">Es
+                        <strong>obligatorio</strong>ingresar su nombre</mat-error>
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field class="datos-login">
+                    <mat-label>Apellido</mat-label>
+                    <input type="text" matInput formControlName="apellido" placeholder="Ingrese su apellido, por favor">
+                    <mat-error
+                        *ngIf="formRegistro.controls['apellido'].hasError('pattern') && !formRegistro.controls['apellido'].hasError('required')">
+                        El apellido no puede contener números ni caractéres especiales</mat-error>
+                    <mat-error *ngIf="formRegistro.controls['apellido'].hasError('required')">Es
+                        <strong>obligatorio</strong>ingresar su apellido</mat-error>
+                </mat-form-field>
+            </p>
+
+
+            <p>
+                <mat-form-field class="datos-login">
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput formControlName="email" placeholder="Ej. tito@uolsinectis.com.ar">
+                    <mat-error
+                        *ngIf="formRegistro.controls['email'].hasError('email') && !formRegistro.controls['email'].hasError('required')">
+                        Vas a necesitar ingresar tu email para iniciar sesión</mat-error>
+                    <mat-error *ngIf="formRegistro.controls['email'].hasError('required')">La dirección de email es
+                        <strong>obligatoria</strong></mat-error>
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field class="datos-login">
+                    <mat-label>Contraseña</mat-label>
+                    <input [type]="ocultarPassword ? 'password': 'text'" matInput formControlName="password">
+                    <mat-icon matSuffix (click)="ocultarPassword = !ocultarPassword">
+                        {{ocultarPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field class="chips-imagenes">
+                    <mat-chip-list>
+                      <mat-chip *ngFor="let unaImagen of imagenes" (removed)="quitarFoto(unaImagen)">
+                        {{unaImagen.texto}}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                      </mat-chip>
+                    </mat-chip-list>
+                  </mat-form-field>
+            </p>
+
+
+            <p>
+
+                    <button type="button" mat-raised-button color="accent" [disabled]="this.imagenes.length > 1" (click)="fileInput.click()">Elegir foto</button>
+                    <input hidden (change)="subirFoto($event)" #fileInput type="file" accept=".png, .jpg" id="file">
+                    
+            </p>
+
+
+            <button type="submit" mat-raised-button color="primary" class="btn-login"
+                [disabled]="formRegistro.invalid">Registrarse</button>
+
+
+        </form>
+
+
+    </mat-card-content>
+
+
+
+
+
+
+</mat-card>

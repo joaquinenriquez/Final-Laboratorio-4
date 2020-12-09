@@ -1,0 +1,209 @@
+<mat-card class="contenedor-principal" fxLayout="column">
+
+  <mat-horizontal-stepper #stepper>
+
+    <mat-step [stepControl]="firstFormGroup">
+      <ng-template matStepLabel>Buscar por {{ this.tipoBusqueda }}</ng-template>
+
+      <div fxFlexFill fxLayout="column">
+
+        <div class="parametros-busqueda" fxLayout fxLayoutAlign="center" fxFlexFill fxLayoutGap="100px">
+
+          <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+          </mat-form-field>
+  
+          <fieldset>
+            <legend>Buscar por...</legend>
+  
+            <mat-radio-group aria-label="Select an option" (change)="cambiarTipoBusqueda()">
+              <mat-radio-button value="1" checked>Profesional</mat-radio-button>
+              <mat-radio-button value="2">Especialidad</mat-radio-button>
+            </mat-radio-group>
+  
+  
+          </fieldset>
+  
+        </div>
+
+        <div fxFlex="40%" fxFlexFill>
+          
+          <cdk-virtual-scroll-viewport tvsItemSize class="wrapper mat-elevation-z2">
+  
+            <table mat-table [dataSource]="dataSourceProfesionales">
+    
+              <tr mat-header-row *matHeaderRowDef="columnasTablaProfesionales"></tr>
+              <tr mat-row *matRowDef="let row; columns: columnasTablaProfesionales;"></tr>
+          
+    
+              <ng-container matColumnDef="displayName">
+                <th mat-header-cell *matHeaderCellDef>Profesional</th>
+                <td mat-cell *matCellDef="let element">{{element.displayName}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="especialidad">
+                <th mat-header-cell *matHeaderCellDef>Especialidades</th>
+                <td mat-cell *matCellDef="let element">{{element.especialidades}}</td>
+              </ng-container>
+    
+              <ng-container matColumnDef="seleccionar">
+                <th class="w-75" mat-header-cell *matHeaderCellDef>Seleccionar</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-stroked-button color="primary" (click)="seleccionarProfesional(element)">
+                    <mat-icon>check</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+    
+    
+            </table>
+    
+          </cdk-virtual-scroll-viewport>
+  
+        </div>
+
+      </div>
+
+    </mat-step>
+
+    <mat-step [stepControl]="secondFormGroup" label="Elegir un turno" >
+
+      <div class="fila-1">
+        <mat-card style="height: 30px;">
+          <mat-card-content>
+            <mat-card-title>{{this.profesionalSeleccionado?.displayName}}
+              <small>({{this.getDiasTrabajoString()}})</small>
+            </mat-card-title>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <br>
+
+
+      <div class="fila-2" fxLayout fxLayoutGap="5%" fxLayoutAlign="center center">
+
+        <div fxLayout="column" fxFlex="20%">
+
+          <div *ngIf="this.profesionalSeleccionado?.especialidades.length > 1" fxFlexAlign="center" fxFlex="100%" fxFill style="width:100%;">
+            <mat-form-field appearance="fill">
+              <mat-label>Especialidad</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let unaEspecialidad of this.profesionalSeleccionado?.especialidades" [(ngModel)]="especialidadSeleccionada" [value]="unaEspecialidad">
+                  {{unaEspecialidad}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div>
+            <mat-calendar
+            [dateFilter]="filtroFechas"
+            [minDate]="fechaMinima"
+            [maxDate]="fechaMaxima"
+            [selected]="fechaSeleccionadaTurno"
+            [startAt]="fechaSeleccionadaTurno"
+            (selectedChange)="cambioFechaTurno($event)"
+            >
+            </mat-calendar>
+          </div>
+
+        </div>
+
+
+ 
+
+        <br>
+        <div fxFlex="35%">
+
+          <mat-card-title>Turnos disponibles</mat-card-title>
+          <mat-card-subtitle>{{this.fechaSeleccionadaTurno | date:'fullDate'}}</mat-card-subtitle>
+          
+          <br>
+          
+          <cdk-virtual-scroll-viewport tvsItemSize class="wrapper mat-elevation-z2">
+
+            <table mat-table [dataSource]="dataSourceTablaTurnos">
+    
+              <tr mat-header-row *matHeaderRowDef="columnasTablaTurnos"></tr>
+              <tr mat-row *matRowDef="let row; columns: columnasTablaTurnos;"></tr>
+          
+    
+              <ng-container matColumnDef="horario">
+                <th mat-header-cell *matHeaderCellDef>Horario</th>
+                <td mat-cell *matCellDef="let element">{{element.horario}}</td>
+              </ng-container>
+    
+              <ng-container matColumnDef="seleccionar">
+                <th class="w-75" mat-header-cell *matHeaderCellDef>Seleccionar</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-stroked-button color="primary" (click)="seleccionarTurno(element)">
+                    <mat-icon>check</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+    
+    
+            </table>
+    
+          </cdk-virtual-scroll-viewport>
+
+        </div>
+
+
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    </mat-step>
+
+
+    <mat-step>
+
+      <ng-template matStepLabel>Done</ng-template>
+      <br>
+      <div fxLayout fxLayoutGap="5%" fxLayoutAlign="center center">
+
+        <div fxFlex="30%">
+
+          <mat-card style="text-align: center;">
+            <h1 style="text-align: center;">Confirmación del turno</h1>
+            <br>
+            <br>
+            <mat-card-content >
+              <mat-card-title>{{ this.profesionalSeleccionado?.displayName}}</mat-card-title>
+              <mat-card-subtitle>{{ this.profesionalSeleccionado?.especialidades}}</mat-card-subtitle>
+              <br>
+              <h3 style="text-align: center;"><strong>{{this.fechaSeleccionadaTurno | date:'fullDate'}} a las {{this.horarioSeleccionado?.horario}}</strong></h3>
+            
+              <br>
+              <br>
+
+                <button fxFlexAlign="center" mat-raised-button color="primary" class="btn-confirmar" (click)="confirmarTurno()">Quiero confirmar mi turno</button>
+
+            </mat-card-content>
+
+          </mat-card>
+
+        </div>
+
+      </div>
+
+
+    </mat-step>
+
+
+  </mat-horizontal-stepper>
+
+</mat-card>
+
