@@ -1,0 +1,47 @@
+<div>
+
+
+    <mat-card>
+
+
+        <mat-card-title-group>
+            <mat-card-title mat-dialog-title>Nuevo dato adicional</mat-card-title>
+            <mat-card-subtitle>{{tituloDialogo}}</mat-card-subtitle>
+        </mat-card-title-group>
+
+        <form>
+            <mat-card-content>
+                <br>
+                <div mat-dialog-content>
+
+
+                    <p>
+                        <mat-form-field class="controles">
+                            <mat-label><strong>Nombre del dato</strong></mat-label>
+                            <input matInput name="titulo" [(ngModel)]="titulo" #inputNombreTitulo>
+                        </mat-form-field>
+                    </p>
+
+                </div>
+
+            </mat-card-content>
+
+            <mat-card-actions>
+                <br>
+                <div mat-dialog-actions fxLayout fxLayoutAlign="end">
+
+                    <button type="button"   mat-raised-button (click)="cancelar()">Cancelar</button>
+                    <button type="submit" (click)="aceptarCambios()" mat-raised-button color="primary" cdkFocusInitial
+                        [disabled]="titulo == undefined || titulo.length == 0">Aceptar</button>
+
+                </div>
+
+            </mat-card-actions>
+
+        </form>
+
+    </mat-card>
+
+
+
+</div>

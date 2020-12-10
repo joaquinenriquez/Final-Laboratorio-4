@@ -5,7 +5,7 @@ import { SharedModule } from './../shared/shared.module';
 
 // Angular Basicos
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe, DecimalPipe, PercentPipe } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
  
 // Rutas
@@ -29,10 +29,19 @@ import { ListadoUsuariosComponent } from './components/listado-usuarios/listado-
 import { ListadoHorariosProfesionalesComponent } from './components/listado-horarios-profesionales/listado-horarios-profesionales.component';
 import { CambiarEstadoUsuarioDialogComponent } from './components/cambiar-estado-usuario-dialog/cambiar-estado-usuario-dialog.component';
 import { NuevoUsuarioAdminDialogComponent } from './components/nuevo-usuario-admin-dialog/nuevo-usuario-admin-dialog.component';
+import { SolicitarTurnoComponent } from './pages/solicitar-turno/solicitar-turno.component';
+import { AtenderTurnoComponent } from './pages/atender-turno/atender-turno.component';
+import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
+import { EncuestaUsuarioComponent } from './pages/encuesta-usuario/encuesta-usuario.component';
+import { EncuestaUsuarioDialogComponent } from './pages/encuesta-usuario-dialog/encuesta-usuario-dialog.component';
+import { VisualizarEncuestaUsuarioDialogComponent } from './pages/visualizar-encuesta-usuario-dialog/visualizar-encuesta-usuario-dialog.component';
+import { EncuestaProfesionalDialogComponent } from './pages/encuesta-profesional-dialog/encuesta-profesional-dialog.component';
+import { VisualizarResenaUsuarioDialogComponent } from './pages/visualizar-resena-usuario-dialog/visualizar-resena-usuario-dialog.component';
+
 
 
 @NgModule({
-  declarations: [LoginComponent, RegistroPacienteComponent, RegistroProfesionalComponent, ConfirmacionRegistroComponent, HomeUsuarioComponent, MisTurnosComponent, GestionTurnosProfesionalComponent, GestionUsuariosComponent, ListadoUsuariosComponent, ListadoHorariosProfesionalesComponent, CambiarEstadoUsuarioDialogComponent, NuevoUsuarioAdminDialogComponent],
+  declarations: [LoginComponent, RegistroPacienteComponent, RegistroProfesionalComponent, ConfirmacionRegistroComponent, HomeUsuarioComponent, MisTurnosComponent, GestionTurnosProfesionalComponent, GestionUsuariosComponent, ListadoUsuariosComponent, ListadoHorariosProfesionalesComponent, CambiarEstadoUsuarioDialogComponent, NuevoUsuarioAdminDialogComponent, SolicitarTurnoComponent, AtenderTurnoComponent, EncuestaUsuarioComponent, EncuestaUsuarioDialogComponent, VisualizarEncuestaUsuarioDialogComponent, EncuestaProfesionalDialogComponent, VisualizarResenaUsuarioDialogComponent],
   
   imports: [
     CommonModule,
@@ -43,8 +52,9 @@ import { NuevoUsuarioAdminDialogComponent } from './components/nuevo-usuario-adm
     SharedModule,
     RouterModule,
     FlexLayoutModule,
-
-    TurnosModule
+    RecaptchaModule,
+    TurnosModule,
+    RecaptchaFormsModule
 
     
   ],
@@ -52,7 +62,7 @@ import { NuevoUsuarioAdminDialogComponent } from './components/nuevo-usuario-adm
 
   exports: [LoginComponent],
 
-  providers: []
+  providers: [CurrencyPipe, DecimalPipe, PercentPipe]
 })
 
 export class UsuariosModule { }

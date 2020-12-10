@@ -1,0 +1,32 @@
+.example-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+  }
+  
+  .example-radio-button {
+    margin: 5px;
+  }
+
+  .example-margin {
+    margin: 0 50px;
+  }
+
+
+  mat-card {
+    padding: 2em;
+    margin: -24px;
+}
+
+.controles {
+    width: 100%;
+}
+
+mat-card-title {
+  align-items: center;
+  justify-content: center;
+}
+
+.boton-cancelar {
+  background-color:#8E959B; 
+}

@@ -1,0 +1,38 @@
+<div>
+
+
+    <mat-card>
+
+
+        <mat-card-title-group>
+            <mat-card-title mat-dialog-title>Reseña del turno con {{this.turno.nombreProfesional}}</mat-card-title>
+            <mat-card-subtitle>{{this.turno.especialidadProfesional}}</mat-card-subtitle>
+        </mat-card-title-group>
+
+
+        <mat-card-content>
+            <br>
+            <div mat-dialog-content>
+
+                <mat-form-field>
+                    <mat-label><b>Devolución de profesional</b></mat-label>
+                    <textarea readonly [(ngModel)]="this.turno.resena" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                        cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+                </mat-form-field>
+
+            </div>
+
+        </mat-card-content>
+
+        <mat-card-actions>
+            <br>
+            <div mat-dialog-actions fxLayout fxLayoutAlign="center">
+              <button fxFlex="30%" type="submit" mat-raised-button color="primary" cdkFocusInitial mat-dialog-close>Aceptar</button>
+            </div>
+          </mat-card-actions>
+
+    </mat-card>
+
+
+
+</div>

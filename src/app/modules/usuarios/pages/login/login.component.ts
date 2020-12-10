@@ -64,42 +64,6 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  // verificadoEstadoCuenta(resultadoLogin: firebase.auth.UserCredential) {
-
-  //   this.usuarioDataService.TraerUsuarioPorId(resultadoLogin.user.uid).subscribe(datosUsuario => {
-
-  //     let usuario = datosUsuario as Usuario;
-  //     this.usuarioDataService.datosUsuarioActual = usuario;
-
-  //     switch (usuario.rol) {
-  //       case Rol.Paciente:
-  //         {
-  //           if (resultadoLogin.user.emailVerified) {
-  //             console.log('Login Correcto!', resultadoLogin);
-  //             this.router.navigate(['/home-usuario']);
-  //           } else {
-  //             this.mostrarMensajeCuentaNoVerificadaPaciente();
-  //           }
-
-  //           break;
-  //         }
-
-  //       case Rol.Profesional:
-  //         {
-  //           if (usuario.estado == EstadoUsuario.Habilitado) {
-  //             console.log('Login Correcto!', resultadoLogin);
-  //             this.router.navigate(['/home-usuario']);
-  //           } else {
-  //             this.mostrarMensajeCuentaNoAprobadaProfesional();
-  //             this.authService.cerrarSesion();
-  //           }
-  //           break;
-  //         }
-
-  //     }
-  //   });
-
-  // }
 
   verificadoEstadoCuenta(resultadoLogin: firebase.auth.UserCredential) {
 
@@ -107,7 +71,6 @@ export class LoginComponent implements OnInit {
     this.usuarioDataService.TraerUsuarioPorId(resultadoLogin.user.uid).pipe(first()).subscribe(datosUsuario => 
     {
       let usuario = datosUsuario as Usuario;
-      this.usuarioDataService.datosUsuarioActual = usuario;
 
       switch (usuario.rol) {
         case Rol.Paciente:
@@ -119,7 +82,7 @@ export class LoginComponent implements OnInit {
                 this.mostrarMensajeCuentaDeshabilitada();
               } else {
                 console.log('Login Correcto!', resultadoLogin);
-                this.router.navigate(['/home-usuario']);
+                this.router.navigate(['/solicitar-turno']);
               }
             }
 
@@ -130,13 +93,26 @@ export class LoginComponent implements OnInit {
           {
             if (usuario.estado == EstadoUsuario.Habilitado) {
               console.log('Login Correcto!', resultadoLogin);
-              this.router.navigate(['/home-usuario']);
+              this.router.navigate(['/gestion-turnos']);
             } else {
               this.mostrarMensajeCuentaNoAprobadaProfesional();
               this.authService.cerrarSesion();
             }
             break;
           }
+
+          case Rol.Administrador:
+            {
+              this.router.navigate(['/gestion-usuarios']);
+              // if (usuario.estado == EstadoUsuario.Habilitado) {
+              //   console.log('Login Correcto!', resultadoLogin);
+              //   this.router.navigate(['/gestion-usuarios']);
+              // } else {
+              //   this.mostrarMensajeCuentaNoAprobadaProfesional();
+              //   this.authService.cerrarSesion();
+              // }
+              // break;
+            }
 
       }
     });

@@ -1,3 +1,8 @@
+import { VisualizarResenaUsuarioDialogComponent } from './../../../usuarios/pages/visualizar-resena-usuario-dialog/visualizar-resena-usuario-dialog.component';
+import { EncuestasDataService } from './../../services/encuestas-data.service';
+import { PreguntaEncuesta } from './../../models/encuesta';
+import { MatDialog } from '@angular/material/dialog';
+import { EncuestaUsuarioDialogComponent } from './../../../usuarios/pages/encuesta-usuario-dialog/encuesta-usuario-dialog.component';
 import { Turno } from './../../models/turno';
 import Swal from 'sweetalert2';
 import { AuthService } from './../../../shared/services/auth.service';
@@ -9,6 +14,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { Encuesta } from '../../models/encuesta';
+
 
 
 @Component({
@@ -29,7 +36,9 @@ export class ListadoTurnosPacientesComponent implements OnInit {
 
   constructor(private turnosDataService: TurnosDataService,
     private toastManager: MatSnackBar,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private dialog: MatDialog,
+    private encuestaDataService: EncuestasDataService) { }
 
   ngOnInit(): void { }
 
@@ -81,17 +90,17 @@ export class ListadoTurnosPacientesComponent implements OnInit {
   traerTurnos() {
 
     this.authService.datosUsuario.pipe(
-      mergeMap((usarioActual: any) => this.turnosDataService.traerTurnosPorUsuario(usarioActual.uid))).subscribe(datos => {
+      mergeMap((usarioActual: any) => this.turnosDataService.traerTurnosPorUsuario(usarioActual?.uid))).subscribe(datos => {
 
         let todosLosTurnos = datos as Turno[];
 
         if (this.tipoFiltro == 'proximos') {
           this.displayedColumns = ['fechaTurno', 'horarioTurno', 'especialidad', 'nombreProfesional', 'estadoTurno', 'cancelarTurno'];
           this.dataSource = new MatTableDataSource(todosLosTurnos.filter(unTurno => unTurno.estadoTurno != EstadoTurno.Cancelado && unTurno.estadoTurno != EstadoTurno.Suspendido && unTurno.estadoTurno != EstadoTurno.Finalizado));
-        
+
         } else {
           this.dataSource = new MatTableDataSource(todosLosTurnos.filter(unTurno => unTurno.estadoTurno == EstadoTurno.Finalizado || unTurno.estadoTurno == EstadoTurno.Suspendido || unTurno.estadoTurno == EstadoTurno.Cancelado));
-          this.displayedColumns = ['fechaTurno', 'horarioTurno', 'especialidad', 'nombreProfesional', 'estadoTurno'];
+          this.displayedColumns = ['fechaTurno', 'horarioTurno', 'especialidad', 'nombreProfesional', 'estadoTurno', 'contestarEncuesta', 'verResena'];
         }
 
         this.dataSource.paginator = this.paginator;
@@ -99,37 +108,64 @@ export class ListadoTurnosPacientesComponent implements OnInit {
       });
   }
 
+  mostrarEncuesta(turnoSeleccionado: Turno): void {
+
+    this.dialog.open(EncuestaUsuarioDialogComponent,
+      {
+        width: '400px',
+        height: '600px',
+        data: { turno: turnoSeleccionado },
+        panelClass: 'horarios-profesional-dialog-container'
+      }).afterClosed().subscribe(resultadoDialogo => {
+
+        if (resultadoDialogo != undefined) {
+
+          let preguntasEncuesta = resultadoDialogo as PreguntaEncuesta[];
+
+          // Las respuestas de la encuesta
+          let nuevaEncuesta: Encuesta =
+          {
+            idTurno: turnoSeleccionado.idTurno,
+            preguntas: preguntasEncuesta
+          }
+
+          this.encuestaDataService.nuevaEncuesta(nuevaEncuesta);
+
+          turnoSeleccionado.contestoEncuesta = true;
+          this.turnosDataService.modificarTurno(turnoSeleccionado);
+
+          Swal.fire({
+            title: 'Gracias por elegirnos!',
+            text: 'Sus datos fueron guardos con éxito',
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+          });
+
+        }
+      });
+
+  }
+
+
+  mostrarResena(turnoSeleccionado: Turno): void {
+
+    const dialogoReg = this.dialog.open(VisualizarResenaUsuarioDialogComponent,
+      {
+        width: '400px',
+        data: turnoSeleccionado
+      });
+
+    dialogoReg.afterClosed().subscribe(resultadoDialogo => {
+
+      if (resultadoDialogo != undefined) {
+
+      }
+
+    });
+  }
+
+
 }
 
 
 
-// this.turnosDataService.traerTodasLosTurnos().subscribe(datos => {
-//   let todosLosTurnos = datos as Turno[];
-//   this.dataSource = new MatTableDataSource(todosLosTurnos);
-//   this.dataSource.paginator = this.paginator;
-//   this.dataSource.sort = this.sort;
-// });
-
-
-  // @ViewChild(MatSort) sort: MatSort;
-
-  // dataSource = new MatTableDataSource();
-  // displayedColumns = ['fecha', 'horarioTurno', 'especialidad', 'profesional', 'estado', 'cancelar'];
-
-  // constructor(private turnosDataService: TurnosDataService, private authService: AuthService, private toastManager: MatSnackBar, private changeDetectorRefs: ChangeDetectorRef) {
-  // }
-
-  // ngOnInit(): void {
-  //   if (this.tipoFiltro == 'anteriores') {
-  //     this.displayedColumns = ['fecha', 'horarioTurno', 'especialidad', 'profesional', 'estado'];
-  //   }
-  //   this.traerTurnos();
-  // }
-
-  // prueba() {
-  //   this.changeDetectorRefs.detectChanges();
-  // }
-
-  // ngAfterViewInit() {
-  //   this.dataSource.sort = this.sort;
-  // }

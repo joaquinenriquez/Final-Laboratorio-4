@@ -1,0 +1,33 @@
+<div fxLayout="row">
+    <mat-card fxFlex="100%" class="container">
+
+        <mat-card-subtitle>Información del turno</mat-card-subtitle>
+        
+        <div fxLayout="row">
+            <mat-label class="encabezado" fxFlex="20%">Fecha:</mat-label>
+            <mat-label class="encabezado" fxFlex="20%">Horario de inicio</mat-label>
+            <mat-label class="encabezado" fxFlex="20%">Duración estimada</mat-label>
+            <mat-label class="encabezado" fxFlex="20%">Especialidad</mat-label>
+        </div>
+
+        <div fxLayout="row">
+            <mat-label class="fila" fxFlex="20%">{{turno?.fechaTurno.toDate() | date:'dd/MM/yyyy' }}</mat-label>
+            <mat-label class="fila" fxFlex="20%">{{turno?.horarioTurno}}</mat-label>
+            <mat-label class="fila" fxFlex="20%">{{turno?.duracionEstimada}}</mat-label>
+            <mat-label class="fila" fxFlex="20%">{{turno?.especialidadProfesional}}</mat-label>
+
+            <div fxFlex fxFlexAlign="end center">
+                <div fxLayout fxLayoutGap="4%" fxLayoutAlign="end center">
+                
+                    <button mat-raised-button style="background-color:#3BAF55; color:white" (click)="finalizarTurno()">Finalizar</button>
+                    <button mat-raised-button style="background-color:#8E959B; color:white" (click)="cancelarAtencion()">Cancelar</button>
+                </div>  
+            </div>
+ 
+
+        </div>
+
+
+    
+    </mat-card>
+</div>

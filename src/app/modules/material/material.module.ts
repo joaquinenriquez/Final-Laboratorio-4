@@ -25,6 +25,10 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatChipsModule } from '@angular/material/chips';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { MatSortModule } from '@angular/material/sort';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 import {TableVirtualScrollModule} from 'ng-table-virtual-scroll';
@@ -59,6 +63,11 @@ const modulosMaterial = [
   TableVirtualScrollModule,
   MatSortModule,
   ScrollingModule,
+  MatButtonToggleModule,
+  MatMenuModule,
+  MatSlideToggleModule,
+  MatTooltipModule,
+
   
   SelectAutocompleteModule
   

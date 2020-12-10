@@ -15,6 +15,7 @@ export class AuthService {
 
   constructor(private auth: AngularFireAuth) { 
     this.datosUsuario = this.auth.authState;
+    
   }
 
   public cearUsuarioConEmail(nuevoUsuario: Usuario): Promise<firebase.auth.UserCredential> {

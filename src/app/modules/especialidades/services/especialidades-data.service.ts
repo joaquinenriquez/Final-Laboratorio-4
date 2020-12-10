@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Especialidad } from './../models/especialidad';
 import { DataService } from './../../shared/services/data.service';
 import { Injectable } from '@angular/core';
@@ -13,7 +14,7 @@ export class EspecialidadesDataService {
   
   constructor(private db: DataService) { }
 
-  public traerTodasLasEspecialidades() {
+  public traerTodasLasEspecialidades(): Observable<Especialidad[]> {
     return this.db.traerTodosLosDocumentos(this.nombreColeccion, this.campoId);
   }
 

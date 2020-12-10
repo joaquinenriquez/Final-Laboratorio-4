@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -11,6 +12,7 @@ import { Turno } from 'src/app/modules/turnos/models/turno';
 import { TurnosDataService } from 'src/app/modules/turnos/services/turnos-data.service';
 import Swal from 'sweetalert2';
 import { ModificarDuracionTurnoDialogComponent } from '../modificar-duracion-turno-dialog/modificar-duracion-turno-dialog.component';
+import { VisualizarEncuestaUsuarioDialogComponent } from 'src/app/modules/usuarios/pages/visualizar-encuesta-usuario-dialog/visualizar-encuesta-usuario-dialog.component';
 
 
 @Component({
@@ -32,7 +34,8 @@ export class ListadoTurnosProfesionalesComponent implements OnInit {
   constructor(private turnosDataService: TurnosDataService,
     private toastManager: MatSnackBar,
     private authService: AuthService, 
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private router: Router) { }
 
   ngOnInit(): void { }
 
@@ -75,7 +78,7 @@ export class ListadoTurnosProfesionalesComponent implements OnInit {
   atenderTurno(turno: Turno) {
     turno.estadoTurno = EstadoTurno.Atendiendo;
     this.turnosDataService.modificarTurno(turno);
-    this.mostrarToast('El turno fue confirmado con éxito', 2000);
+    this.router.navigate(['/atender-turno', turno.idTurno]);
   }
 
 
@@ -120,7 +123,7 @@ export class ListadoTurnosProfesionalesComponent implements OnInit {
           case 'anteriores':
             {
               this.dataSource = new MatTableDataSource(todosLosTurnos.filter(unTurno => unTurno.estadoTurno == EstadoTurno.Finalizado || unTurno.estadoTurno == EstadoTurno.Suspendido || unTurno.estadoTurno == EstadoTurno.Cancelado));
-              this.displayedColumns = ['fechaTurno', 'horarioTurno', 'especialidad', 'nombreUsuario', 'estadoTurno'];
+              this.displayedColumns = ['fechaTurno', 'horarioTurno', 'especialidad', 'nombreUsuario', 'estadoTurno', 'verEncuesta'];
               break;
             }
         }
@@ -149,5 +152,27 @@ export class ListadoTurnosProfesionalesComponent implements OnInit {
 
   }
 
+  verEncuesta(turno: Turno): void {
+
+    const dialogoReg = this.dialog.open(VisualizarEncuestaUsuarioDialogComponent,
+      {
+        width: '600px',
+        height: 'auto',
+        data: turno
+      });
+
+    dialogoReg.afterClosed().subscribe(resultadoDialogo => {
+
+
+
+    });
+
+  }
 
 }
+// this.dialog.open(ListadoHorariosProfesionalesComponent,
+//   {
+//     width: '500px',
+//     data: { idUsuario: idUsuario },
+//     panelClass: 'horarios-profesional-dialog-container'
+//   });

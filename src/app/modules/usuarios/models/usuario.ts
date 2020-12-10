@@ -15,4 +15,7 @@ export interface Usuario extends firebase.User {
     especialidades?: string[];
     nroAfiliado?: string;
     HorarioTrabajo?: HorarioTrabajo[];
+    imagen1?: string;
+    imagen2?: string;
+    calificacion?: number;
 }

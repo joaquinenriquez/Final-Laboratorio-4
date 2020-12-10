@@ -1,7 +1,11 @@
+import { Columna } from './../../../shared/components/tabla/columna';
+import { SelectorHorariosComponent } from './../../../turnos/components/selector-horarios/selector-horarios.component';
 import firebase from 'firebase/app';
 import { AuthService } from './../../../shared/services/auth.service';
 import { UsuarioDataService } from './../../services/usuario-data.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { CurrencyPipe, DecimalPipe, PercentPipe } from '@angular/common';
+import { Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-home-usuario',
@@ -9,6 +13,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-usuario.component.scss']
 })
 export class HomeUsuarioComponent implements OnInit {
+
+  tipoDeBusqueda = 'profesional';
+  // opcionSeleccionada = this.usuarioDataService.TraerUsuarioPorId('daJ2D4JqhFeJ6L2oCum4bRiGB2m2');
+  idProfesionalSeleccionado = 'daJ2D4JqhFeJ6L2oCum4bRiGB2m2';
+  datosDiaSeleccionado;
+  @ViewChild('selectorHorarios') selectorHorarios: SelectorHorariosComponent;
+
 
   datosUsuarioActual;
 
@@ -22,6 +33,11 @@ export class HomeUsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  mostrarHorarios(e) {
+    this.datosDiaSeleccionado = e;
+    // this.selectorHorarios.traerTurnosDisponibles();
   }
 
 }

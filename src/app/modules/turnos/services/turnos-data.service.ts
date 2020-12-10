@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Turno } from './../models/turno';
 import { DataService } from './../../shared/services/data.service';
 import { Injectable } from '@angular/core';
@@ -14,7 +15,7 @@ export class TurnosDataService {
   constructor(private db: DataService) { }
 
 
-  public traerTodasLosTurnos() {
+  public traerTodasLosTurnos(): Observable<Turno> {
     return this.db.traerTodosLosDocumentos(this.nombreColeccion, this.campoId);
   }
 
@@ -34,8 +35,16 @@ export class TurnosDataService {
     return this.db.traerDocumentosPorValorPropiedad(this.nombreColeccion, 'idUsuario', idUsuario, this.campoId);
   }
 
-  public traerTurnosPorProfesional(idProfesional: string) {
+  public traerTurnosPorProfesional(idProfesional: string):Observable<Turno[]> {
     return this.db.traerDocumentosPorValorPropiedad(this.nombreColeccion, 'idProfesional', idProfesional, this.campoId);
+  }
+
+  public traerTodosLosTurnosPorEspecialidad(especialidad: string): Observable<Turno[]> {
+    return this.db.traerDocumentosPorValorPropiedad(this.nombreColeccion, 'especialidadProfesional', especialidad, this.campoId);
+  }
+
+  public traerTurnoPorId(idTurno: string): Observable<Turno> {
+    return this.db.traerDocumentoPorId(this.nombreColeccion, idTurno);
   }
 
 }

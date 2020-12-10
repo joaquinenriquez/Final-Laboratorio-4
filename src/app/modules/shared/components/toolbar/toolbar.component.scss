@@ -6,3 +6,15 @@ a {
 .fill-remaining-space {
     flex: 1 1 auto;
 }
+
+
+.nombre-usuario {
+    margin-right: 1em;
+}
+
+img {
+    object-fit: cover;
+    border-radius:50%;
+    width: 30px;
+    height: 30px;
+  }

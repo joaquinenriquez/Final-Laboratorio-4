@@ -14,6 +14,11 @@ import { EspecialidadesModule } from './modules/especialidades/especialidades.mo
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es-AR';
 
+import { AngularFireStorageModule } from '@angular/fire/storage';
+
+
+
+
 registerLocaleData(localeEs, 'es-AR');  
 
 @NgModule({
@@ -28,7 +33,8 @@ registerLocaleData(localeEs, 'es-AR');
     SharedModule,
     EspecialidadesModule,
     AppRoutingModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    AngularFireStorageModule
   ],
   providers: [ { provide: LOCALE_ID, useValue: 'es-AR' }],
   bootstrap: [AppComponent]

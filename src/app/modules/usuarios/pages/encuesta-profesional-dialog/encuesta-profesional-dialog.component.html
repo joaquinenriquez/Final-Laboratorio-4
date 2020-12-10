@@ -1,0 +1,61 @@
+<mat-card>
+
+    <mat-card-title-group>
+        <mat-card-title mat-dialog-title>Finalizar atención del turno</mat-card-title>
+    </mat-card-title-group>
+    <mat-divider></mat-divider>
+
+
+    <mat-card-content>
+
+        <div mat-dialog-content>
+
+            <div fxLayout="column">
+                <br>
+                <br>
+
+                <mat-form-field>
+                    <mat-label><b>Dejanos una reseña de la atención prestada</b></mat-label>
+                    <textarea [(ngModel)]="resena" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                        cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+                </mat-form-field>
+
+                <br>
+
+                <div>
+                    <div fxLayout fxLayoutAlign="center">
+                        <mat-label><b>¿Cómo calificarías al usuario?</b></mat-label>
+                    </div>
+
+                    <br>
+
+                    <div fxLayout fxLayoutAlign="center">
+                        <app-calificacion-estrellas [rating]="puntajeUsuario" [starCount]="starCount"
+                            [color]="starColor" (ratingUpdated)="cambioPuntaje($event)"></app-calificacion-estrellas>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+    </mat-card-content>
+
+
+    <mat-card-actions>
+        <br>
+        <div mat-dialog-actions fxLayout fxLayoutAlign="center">
+            <button fxFlex="30%" type="submit" mat-raised-button color="primary"
+                [disabled]="this.resena?.length == 0 || this.puntajeUsuario == 0"
+                (click)="enviarResena()">Aceptar</button>
+            <button fxFlex="30%" type="button" class="boton-cancelar" mat-raised-button color="primary"
+                (click)="cancelarEnvioResena()">Cancelar</button>
+        </div>
+    </mat-card-actions>
+
+
+</mat-card>

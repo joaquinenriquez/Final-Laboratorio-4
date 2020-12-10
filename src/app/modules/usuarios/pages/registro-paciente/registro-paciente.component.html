@@ -52,6 +52,41 @@
                 </mat-form-field>
             </p>
 
+            <p>
+                <mat-form-field class="chips-imagenes">
+                    <mat-chip-list>
+                      <mat-chip *ngFor="let unaImagen of imagenes" (removed)="quitarFoto(unaImagen)">
+                        {{unaImagen.texto}}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                      </mat-chip>
+                    </mat-chip-list>
+                  </mat-form-field>
+            </p>
+
+
+            <p>
+
+
+                    <button type="button" class="btn-login" mat-raised-button color="accent" [disabled]="this.imagenes.length > 1" (click)="fileInput.click()">Elegir fotos</button>
+                    <input hidden (change)="subirFoto($event)" #fileInput type="file" accept=".png, .jpg" id="file">
+                    
+            </p>
+
+
+                <div>
+                    <re-captcha
+                    disabled
+                      [(ngModel)]="formModel.captcha"
+                      name="captcha"
+                      required
+                      formControlName="captcha"
+                      siteKey="6Lf3fQAaAAAAAByz1gtAp9jcdUOO6RXCuhaRsuOF"
+                      ></re-captcha>
+                </div>
+
+
+                
+                  <br>
 
             <button type="submit" mat-raised-button color="primary" class="btn-login"
                 [disabled]="formRegistro.invalid">Registrarse</button>
@@ -63,6 +98,11 @@
     </mat-card-content>
 
 
+        <div class="toggle-captcha">
+            <mat-slide-toggle  checked (change)="ocultarCaptcha()" >Habilitar CAPTCHA</mat-slide-toggle>
+        </div>
+    
+    
 
 
 

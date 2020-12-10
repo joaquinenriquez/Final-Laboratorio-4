@@ -1,0 +1,130 @@
+<div class="container" fxLayout="column" fxFlexFill>
+
+    <app-datos-turnos-bar [turno]="this.turnoSeleccionado" (resultado)="finalizarTurno($event)"></app-datos-turnos-bar>
+
+
+
+    <div fxLayout="row">
+
+        <mat-card class="container">
+            <mat-icon *ngIf="!datosUsuarioActual?.imagen1">account_circle</mat-icon><img
+                *ngIf="datosUsuarioActual?.imagen1" [src]="datosUsuarioActual?.imagen1" />
+        </mat-card>
+
+        <mat-card fxFlex class="container">
+
+            <mat-card-title>Datos del paciente</mat-card-title>
+
+            <div fxLayout="row">
+                <mat-label class="encabezado" fxFlex="20%">Paciente</mat-label>
+                <mat-label class="encabezado" fxFlex="20%">DNI</mat-label>
+                <mat-label class="encabezado" fxFlex="20%">Nro Afiliado</mat-label>
+            </div>
+
+            <div fxLayout="row">
+                <mat-label class="fila" fxFlex="20%">{{turnoSeleccionado?.nombreUsuario}}</mat-label>
+                <mat-label class="fila" fxFlex="20%">{{usuarioTurno?.dni}}</mat-label>
+                <mat-label class="fila" fxFlex="20%">{{usuarioTurno?.nroAfiliado}}</mat-label>
+            </div>
+
+        </mat-card>
+
+    </div>
+
+
+    <div fxLayout="row">
+
+        <mat-card fxFlex class="container">
+
+            <div>
+                <div fxFlex>
+                    <mat-card-title>Observaciones</mat-card-title>
+                </div>
+
+                <br>
+
+                <div>
+                    <button fxFlexAlign="end center" mat-raised-button color="primary" [matMenuTriggerFor]="menu">
+                        <mat-icon>playlist_add</mat-icon><span class="texto-boton">Nuevo tipo de dato</span>
+                    </button>
+
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="agregarDato(TipoComponente.Texto)">
+                            <mat-icon>text_format</mat-icon>
+                            <span>Tipo texto</span>
+                        </button>
+                        <button mat-menu-item (click)="agregarDato(TipoComponente.CasillaVerificacion)">
+                            <mat-icon>check_circle_outline</mat-icon>
+                            <span>Casilla verificación</span>
+                        </button>
+                        <button mat-menu-item (click)="agregarDato(TipoComponente.Numerico)">
+                            <mat-icon>format_list_numbered</mat-icon>
+                            <span>Númerico</span>
+                        </button>
+                    </mat-menu>
+
+                </div>
+            </div>
+
+
+            <form [formGroup]="formDatosTurno">
+
+                <div fxLayout fxLayoutGap="5%">
+
+
+
+                    <p>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Edad</mat-label>
+                            <input formControlName="edad" min="1" max="200" type="number" matInput
+                                placeholder="Edad del paciente">
+                        </mat-form-field>
+                    </p>
+
+                    <p>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Temperatura corporal</mat-label>
+                            <input formControlName="temperatura" max="50" min="1" type="number" matInput
+                                placeholder="Temperatura">
+                        </mat-form-field>
+                    </p>
+
+                    <p>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Peso</mat-label>
+                            <input formControlName="peso" max="50" min="1" type="number" matInput placeholder="Peso">
+                        </mat-form-field>
+                    </p>
+
+                    <p>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Altura</mat-label>
+                            <input formControlName="altura" max="50" min="1" type="number" matInput
+                                placeholder="Temperatura">
+                        </mat-form-field>
+                    </p>
+
+
+
+                </div>
+
+            </form>
+
+            <mat-divider></mat-divider>
+
+            <div fxLayout fxLayoutGap="5%">
+
+                <div fxFlex="30%">
+                    <app-generador-campos-dinamico (changeEmit)="cambioEnDatos($event)" #generadorCampos>
+                    </app-generador-campos-dinamico>
+                </div>
+
+            </div>
+
+
+        </mat-card>
+    </div>
+
+
+
+</div>

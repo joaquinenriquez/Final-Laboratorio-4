@@ -15,9 +15,14 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { DatosUsuarioBarComponent } from './components/datos-usuario-bar/datos-usuario-bar.component';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { TablaComponent } from './components/tabla/tabla.component';
+import { ObtenerPropiedadPipePipe } from './components/tabla/obtener-propiedad-pipe.pipe';
+import { CalificacionEstrellasComponent } from './components/calificacion-estrellas/calificacion-estrellas.component';
+import { SiNoPipe } from './pipes/si-no.pipe';
+
 
 @NgModule({
-  declarations: [ToolbarComponent, MultiSelectConBuscadorComponent, DatosUsuarioBarComponent],
+  declarations: [ToolbarComponent, MultiSelectConBuscadorComponent, DatosUsuarioBarComponent, TablaComponent, ObtenerPropiedadPipePipe, CalificacionEstrellasComponent, SiNoPipe],
   imports: [
     CommonModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -30,7 +35,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
   providers: [AuthService],
 
-  exports: [ToolbarComponent, MultiSelectConBuscadorComponent, DatosUsuarioBarComponent]
+  exports: [ToolbarComponent, MultiSelectConBuscadorComponent, DatosUsuarioBarComponent, TablaComponent, CalificacionEstrellasComponent, SiNoPipe]
 
 })
 export class SharedModule { }

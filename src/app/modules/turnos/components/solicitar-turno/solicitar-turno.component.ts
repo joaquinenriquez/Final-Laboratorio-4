@@ -35,8 +35,6 @@ export class SolicitarTurnoComponent implements OnInit {
   horarioSeleccionado;
   especialidadSeleccionada: string;
 
-
-
   dataSourceProfesionales = new TableVirtualScrollDataSource();
   columnasTablaProfesionales: string[] = ['displayName', 'especialidad', 'seleccionar'];
 
@@ -142,7 +140,7 @@ export class SolicitarTurnoComponent implements OnInit {
     this.turnoDataService.traerTodasLosTurnos().subscribe(datos => {
       
       // Traemos los turnos el dia del profesional seleccionado
-      let turnos = datos as Turno[];
+      let turnos;
       this.turnosDelProfesionalSeleccionado = turnos.filter(turno => turno.idProfesional == this.profesionalSeleccionado.idUsuario && turno.fechaTurno.toDate().toString() == fechaSeleccionada.toString());
       
       // Nos quedamos con una lista de los reservados

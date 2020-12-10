@@ -1,0 +1,45 @@
+<mat-card>
+
+    <mat-card-title-group>
+      <mat-card-title mat-dialog-title>Resultado de la encuesta de {{this.turno.nombreUsuario}}</mat-card-title>
+      <mat-card-subtitle>{{this.turno.especialidadProfesional}}</mat-card-subtitle>
+    </mat-card-title-group>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <br>
+      <div mat-dialog-content>
+  
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  
+          <ng-container matColumnDef="pregunta">
+            <th mat-header-cell *matHeaderCellDef><strong>Pregunta</strong></th>
+            <td mat-cell *matCellDef="let element;">{{element.pregunta}}</td>
+          </ng-container>
+  
+  
+          <ng-container matColumnDef="respuesta">
+            <th mat-header-cell *matHeaderCellDef><strong>Respuesta</strong></th>
+            <td mat-cell *matCellDef="let element"> {{element.respuesta | siNo}} </td>
+          </ng-container>
+  
+  
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+  
+        </table>
+  
+  
+      </div>
+  
+    </mat-card-content>
+  
+    <mat-card-actions>
+      <br>
+      <div mat-dialog-actions fxLayout fxLayoutAlign="center">
+        <button fxFlex="30%" type="submit" mat-raised-button color="primary" cdkFocusInitial mat-dialog-close>Aceptar</button>
+      </div>
+    </mat-card-actions>
+  
+  </mat-card>

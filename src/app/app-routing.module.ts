@@ -1,3 +1,4 @@
+import { VerificarLoginGuard } from './modules/shared/guards/verificar-login.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -24,16 +25,17 @@ const routes: Routes = [
       },
 
       {
-        path: 'home',
-        loadChildren: () =>
-          import('./modules/core/core.module').then(m => m.CoreModule)
-      },
-
-
-      {
         path: 'especialidades',
         loadChildren: () =>
-          import('./modules/especialidades/especialidades.module').then(m => m.EspecialidadesModule)
+          import('./modules/especialidades/especialidades.module').then(m => m.EspecialidadesModule),
+      },
+
+      {
+        path: 'solicitar-turno',
+        loadChildren: () =>
+          import('./modules/turnos/turnos.module').then(m => m.TurnosModule),
+
+        canActivate: [VerificarLoginGuard]
       }
 
     ]

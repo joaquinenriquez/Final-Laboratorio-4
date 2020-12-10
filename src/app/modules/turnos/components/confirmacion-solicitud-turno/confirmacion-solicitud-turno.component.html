@@ -1,0 +1,26 @@
+<div fxLayout fxLayoutGap="5%" fxLayoutAlign="center center">
+
+    <div fxFlex="30%">
+
+      <mat-card style="text-align: center;">
+        <h1 style="text-align: center;">Confirmación del turno</h1>
+        <br>
+        <br>
+        <mat-card-content >
+          <mat-card-title>{{ this.datosTurnoConfirmado?.profesionalSeleccionado.displayName}}</mat-card-title>
+          <mat-card-subtitle>{{ this.datosTurnoConfirmado?.especialidadSeleccionada.nombreEspecialidad }}</mat-card-subtitle>
+          <br>
+          <h3 style="text-align: center;"><strong>{{this.datosTurnoConfirmado?.diaSeleccionado | date:'fullDate'}} a las {{ this.datosTurnoConfirmado?.horarioSeleccionado }}</strong></h3>
+        
+          <br>
+          <br>
+
+            <button fxFlexAlign="center" mat-raised-button color="primary" class="btn-confirmar" (click)="confirmarTurno()">Quiero confirmar mi turno</button>
+
+        </mat-card-content>
+
+      </mat-card>
+
+    </div>
+
+  </div>

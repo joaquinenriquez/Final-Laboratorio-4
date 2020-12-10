@@ -11,4 +11,6 @@ export interface Turno {
     nombreUsuario: string;
     duracionEstimada: number;
     estadoTurno: EstadoTurno;
+    contestoEncuesta?: Boolean;
+    resena?: string;
 }

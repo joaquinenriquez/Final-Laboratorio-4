@@ -92,6 +92,15 @@
               </td>
             </ng-container>
 
+            <ng-container matColumnDef="verEncuesta" *ngIf= "this.tipoFiltro == 'anteriores'">
+            <th mat-header-cell *matHeaderCellDef> <strong>Ver encuesta</strong></th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button class="boton-ver-encuesta" [disabled]="element.contestoEncuesta == false || element.estadoTurno != 'Finalizado'" (click)="verEncuesta(element)">
+                <mat-icon class="mat-18">playlist_add_check</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
             
             <ng-container matColumnDef="loading">
               <mat-footer-cell *matFooterCellDef [attr.colspan]="displayedColumns?.length">
@@ -113,6 +122,8 @@
                 <mat-icon class="icono">insert_emoticon</mat-icon>No tenés turnos en este estado
               </td>
             </tr>
+
+            
           </table>
 
           <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>

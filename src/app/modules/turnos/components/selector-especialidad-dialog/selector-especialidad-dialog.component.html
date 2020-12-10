@@ -1,0 +1,49 @@
+<div>
+
+
+    <mat-card>
+
+
+        <mat-card-title-group>
+            <mat-card-title mat-dialog-title>Selecciona una especialidad</mat-card-title>
+            <mat-card-subtitle>El profesional que elegiste trabaja en más de una especialidad. ¿En cuál queres solicitar el turno?</mat-card-subtitle>
+
+        </mat-card-title-group>
+
+
+        <mat-card-content>
+            <br>
+            <div mat-dialog-content>
+
+                <p>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Especialidades</mat-label>
+                        <mat-select [(ngModel)]="especialidadElegida">
+                          <mat-option *ngFor="let unaEspecialidad of especialidades" [value]="unaEspecialidad">
+                            {{unaEspecialidad}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+
+                </p>
+
+            </div>
+
+        </mat-card-content>
+
+        <mat-card-actions>
+            <br>
+            <div mat-dialog-actions fxLayout fxLayoutAlign="end">
+
+                <button type="button" mat-raised-button (click)="cancelar()">Cancelar</button>
+                <button (click)="cambiarEstado()" mat-raised-button color="primary" cdkFocusInitial [disabled]="especialidadElegida == undefined || especialidadElegida?.length == 0">Cambiar</button>
+            </div>
+
+        </mat-card-actions>
+
+    </mat-card>
+
+
+
+</div>
