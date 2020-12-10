@@ -46,7 +46,7 @@ $ ng build
 ```
 
 ___
-## Demo / Sugerencias :basketball:
+## Demo :basketball:
 
 [*Demo Online](https://clinicaonline-utnfra.web.app "Demo")
 ___
