@@ -1,27 +1,55 @@
-# ClinicaOnline
+# Final Laboratorio 4 (2Q-2020)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.6.
+> *Final de laboratorio 4 - 2020*.
+Esta aplicación forma parte de la evalución final la materia Laboratorio de Programación 4 dictada en la UTN regional Avellaneda 
 
-## Development server
+<p align="center">
+<img src="https://www.semanarioargentino.miami/sur/wp-content/uploads/sites/9/2020/02/LOGO-UTN-FRA.png" height="300">
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Docentes :computer:
+* Octavio Villegas <[@octaviovillegas](https://github.com/octaviovillegas "Octavio Villegas")>
+* Matias Mirotta <[@mmirotta](https://github.com/mmirotta "Matias Mirotta")>
 
-## Code scaffolding
+## Alumno (osea yo :P) :rocket:
+* Joaquin Enriquez <[@joaquinenriquez](https://github.com/joaquinenriquez "Joaquin Enriquez")>
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+<br />
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Tecnologías aplicadas :gear:
+* Angular: [*Framework Angular* (Versión: 10.1)](https://angular.io/ "Angular")
+* Backend y persistencia de datos: servicios de *[Google Firebase](https://firebase.google.com/ "Firebase")*
+<br />
 
-## Running unit tests
+## Requerimientos de la aplicación :hammer:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+> *Final de laboratorio 4 - 2020*. Debemos realizar un sistema según las necesidades y deseos del cliente, para eso tenemos una breve descripción de lo que el cliente nos comenta acerca de su negocio. “La clínica OnLine, especialista en salud,​ cuenta actualmente con consultorios (6 en la actualidad), dos laboratorios (físicos en la clínica), y una sala de espera general. Está abierta al público de lunes a viernes en el horario de 8:00 a 19:00, y los sábados en el horario de 8:00 a 14:00. Trabajan en ella profesionales de diversas especialidades, que ocupan los consultorios acorde a su disponibilidad, y reciben en ellos pacientes con turno para consulta o tratamiento. Dichos turnos son pedidos por la web seleccionando el profesional o la especialidad .La duración mínima de un turno es 30 minutos.” pero los profesionales pueden cambiar la duración según su especialidad. un profesional puede tener más de una especialidad
+___
+## Instalación :wrench:
 
-## Running end-to-end tests
+> Clonar el repositorio
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```shell
+$ git clone https://github.com/joaquinenriquez/Final-Laboratorio-4
+```
 
-## Further help
+> Luego dentro de la carpeta del proyecto instalar las dependencias
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```shell
+$ npm install
+```
+
+> Por último compilarlo para su dispositivo
+
+```shell
+$ ng build
+```
+
+___
+## Demo / Sugerencias :basketball:
+
+[*Demo Online](https://clinicaonline-utnfra.web.app "Demo")
+___
+## Dudas / Sugerencias :speech_balloon:
+Envíenos sus comentarios o sugerencias a saraza@evilcorp.com
+___
