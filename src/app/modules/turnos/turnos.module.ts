@@ -23,11 +23,12 @@ import { PlaceholderDirective } from './directives/placeholder.directive';
 import { CasillaVerificacionComponent } from './components/DatosAdicionales/casilla-verificacion/casilla-verificacion.component';
 import { TextoNumericoComponent } from './components/DatosAdicionales/texto-numerico/texto-numerico.component';
 import { DefinirTituloDialogComponent } from './components/DatosAdicionales/definir-titulo-dialog/definir-titulo-dialog.component';
+import { BuscadorComponent } from './components/buscador/buscador.component';
 
 
 
 @NgModule({
-  declarations: [SolicitarTurnoComponent, ListadoTurnosPacientesComponent, ListadoTurnosProfesionalesComponent, ModificarDuracionTurnoDialogComponent, SelectorDiasComponent, DiaLaboralPipe, SelectorHorariosComponent, TablaSeleccionProfesionalesComponent, TablaSeleccionEspecialidadesComponent, ConfirmacionSolicitudTurnoComponent, SelectorEspecialidadDialogComponent, DatosTurnosBarComponent, TextoComponent, GeneradorCamposDinamicoComponent, PlaceholderDirective, CasillaVerificacionComponent, TextoNumericoComponent, DefinirTituloDialogComponent],
+  declarations: [SolicitarTurnoComponent, ListadoTurnosPacientesComponent, ListadoTurnosProfesionalesComponent, ModificarDuracionTurnoDialogComponent, SelectorDiasComponent, DiaLaboralPipe, SelectorHorariosComponent, TablaSeleccionProfesionalesComponent, TablaSeleccionEspecialidadesComponent, ConfirmacionSolicitudTurnoComponent, SelectorEspecialidadDialogComponent, DatosTurnosBarComponent, TextoComponent, GeneradorCamposDinamicoComponent, PlaceholderDirective, CasillaVerificacionComponent, TextoNumericoComponent, DefinirTituloDialogComponent, BuscadorComponent],
   imports: [
     CommonModule,
     MaterialModule,
@@ -38,6 +39,6 @@ import { DefinirTituloDialogComponent } from './components/DatosAdicionales/defi
     SharedModule,
     RouterModule
   ],
-  exports: [SolicitarTurnoComponent, ListadoTurnosPacientesComponent, ListadoTurnosProfesionalesComponent, SelectorDiasComponent, SelectorHorariosComponent, TablaSeleccionProfesionalesComponent, TablaSeleccionEspecialidadesComponent, ConfirmacionSolicitudTurnoComponent, DatosTurnosBarComponent, GeneradorCamposDinamicoComponent]
+  exports: [SolicitarTurnoComponent, ListadoTurnosPacientesComponent, ListadoTurnosProfesionalesComponent, SelectorDiasComponent, SelectorHorariosComponent, TablaSeleccionProfesionalesComponent, TablaSeleccionEspecialidadesComponent, ConfirmacionSolicitudTurnoComponent, DatosTurnosBarComponent, GeneradorCamposDinamicoComponent, BuscadorComponent]
 })
 export class TurnosModule { }

@@ -15,7 +15,7 @@ export class TurnosDataService {
   constructor(private db: DataService) { }
 
 
-  public traerTodasLosTurnos(): Observable<Turno> {
+  public traerTodasLosTurnos(): Observable<Turno[]> {
     return this.db.traerTodosLosDocumentos(this.nombreColeccion, this.campoId);
   }
 

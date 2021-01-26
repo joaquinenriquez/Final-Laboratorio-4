@@ -147,7 +147,7 @@ export class AtenderTurnoComponent implements OnInit {
 
     // Agregamos datos adionales al turno
     this.componentesAdicionales.forEach(unComponente => {
-      this.turnoSeleccionado[unComponente.titulo] = unComponente.valor
+      this.turnoSeleccionado[`CA_${unComponente.titulo}`] = unComponente.valor
     });
 
     this.turnoSeleccionado['edad'] = this.formDatosTurno.value.edad;

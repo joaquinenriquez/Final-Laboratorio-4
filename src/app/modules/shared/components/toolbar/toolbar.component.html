@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
 
-    <a routerLink="/" routerLinkActive="active">AUTOGESTIÓN</a>
+    <a>AUTOGESTIÓN</a>
 
 
     <a routerLink="/gestion-usuarios" routerLinkActive="active"
@@ -8,54 +8,65 @@
             mat-button>GESTIÓN DE USUARIOS</button></a>
 
     <a routerLink="/mis-turnos" routerLinkActive="active"
-        *ngIf="(auth.datosUsuario | async) && (datosUsuarioActual?.rol == Roles.Paciente)"><button
-            mat-button>MIS TURNOS</button></a>
+        *ngIf="(auth.datosUsuario | async) && (datosUsuarioActual?.rol == Roles.Paciente)"><button mat-button>MIS
+            TURNOS</button></a>
 
     <a routerLink="/solicitar-turno" routerLinkActive="active"
-        *ngIf="(auth.datosUsuario | async) && (datosUsuarioActual?.rol == Roles.Paciente)"><button
-            mat-button>SOLICITAR TURNOS</button></a>
+        *ngIf="(auth.datosUsuario | async) && (datosUsuarioActual?.rol == Roles.Paciente)"><button mat-button>SOLICITAR
+            TURNOS</button></a>
 
     <a routerLink="/especialidades" routerLinkActive="active"
         *ngIf="(auth.datosUsuario | async ) && (datosUsuarioActual?.rol == Roles.Administrador)"><button
             mat-button>ESPECIALIDADES</button></a>
 
     <a routerLink="/gestion-turnos" routerLinkActive="active"
-        *ngIf="(auth.datosUsuario | async) && (datosUsuarioActual?.rol == Roles.Profesional)"><button
-            mat-button>GESTIÓN DE TURNOS</button></a>
+        *ngIf="(auth.datosUsuario | async) && (datosUsuarioActual?.rol == Roles.Profesional)"><button mat-button>GESTIÓN
+            DE TURNOS</button></a>
+
+    <a routerLink="/busquedas" routerLinkActive="active"
+        *ngIf="(auth.datosUsuario | async ) && (datosUsuarioActual?.rol == Roles.Administrador || datosUsuarioActual?.rol == Roles.Profesional)"><button
+            mat-button>BÚSQUEDAS</button></a>
 
 
     <span class="fill-remaining-space"></span>
 
     <a routerLink="/registro-pacientes" routerLinkActive="active" *ngIf="!(auth.datosUsuario | async)"><button
-            mat-button>Pacientes</button></a>
+            mat-button>Registrarse</button></a>
 
     <a routerLink="/registro-profesionales" routerLinkActive="active" *ngIf="!(auth.datosUsuario | async)"><button
-            mat-button>Profesionales</button></a>
+            mat-button>¿Sos profesional?</button></a>
 
-    <a routerLink="/login" routerLinkActive="active" *ngIf="!(this.auth.datosUsuario | async)"><button mat-button>Login</button></a>
+    <a routerLink="/login" routerLinkActive="active" *ngIf="!(this.auth.datosUsuario | async)"><button
+            mat-button>Login</button></a>
 
-    <a *ngIf="(auth.datosUsuario | async)"><button mat-button [matMenuTriggerFor]="menu"><span class="nombre-usuario">{{this.datosUsuarioActual?.displayName}}</span><mat-icon *ngIf="!datosUsuarioActual?.imagen1">account_circle</mat-icon><img *ngIf="datosUsuarioActual?.imagen1" [src]="datosUsuarioActual?.imagen1"/></button></a>
-    
+    <a *ngIf="(auth.datosUsuario | async)">
+        <button mat-button [matMenuTriggerFor]="menu">
+            <span class="nombre-usuario">{{this.datosUsuarioActual?.displayName}}</span>
+            <mat-icon *ngIf="!datosUsuarioActual?.imagen1">account_circle</mat-icon>
+            <img *ngIf="datosUsuarioActual?.imagen1" [src]="datosUsuarioActual?.imagen1" />
+        </button>
+    </a>
+
     <mat-menu #menu="matMenu">
-        
+
         <button mat-menu-item>
-          <mat-icon>fact_check</mat-icon>
-          <span>Mi perfil</span>
+            <mat-icon>fact_check</mat-icon>
+            <span>Mi perfil</span>
         </button>
 
         <button mat-menu-item (click)="onLogOut()">
-          <mat-icon>logout</mat-icon>
-          <span>Cerrar sesión</span>
+            <mat-icon>logout</mat-icon>
+            <span>Cerrar sesión</span>
         </button>
-      </mat-menu>
-   
-   
-   
+    </mat-menu>
+
+
+
     <!-- <a mat-icon-button routerLink="active"><mat-icon *ngIf="!avatar">account_circle</mat-icon><img *ngIf="avatar" [src]="avatar"/><span>Nombre Usuario</span></a> -->
 
 
 
-<!-- 
+    <!-- 
     <button mat-button [matMenuTriggerFor]="menu" *ngIf="(auth.datosUsuario | async)">
         <span>{{this.datosUsuarioActual?.displayName}}</span>
         <mat-icon></mat-icon>

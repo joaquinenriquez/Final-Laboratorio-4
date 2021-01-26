@@ -1,3 +1,4 @@
+
 import { Usuario } from 'src/app/modules/usuarios/models/usuario';
 import { Rol } from './../../../usuarios/models/rol.enum';
 import { UsuarioDataService } from './../../../usuarios/services/usuario-data.service';

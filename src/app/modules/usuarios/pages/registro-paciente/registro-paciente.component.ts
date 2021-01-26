@@ -80,7 +80,8 @@ export class RegistroPacienteComponent implements OnInit {
       })
       .catch(error => {
         let mensajeError = '';
-        switch (error.code) {
+        switch (error.code) 
+        {
           case 'auth/email-already-in-use':
             mensajeError = 'Ya alguien se registro con ese email'
             break;
@@ -93,8 +94,14 @@ export class RegistroPacienteComponent implements OnInit {
   }
 
   guardarBD(nuevoUsuario: Usuario) {
-    nuevoUsuario.imagen1 = this.imagenes[0].urlImagen;
-    nuevoUsuario.imagen2 = this.imagenes[1].urlImagen;
+
+    if (this.imagenes.length > 1) {
+      nuevoUsuario.imagen1 = this.imagenes[0].urlImagen;
+      nuevoUsuario.imagen2 = this.imagenes[1].urlImagen;
+    } else if (this.imagenes.length == 1) {
+      nuevoUsuario.imagen1 = this.imagenes[0].urlImagen;
+    }
+
     nuevoUsuario.rol = Rol.Paciente;
     nuevoUsuario.estado = EstadoUsuario.Habilitado;
     console.log('Guardar en DB', this.usuarioDataSvc.GuardarNuevoUsuario(nuevoUsuario));

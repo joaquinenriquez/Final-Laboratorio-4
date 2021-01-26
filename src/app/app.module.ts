@@ -16,6 +16,8 @@ import localeEs from '@angular/common/locales/es-AR';
 
 import { AngularFireStorageModule } from '@angular/fire/storage';
 
+// Esto es 
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 
@@ -36,7 +38,7 @@ registerLocaleData(localeEs, 'es-AR');
     FlexLayoutModule,
     AngularFireStorageModule
   ],
-  providers: [ { provide: LOCALE_ID, useValue: 'es-AR' }],
+  providers: [ { provide: LOCALE_ID, useValue: 'es-AR'}, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

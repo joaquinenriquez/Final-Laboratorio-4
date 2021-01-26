@@ -1,31 +1,33 @@
-import { Router } from '@angular/router';
+import { Turno } from './../../models/turno';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { mergeMap } from 'rxjs/operators';
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
-import { EstadoTurno } from 'src/app/modules/turnos/models/estado-turno.enum';
-import { Turno } from 'src/app/modules/turnos/models/turno';
-import { TurnosDataService } from 'src/app/modules/turnos/services/turnos-data.service';
-import Swal from 'sweetalert2';
-import { ModificarDuracionTurnoDialogComponent } from '../modificar-duracion-turno-dialog/modificar-duracion-turno-dialog.component';
 import { VisualizarEncuestaUsuarioDialogComponent } from 'src/app/modules/usuarios/pages/visualizar-encuesta-usuario-dialog/visualizar-encuesta-usuario-dialog.component';
-
+import Swal from 'sweetalert2';
+import { EstadoTurno } from '../../models/estado-turno.enum';
+import { TurnosDataService } from '../../services/turnos-data.service';
+import { ModificarDuracionTurnoDialogComponent } from '../modificar-duracion-turno-dialog/modificar-duracion-turno-dialog.component';
 
 @Component({
-  selector: 'app-listado-turnos-profesionales',
-  templateUrl: './listado-turnos-profesionales.component.html',
-  styleUrls: ['./listado-turnos-profesionales.component.scss']
+  selector: 'app-buscador',
+  templateUrl: './buscador.component.html',
+  styleUrls: ['./buscador.component.scss']
 })
-export class ListadoTurnosProfesionalesComponent implements OnInit {
+export class BuscadorComponent implements OnInit {
 
   @Input() tipoFiltro: string;
 
   displayedColumns: string[];
-  dataSource: MatTableDataSource<Turno>;
+  camposAdicionales: string[] = [];
+
+  dataSource: MatTableDataSource<Object>;
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -96,41 +98,25 @@ export class ListadoTurnosProfesionalesComponent implements OnInit {
     }
   }
 
-
+  
   traerTurnos() {
+        
+      this.turnosDataService.traerTodasLosTurnos().subscribe(todosLosTurnos => {
+        this.dataSource = new MatTableDataSource(todosLosTurnos);
+        console.log(todosLosTurnos);
 
-    this.authService.datosUsuario.pipe(
-      mergeMap((usarioActual: any) => this.turnosDataService.traerTurnosPorProfesional(usarioActual?.uid))).subscribe(datos => {
-
-        let todosLosTurnos = datos as Turno[];
-
-        switch (this.tipoFiltro) {
-
-          case 'confirmados':
-            {
-              this.displayedColumns = ['fechaTurno', 'horarioTurno', 'especialidad', 'nombreUsuario', 'estadoTurno', 'duracionEstimada', 'atenderTurno', 'cancelarTurno'];
-              this.dataSource = new MatTableDataSource(todosLosTurnos.filter(unTurno => unTurno.estadoTurno == EstadoTurno.Confirmado || unTurno.estadoTurno == EstadoTurno.Atendiendo));
-              break;
-            }
-
-          case 'pendientes':
-            {
-              this.displayedColumns = ['fechaTurno', 'horarioTurno', 'especialidad', 'nombreUsuario', 'estadoTurno', 'confirmarTurno', 'cancelarTurno'];
-              this.dataSource = new MatTableDataSource(todosLosTurnos.filter(unTurno => unTurno.estadoTurno == EstadoTurno.Pendiente_Confirmar));
-              break;
-            }
-
-          case 'anteriores':
-            {
-              this.dataSource = new MatTableDataSource(todosLosTurnos.filter(unTurno => unTurno.estadoTurno == EstadoTurno.Finalizado || unTurno.estadoTurno == EstadoTurno.Suspendido || unTurno.estadoTurno == EstadoTurno.Cancelado));
-              this.displayedColumns = ['fechaTurno', 'horarioTurno', 'especialidad', 'nombreUsuario', 'estadoTurno', 'verEncuesta'];
-              break;
-            }
-        }
-
-        this.dataSource.paginator = this.paginator;
+        this.displayedColumns = ['fechaTurno', 'horarioTurno', 'especialidad', 'nombreProfesional', 'nombreUsuario', 'estadoTurno', 'duracionEstimada', 'edad', 'peso', 'temperatura', 'resena'];
+        let auxTodosLosCampos = this.getNombrePropiedades(todosLosTurnos);
+        
+        this.camposAdicionales = auxTodosLosCampos.filter(unCampo => unCampo.substring(0,3) == 'CA_');
+        console.log(this.camposAdicionales);
+ 
+        this.displayedColumns = this.displayedColumns.concat(this.camposAdicionales);
         this.dataSource.sort = this.sort;
+      
       });
+
+
   }
 
   modificarDuracionTurno(turno: Turno): void {
@@ -152,6 +138,23 @@ export class ListadoTurnosProfesionalesComponent implements OnInit {
 
   }
 
+  getNombrePropiedades(listado: Array<Object>): Array<string> {
+    // return Object.keys(listado.reduce((o,c) => Object.assign(o, c)));
+
+    let names = Object.create(null);
+    let result;
+
+    listado.forEach(function (o) {
+        Object.keys(o).forEach(function (k) {
+            names[k] = true;
+        });
+      });
+
+    result = Object.keys(names);
+    return result;
+
+  }
+
   verEncuesta(turno: Turno): void {
 
     const dialogoReg = this.dialog.open(VisualizarEncuestaUsuarioDialogComponent,
@@ -163,16 +166,8 @@ export class ListadoTurnosProfesionalesComponent implements OnInit {
 
     dialogoReg.afterClosed().subscribe(resultadoDialogo => {
 
-
-
     });
 
   }
 
 }
-// this.dialog.open(ListadoHorariosProfesionalesComponent,
-//   {
-//     width: '500px',
-//     data: { idUsuario: idUsuario },
-//     panelClass: 'horarios-profesional-dialog-container'
-//   });

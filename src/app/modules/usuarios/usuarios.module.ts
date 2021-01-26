@@ -37,11 +37,13 @@ import { EncuestaUsuarioDialogComponent } from './pages/encuesta-usuario-dialog/
 import { VisualizarEncuestaUsuarioDialogComponent } from './pages/visualizar-encuesta-usuario-dialog/visualizar-encuesta-usuario-dialog.component';
 import { EncuestaProfesionalDialogComponent } from './pages/encuesta-profesional-dialog/encuesta-profesional-dialog.component';
 import { VisualizarResenaUsuarioDialogComponent } from './pages/visualizar-resena-usuario-dialog/visualizar-resena-usuario-dialog.component';
+import { BusquedasComponent } from './pages/busquedas/busquedas.component';
+
 
 
 
 @NgModule({
-  declarations: [LoginComponent, RegistroPacienteComponent, RegistroProfesionalComponent, ConfirmacionRegistroComponent, HomeUsuarioComponent, MisTurnosComponent, GestionTurnosProfesionalComponent, GestionUsuariosComponent, ListadoUsuariosComponent, ListadoHorariosProfesionalesComponent, CambiarEstadoUsuarioDialogComponent, NuevoUsuarioAdminDialogComponent, SolicitarTurnoComponent, AtenderTurnoComponent, EncuestaUsuarioComponent, EncuestaUsuarioDialogComponent, VisualizarEncuestaUsuarioDialogComponent, EncuestaProfesionalDialogComponent, VisualizarResenaUsuarioDialogComponent],
+  declarations: [LoginComponent, RegistroPacienteComponent, RegistroProfesionalComponent, ConfirmacionRegistroComponent, HomeUsuarioComponent, MisTurnosComponent, GestionTurnosProfesionalComponent, GestionUsuariosComponent, ListadoUsuariosComponent, ListadoHorariosProfesionalesComponent, CambiarEstadoUsuarioDialogComponent, NuevoUsuarioAdminDialogComponent, SolicitarTurnoComponent, AtenderTurnoComponent, EncuestaUsuarioComponent, EncuestaUsuarioDialogComponent, VisualizarEncuestaUsuarioDialogComponent, EncuestaProfesionalDialogComponent, VisualizarResenaUsuarioDialogComponent, BusquedasComponent],
   
   imports: [
     CommonModule,

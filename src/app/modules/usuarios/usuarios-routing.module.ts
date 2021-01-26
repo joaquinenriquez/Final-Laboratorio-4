@@ -1,3 +1,4 @@
+import { BusquedasComponent } from './pages/busquedas/busquedas.component';
 import { ListadoEspecialidadesComponent } from './../especialidades/components/listado-especialidades/listado-especialidades.component';
 import { EncuestaUsuarioComponent } from './pages/encuesta-usuario/encuesta-usuario.component';
 import { HomeComponent } from './../core/pages/home/home.component';
@@ -29,6 +30,7 @@ const routes: Routes = [
       { path: 'gestion-turnos', component: GestionTurnosProfesionalComponent, canActivate: [VerificarLoginGuard]},
       { path: 'gestion-usuarios',  data: {animation: 'Mover-Izquierda'}, component: GestionUsuariosComponent, canActivate: [VerificarLoginGuard]},
       { path: 'solicitar-turno', data: {animation: 'Mover-Derecha'}, component: SolicitarTurnoComponent, canActivate: [VerificarLoginGuard]},
+      { path: 'busquedas', data: {animation: 'Mover-Derecha'}, component: BusquedasComponent, canActivate: [VerificarLoginGuard]},
       { path: 'encuesta-usuario', component: EncuestaUsuarioComponent, canActivate: [VerificarLoginGuard]},
       { path: 'atender-turno/:id', component: AtenderTurnoComponent, canActivate: [VerificarLoginGuard]},
       { path: 'home', component: HomeComponent, canActivate: [VerificarLoginGuard]},

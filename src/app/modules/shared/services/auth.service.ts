@@ -13,7 +13,7 @@ export class AuthService {
 
   public datosUsuario: Observable<firebase.User>
 
-  constructor(private auth: AngularFireAuth) { 
+  constructor(public auth: AngularFireAuth) { 
     this.datosUsuario = this.auth.authState;
     
   }

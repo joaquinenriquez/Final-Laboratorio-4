@@ -1,7 +1,13 @@
+
+
+
+
 a {
     color: #fff;
     text-decoration: none;
 }
+
+
 
 .fill-remaining-space {
     flex: 1 1 auto;
@@ -18,3 +24,12 @@ img {
     width: 30px;
     height: 30px;
   }
+
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+
+
+  .active {
+    color: wheat;
+}
