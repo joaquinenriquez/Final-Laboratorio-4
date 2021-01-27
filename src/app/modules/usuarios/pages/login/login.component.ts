@@ -1,3 +1,5 @@
+import { Log } from './../../models/log';
+import { LogDataService } from '../../../usuarios/services/log.service';
 import { UsuarioDataService } from './../../services/usuario-data.service';
 import { environment } from './../../../../../environments/environment';
 import { AuthService } from './../../../shared/services/auth.service';
@@ -25,7 +27,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
     private router: Router,
-    public usuarioDataService: UsuarioDataService) { }
+    public usuarioDataService: UsuarioDataService,
+    private logService: LogDataService) { }
 
   ngOnInit(): void {
 
@@ -82,6 +85,7 @@ export class LoginComponent implements OnInit {
                 this.mostrarMensajeCuentaDeshabilitada();
               } else {
                 console.log('Login Correcto!', resultadoLogin);
+                this.guardarLogInicioSesion(resultadoLogin, usuario.rol);
                 this.router.navigate(['/solicitar-turno']);
               }
             }
@@ -93,6 +97,7 @@ export class LoginComponent implements OnInit {
           {
             if (usuario.estado == EstadoUsuario.Habilitado) {
               console.log('Login Correcto!', resultadoLogin);
+              this.guardarLogInicioSesion(resultadoLogin, usuario.rol);
               this.router.navigate(['/gestion-turnos']);
             } else {
               this.mostrarMensajeCuentaNoAprobadaProfesional();
@@ -103,6 +108,7 @@ export class LoginComponent implements OnInit {
 
           case Rol.Administrador:
             {
+              this.guardarLogInicioSesion(resultadoLogin, usuario.rol);
               this.router.navigate(['/gestion-usuarios']);
               // if (usuario.estado == EstadoUsuario.Habilitado) {
               //   console.log('Login Correcto!', resultadoLogin);
@@ -119,7 +125,20 @@ export class LoginComponent implements OnInit {
 
   }
 
+  guardarLogInicioSesion(datosUsuario: firebase.auth.UserCredential, rol: Rol) 
+  {
+    let logInicioSesion: Log = {
+      fechaLog: firebase.firestore.Timestamp.now(),
+      tipoAccion: 'Inicio de sesión',
+      rolUsuario: rol,
+      idUsuario: datosUsuario.user.uid,
+      nombreUsuario: datosUsuario.user.displayName,
+      emailUsuario: datosUsuario.user.email
+    };
 
+    this.logService.nuevoLog(logInicioSesion);
+
+  }
 
   mostrarMensajeCuentaNoVerificadaPaciente() {
     Swal.fire({

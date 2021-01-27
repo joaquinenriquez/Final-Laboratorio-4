@@ -38,12 +38,14 @@ import { VisualizarEncuestaUsuarioDialogComponent } from './pages/visualizar-enc
 import { EncuestaProfesionalDialogComponent } from './pages/encuesta-profesional-dialog/encuesta-profesional-dialog.component';
 import { VisualizarResenaUsuarioDialogComponent } from './pages/visualizar-resena-usuario-dialog/visualizar-resena-usuario-dialog.component';
 import { BusquedasComponent } from './pages/busquedas/busquedas.component';
+import { ListadoInicioSesionComponent } from './components/listado-inicio-sesion/listado-inicio-sesion.component';
+import { InformeInicioSesionComponent } from './pages/informe-inicio-sesion/informe-inicio-sesion.component';
 
 
 
 
 @NgModule({
-  declarations: [LoginComponent, RegistroPacienteComponent, RegistroProfesionalComponent, ConfirmacionRegistroComponent, HomeUsuarioComponent, MisTurnosComponent, GestionTurnosProfesionalComponent, GestionUsuariosComponent, ListadoUsuariosComponent, ListadoHorariosProfesionalesComponent, CambiarEstadoUsuarioDialogComponent, NuevoUsuarioAdminDialogComponent, SolicitarTurnoComponent, AtenderTurnoComponent, EncuestaUsuarioComponent, EncuestaUsuarioDialogComponent, VisualizarEncuestaUsuarioDialogComponent, EncuestaProfesionalDialogComponent, VisualizarResenaUsuarioDialogComponent, BusquedasComponent],
+  declarations: [LoginComponent, RegistroPacienteComponent, RegistroProfesionalComponent, ConfirmacionRegistroComponent, HomeUsuarioComponent, MisTurnosComponent, GestionTurnosProfesionalComponent, GestionUsuariosComponent, ListadoUsuariosComponent, ListadoHorariosProfesionalesComponent, CambiarEstadoUsuarioDialogComponent, NuevoUsuarioAdminDialogComponent, SolicitarTurnoComponent, AtenderTurnoComponent, EncuestaUsuarioComponent, EncuestaUsuarioDialogComponent, VisualizarEncuestaUsuarioDialogComponent, EncuestaProfesionalDialogComponent, VisualizarResenaUsuarioDialogComponent, BusquedasComponent, ListadoInicioSesionComponent, InformeInicioSesionComponent],
   
   imports: [
     CommonModule,

@@ -21,6 +21,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 
+
 registerLocaleData(localeEs, 'es-AR');  
 
 @NgModule({

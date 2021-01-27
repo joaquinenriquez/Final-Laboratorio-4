@@ -1,3 +1,4 @@
+import { InformeInicioSesionComponent } from './pages/informe-inicio-sesion/informe-inicio-sesion.component';
 import { BusquedasComponent } from './pages/busquedas/busquedas.component';
 import { ListadoEspecialidadesComponent } from './../especialidades/components/listado-especialidades/listado-especialidades.component';
 import { EncuestaUsuarioComponent } from './pages/encuesta-usuario/encuesta-usuario.component';
@@ -9,13 +10,13 @@ import { GestionUsuariosComponent } from './pages/gestion-usuarios/gestion-usuar
 import { GestionTurnosProfesionalComponent } from './pages/gestion-turnos-profesional/gestion-turnos-profesional.component';
 import { MisTurnosComponent } from './pages/mis-turnos/mis-turnos.component';
 import { RegistroProfesionalComponent } from './pages/registro-profesional/registro-profesional.component';
-import { HomeUsuarioComponent } from './pages/home-usuario/home-usuario.component';
+
 import { LoginComponent } from './pages/login/login.component';
 import { RegistroPacienteComponent } from './pages/registro-paciente/registro-paciente.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SolicitarTurnoComponent } from './pages/solicitar-turno/solicitar-turno.component';
-import { VerificarNoLoginGuard } from '../shared/guards/verificar-no-login.guard';
+
 
 const routes: Routes = [
   { 
@@ -34,6 +35,7 @@ const routes: Routes = [
       { path: 'encuesta-usuario', component: EncuestaUsuarioComponent, canActivate: [VerificarLoginGuard]},
       { path: 'atender-turno/:id', component: AtenderTurnoComponent, canActivate: [VerificarLoginGuard]},
       { path: 'home', component: HomeComponent, canActivate: [VerificarLoginGuard]},
+      { path: 'informe-inicio-sesion', component: InformeInicioSesionComponent, canActivate: [VerificarLoginGuard]},
       { path: '', component: HomeComponent, canActivate: [VerificarLoginGuard]},
       { path: '**', redirectTo: '', pathMatch: 'full', canActivate: [VerificarLoginGuard]} 
     ]

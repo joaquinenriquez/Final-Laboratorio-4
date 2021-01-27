@@ -27,6 +27,10 @@
         *ngIf="(auth.datosUsuario | async ) && (datosUsuarioActual?.rol == Roles.Administrador || datosUsuarioActual?.rol == Roles.Profesional)"><button
             mat-button>BÚSQUEDAS</button></a>
 
+    <a routerLink="/informe-inicio-sesion" routerLinkActive="active"
+        *ngIf="(auth.datosUsuario | async ) && (datosUsuarioActual?.rol == Roles.Administrador || datosUsuarioActual?.rol == Roles.Profesional)"><button
+            mat-button>INFORMES</button></a>
+
 
     <span class="fill-remaining-space"></span>
 
