@@ -23,9 +23,7 @@
             <div>
               <mat-form-field class="example-form-field" appearance="outline">
                 <mat-label>Período</mat-label>
-                <mat-date-range-input
-                  [formGroup]="dtPerido"
-                  [rangePicker]="campaignOnePicker"
+                <mat-date-range-input [formGroup]="dtPerido" [rangePicker]="campaignOnePicker"
                   [max]="this.fechaMaximaFiltro">
                   <input matStartDate placeholder="Fecha inicio" formControlName="fechaInicio">
                   <input matEndDate placeholder="Fecha fin" formControlName="fechaFin">
@@ -37,7 +35,8 @@
 
 
             <div fxFlex="20%" fxFlexAlign="flex-end center">
-              <button color="primary" appearance="outline" mat-stroked-button (click)="filtrarPorFecha()">Filtrar</button>
+              <button color="primary" appearance="outline" mat-stroked-button
+                (click)="filtrarPorFecha()">Filtrar</button>
             </div>
 
           </div>
@@ -45,9 +44,6 @@
 
 
         </div>
-
-
-
 
         <div class="mat-elevation-z8">
 
@@ -112,12 +108,25 @@
         </div>
       </div>
 
-
-
     </mat-card-content>
+
+    <div>
+      <!-- <button mat-stroked-button color="primary" mat-button [matMenuTriggerFor]="menuExportar"><mat-icon style="padding:8px;">mi_pdf</mat-icon>Exportar...</button>
+      <mat-menu #menuExportar="matMenu">
+        <button mat-menu-item>a PDF <mat-icon>mi_pdf</mat-icon></button>
+        <button mat-menu-item>Item 2</button>
+      </mat-menu> -->
+      <button mat-stroked-button color="primary" mat-button [matMenuTriggerFor]="menu"><mat-icon class="icono-boton">cloud_download</mat-icon>Exportar...</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon svgIcon="archivo_excel"></mat-icon>a Excel...
+        </button>
+        <button mat-menu-item>
+          <mat-icon svgIcon="archivo_pdf"></mat-icon>a PDF...
+        </button>
+      </mat-menu>
+    </div>
+    <!--  -->
   </mat-card>
 
 </div>
-
-
-

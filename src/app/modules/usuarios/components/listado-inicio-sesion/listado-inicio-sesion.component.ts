@@ -13,6 +13,14 @@ import { VisualizarEncuestaUsuarioDialogComponent } from "../../pages/visualizar
 import { LogDataService } from "../../services/log.service";
 import { FormControl, FormGroup } from '@angular/forms';
 
+import jspdf  from 'jspdf';
+import 'jspdf-autotable';
+import { DatePipe } from '@angular/common';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+
+
+
 
 @Component({
   selector: 'app-listado-inicio-sesion',
@@ -35,7 +43,12 @@ export class ListadoInicioSesionComponent implements OnInit {
     private toastManager: MatSnackBar,
     private authService: AuthService, 
     private dialog: MatDialog,
-    private router: Router) { 
+    private router: Router,
+    private datePipe: DatePipe,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer) { 
+
+      this.agregarIconos();
 
       this.fechaMaximaFiltro.setDate(this.fechaMaximaFiltro.getDate() + 1)
 
@@ -50,8 +63,98 @@ export class ListadoInicioSesionComponent implements OnInit {
   ngOnInit(): void { }
 
 
+  crearPDF() {
+    var doc = new jspdf();
+    let columnas = ['Fecha', 'Hora', 'Email', 'Rol', 'Usuario', 'Acción'];
+
+    let posicionX = this.getCentroHorizontalPDF(18, 'Informe de inicios de sesión', doc);
+    
+    doc.setFontSize(18);
+    doc.text(`Informe de inicio de sesión`, posicionX, 15);
+
+
+    let logo = new Image();
+    logo.src = 'assets/connombre.jpg';
+    doc.addImage(logo, 'jpg', 175, 5, 20, 18);
+
+    doc.setFontSize(11);
+    doc.setTextColor(100);
+
+
+    (doc as any).autoTable({
+      head: [columnas],
+      body: this.convertirDatosEnArray(),    
+      theme: 'striped',
+      startY: 28,
+      showHead: 'everyPage',
+      didDrawCell: data => {
+        console.log(data.column.index)
+      }
+    });
+
+    this.agregarFooterAlPDF(doc);
+
+    // Open PDF document in new tab
+    doc.output('dataurlnewwindow')
+  
+
+
+    // Download PDF document  
+    //doc.save('table.pdf');
+  }
+
+  getCentroHorizontalPDF(fontSize: number, texto: string, documento: jspdf): number {
+    let textWidth = documento.getStringUnitWidth(texto) * fontSize / documento.internal.scaleFactor;
+    return  (documento.internal.pageSize.width - textWidth) / 2;
+  }
+
+  agregarIconos() {
+    console.log(this.matIconRegistry.addSvgIcon(`archivo_pdf`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-pdf.svg")));
+    console.log(this.matIconRegistry.addSvgIcon(`archivo_excel`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-type-excel.svg")));
+  }
+
+  agregarFooterAlPDF(documento: jspdf) {
+
+    const pageCount = documento.getNumberOfPages();
+    documento.setFont('helvetica', 'italic');
+    documento.setFontSize(12);
+
+    let fechaActual = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
+    
+
+    for (var i = 1; i <= pageCount; i++) {
+      documento.setPage(i)
+
+      let texto = `${fechaActual} - Página ${i} de ${pageCount}`;
+      documento.text(texto, documento.internal.pageSize.width / 2, 287, {align: 'center'});
+    }
+  }
+
+
+
+  
+  
+
   ngAfterViewInit() {
     this.traerLogs();
+  }
+
+
+  convertirDatosEnArray(): Array<[]>  
+  {
+    let arrayLogs = [];
+    this.dataSource.filteredData.forEach(unLog => {
+      let unLogArray = new Array;
+      unLogArray.push(this.datePipe.transform(unLog.fechaLog.toDate()));
+      unLogArray.push(this.datePipe.transform(unLog.fechaLog.toDate(), 'hh:mm:ss'));
+      unLogArray.push(unLog.emailUsuario);
+      unLogArray.push(unLog.rolUsuario);
+      unLogArray.push(unLog.nombreUsuario);
+      unLogArray.push(unLog.tipoAccion);
+      arrayLogs.push(unLogArray);
+    });
+
+    return arrayLogs;
   }
 
   filtrarPorFecha() {
@@ -140,6 +243,8 @@ export class ListadoInicioSesionComponent implements OnInit {
     });
 
   }
+
+
 
 
 

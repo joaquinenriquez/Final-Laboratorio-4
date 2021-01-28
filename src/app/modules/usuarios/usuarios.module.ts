@@ -41,8 +41,10 @@ import { BusquedasComponent } from './pages/busquedas/busquedas.component';
 import { ListadoInicioSesionComponent } from './components/listado-inicio-sesion/listado-inicio-sesion.component';
 import { InformeInicioSesionComponent } from './pages/informe-inicio-sesion/informe-inicio-sesion.component';
 
+// Pipes
+import { DatePipe } from '@angular/common';
 
-
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [LoginComponent, RegistroPacienteComponent, RegistroProfesionalComponent, ConfirmacionRegistroComponent, HomeUsuarioComponent, MisTurnosComponent, GestionTurnosProfesionalComponent, GestionUsuariosComponent, ListadoUsuariosComponent, ListadoHorariosProfesionalesComponent, CambiarEstadoUsuarioDialogComponent, NuevoUsuarioAdminDialogComponent, SolicitarTurnoComponent, AtenderTurnoComponent, EncuestaUsuarioComponent, EncuestaUsuarioDialogComponent, VisualizarEncuestaUsuarioDialogComponent, EncuestaProfesionalDialogComponent, VisualizarResenaUsuarioDialogComponent, BusquedasComponent, ListadoInicioSesionComponent, InformeInicioSesionComponent],
@@ -58,7 +60,8 @@ import { InformeInicioSesionComponent } from './pages/informe-inicio-sesion/info
     FlexLayoutModule,
     RecaptchaModule,
     TurnosModule,
-    RecaptchaFormsModule
+    RecaptchaFormsModule,
+    HttpClientModule
 
     
   ],
@@ -66,7 +69,7 @@ import { InformeInicioSesionComponent } from './pages/informe-inicio-sesion/info
 
   exports: [LoginComponent],
 
-  providers: [CurrencyPipe, DecimalPipe, PercentPipe]
+  providers: [CurrencyPipe, DecimalPipe, PercentPipe, DatePipe]
 })
 
 export class UsuariosModule { }
