@@ -7,10 +7,10 @@ export class PdfCreator {
 
         let documentoPDF = new jspdf();
 
-        let posicionX = this.getCentroHorizontalPDF(18, 'Informe Turnos por especialidad', documentoPDF);
+        let posicionX = this.getCentroHorizontalPDF(18, titulo, documentoPDF);
 
         documentoPDF.setFontSize(18);
-        documentoPDF.text(`Informe Turnos por especialidad`, posicionX, 15);
+        documentoPDF.text(titulo, posicionX, 15);
 
         let logo = new Image();
         logo.src = 'assets/connombre.jpg';

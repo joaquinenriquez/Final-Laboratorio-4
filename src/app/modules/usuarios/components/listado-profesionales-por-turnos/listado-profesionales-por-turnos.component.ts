@@ -19,6 +19,7 @@ export class ListadoProfesionalesPorTurnosComponent implements OnInit {
   /* #region  Atributos */
 
   @Input() datos: any = [];
+  @Input() tituloListado: string = 'Sin título';
   displayedColumns: string[] = ['name', 'y'];
   dataSource: MatTableDataSource<any>;
 
@@ -57,8 +58,8 @@ export class ListadoProfesionalesPorTurnosComponent implements OnInit {
 
 
   agregarIconos() {
-    console.log(this.matIconRegistry.addSvgIcon(`archivo_pdf`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-pdf.svg")));
-    console.log(this.matIconRegistry.addSvgIcon(`archivo_excel`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-type-excel.svg")));
+    this.matIconRegistry.addSvgIcon(`archivo_pdf`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-pdf.svg"));
+    this.matIconRegistry.addSvgIcon(`archivo_excel`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-type-excel.svg"));
   }
 
   mostrarToast(mensaje: string, duracion: number) {
@@ -87,12 +88,6 @@ export class ListadoProfesionalesPorTurnosComponent implements OnInit {
 
   }
 
-  prueba() {
-    console.log(this.datos);
-    console.log(this.dataSource.data);
-    //this.cargarDatos();
-  }
-
   refrescarTabla() {
     this.changeDetectorRefs.detectChanges();
   }
@@ -100,12 +95,12 @@ export class ListadoProfesionalesPorTurnosComponent implements OnInit {
 
   /* #region  Exportar */
 
+
   crearPDF() {
-    alert('aasdas');
-    let columnasPDF = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábados'];
-    PdfCreator.CrearPDF(columnasPDF, 'Turnos por días de la semana', this.convertirDatosEnArray, false, true);
-    this.mostrarToast('Archivo generado correctamente', 300);
+    let columnasPDF = ['Nombre Profesional', 'Cantidad de turnos'];
+    PdfCreator.CrearPDF(columnasPDF, this.tituloListado, this.convertirDatosEnArray(), false, true);
   }
+
 
   convertirDatosEnArray(): Array<[]> {
     let arrayDatos = [];
@@ -118,6 +113,7 @@ export class ListadoProfesionalesPorTurnosComponent implements OnInit {
 
     return arrayDatos;
   }
+
 
   getDate() {
     return this.datePipe.transform(new Date, "yyyy-MM-dd hh:mm:ss");

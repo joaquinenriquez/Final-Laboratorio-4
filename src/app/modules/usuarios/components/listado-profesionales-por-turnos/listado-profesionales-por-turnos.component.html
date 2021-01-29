@@ -69,12 +69,12 @@
   
       <div>
   
-        <button mat-stroked-button color="primary" mat-button [matMenuTriggerFor]="menu" (click)="prueba()">
+        <button mat-stroked-button color="primary" mat-button [matMenuTriggerFor]="menu">
           <mat-icon class="icono-boton">cloud_download</mat-icon>Exportar...
         </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item
-            (click)="exporter.exportTable('xlsx', {fileName:'Turnos por día ' + this.getDate(), sheet: 'UTN FRA', Props: {Author: 'UTN FRA'}})">
+            (click)="exporter.exportTable('xlsx', {fileName: this.tituloListado + ' ' + this.getDate(), sheet: 'UTN FRA', Props: {Author: 'UTN FRA'}})">
             <mat-icon svgIcon="archivo_excel"></mat-icon>a Excel...
           </button>
           <button mat-menu-item (click)="crearPDF()">
@@ -85,6 +85,3 @@
     </mat-card>
   
   </div>
-
-  <h2>sadasdas</h2> 
-  <h2>{{this.datos | json}}</h2>

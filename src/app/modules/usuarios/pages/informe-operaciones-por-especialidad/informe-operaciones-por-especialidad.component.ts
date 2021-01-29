@@ -31,6 +31,8 @@ export class InformeOperacionesPorEspecialidadComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.traerDatos();
+
     this.authService.datosUsuario.subscribe(datosUsuario => {
       let usuario = datosUsuario as firebase.User;
       this.usuarioDataService.TraerUsuarioPorId(usuario?.uid).subscribe(datosUsuario => {
@@ -38,14 +40,13 @@ export class InformeOperacionesPorEspecialidadComponent implements OnInit {
       });
     })
 
+
   }
 
   traerDatos() {
     
     this.turnoDataService.traerTodasLosTurnos().subscribe(todosLosTurnos => {
-      
-      let auxDatos: DatosGrafico[] = [];
-
+      this.datosInforme = [];
       this.especialidadesDataService.traerTodasLasEspecialidades().subscribe(todasLasEspecialidades => {
 
         todasLasEspecialidades.forEach(unaEspecialidad => {
@@ -55,11 +56,12 @@ export class InformeOperacionesPorEspecialidadComponent implements OnInit {
             y: todosLosTurnos.filter(unTurno => unTurno.especialidadProfesional == unaEspecialidad.nombreEspecialidad && unTurno.estadoTurno != EstadoTurno.Cancelado && unTurno.estadoTurno != EstadoTurno.Suspendido).length
           }
 
-          auxDatos.push(unDato);
+          this.datosInforme.push(unDato);
 
         });
 
-        this.datosInforme = auxDatos;
+        this.datosInforme = this.datosInforme.filter(unDato => unDato.y > 0);
+        this.listado.cargarDatos(this.datosInforme);
 
       })
     });

@@ -23,7 +23,7 @@ export class InformeProfesionalesPorTurnosComponent implements OnInit {
   datosUsuarioActual;
   datosInforme: DatosGrafico[] = [{name: 'sin datos', y:0}];
 
-  tituloInforme: string = 'Turnos por día';
+  tituloInforme: string = 'Profesionales por turnos';
   ocultarDatosCero: boolean = true;
 
   @ViewChild('listado') listado: ListadoProfesionalesPorTurnosComponent;
@@ -32,8 +32,7 @@ export class InformeProfesionalesPorTurnosComponent implements OnInit {
   constructor(
     private usuarioDataService: UsuarioDataService,
     private authService: AuthService,
-    private turnoDataService: TurnosDataService,
-    private especialidadesDataService: EspecialidadesDataService) { }
+    private turnoDataService: TurnosDataService) { }
 
   ngOnInit(): void {
 
@@ -53,38 +52,20 @@ export class InformeProfesionalesPorTurnosComponent implements OnInit {
     this.traerDatos();
   }
 
-  // traerDatos() {
-    
-  //   this.turnoDataService.traerTodasLosTurnos().subscribe(todosLosTurnos => {
-    
-
-  //     this.usuarioDataService.TraerTodosLosUsuariosPorRol(Rol.Profesional).subscribe(todosLosProfesionales => {
-        
-  //       todosLosProfesionales.forEach(unProfesional => {
-  //         this.datosInforme.push({name: 'asasd', y: 100});
-  //       });
-
-  //     });
-
-
-  //   });
-
-    
-  // }
-
   traerDatos() {
-
       this.turnoDataService.traerTodasLosTurnos().subscribe(todosLosTurnos => {
-
         this.usuarioDataService.TraerTodosLosUsuariosPorRol(Rol.Profesional).subscribe(todosLosProfesionales => {
           this.datosInforme = [];
           todosLosProfesionales.forEach(unProfesional => {
             this.datosInforme.push({name: unProfesional.displayName, y: this.calcularTurnosPorProfesional(todosLosTurnos, unProfesional.idUsuario)});
           });
+
+          if (this.ocultarDatosCero) {
+            this.datosInforme = this.datosInforme.filter(unDato => unDato.y > 0);
+          }
+
       });
     });
-
-      //this.listado.cargarDatos(this.datosInforme);
   }
 
   calcularTurnosPorProfesional(todosLosTurnos: Turno[], idProfesional: string): number 
