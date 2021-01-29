@@ -12,6 +12,7 @@ export class GestionTurnosProfesionalComponent implements OnInit {
 
   datosUsuarioActual;
 
+
   constructor(private usuarioDataService: UsuarioDataService, private authService: AuthService) {}
 
   ngOnInit(): void {
@@ -20,7 +21,10 @@ export class GestionTurnosProfesionalComponent implements OnInit {
       this.usuarioDataService.TraerUsuarioPorId(usuario?.uid).subscribe(datosUsuario => {
       this.datosUsuarioActual = datosUsuario;
       });
-    })
+    });
+
+    const idiomaSeleccionado = localStorage.getItem('idioma') || 'ar';
+
   }
 
 }

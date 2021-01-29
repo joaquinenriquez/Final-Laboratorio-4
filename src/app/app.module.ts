@@ -1,3 +1,4 @@
+
 import { SharedModule } from './modules/shared/shared.module';
 import { CoreModule } from './modules/core/core.module';
 
@@ -19,9 +20,23 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 // Esto es 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
+// Traducciones
+// import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 
-registerLocaleData(localeEs, 'es-AR');  
+registerLocaleData(localeEs, 'es-AR');
+
+// Traducciones
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
+
+export function HttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient);
+}
+
+
 
 @NgModule({
   declarations: [
@@ -36,9 +51,16 @@ registerLocaleData(localeEs, 'es-AR');
     EspecialidadesModule,
     AppRoutingModule,
     FlexLayoutModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
-  providers: [ { provide: LOCALE_ID, useValue: 'es-AR'}, {provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [{ provide: LOCALE_ID, useValue: 'es-AR' }, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

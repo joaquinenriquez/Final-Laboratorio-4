@@ -22,6 +22,7 @@ import { SiNoPipe } from './pipes/si-no.pipe';
 import { DatosProfesionalBarComponent } from './components/datos-profesional-bar/datos-profesional-bar.component';
 import { DatosAdminBarComponent } from './components/datos-admin-bar/datos-admin-bar.component';
 import { MiCaptchaComponent } from './mi-captcha/mi-captcha.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { MiCaptchaComponent } from './mi-captcha/mi-captcha.component';
     ReactiveFormsModule,
     NgxMatSelectSearchModule,
     FlexLayoutModule,
-    FormsModule
+    FormsModule,
+    TranslateModule
   ],
 
   providers: [AuthService],

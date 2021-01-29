@@ -20,8 +20,7 @@
             mat-button>ESPECIALIDADES</button></a>
 
     <a routerLink="/gestion-turnos" routerLinkActive="active"
-        *ngIf="(auth.datosUsuario | async) && (datosUsuarioActual?.rol == Roles.Profesional)"><button mat-button>GESTIÓN
-            DE TURNOS</button></a>
+        *ngIf="(auth.datosUsuario | async) && (datosUsuarioActual?.rol == Roles.Profesional)"><button mat-button>{{'GESTIÓN DE TURNOS' | translate}}</button></a>
 
     <a routerLink="/busquedas" routerLinkActive="active"
         *ngIf="(auth.datosUsuario | async ) && (datosUsuarioActual?.rol == Roles.Administrador || datosUsuarioActual?.rol == Roles.Profesional)"><button
@@ -36,7 +35,8 @@
         <button mat-menu-item routerLink="/informe-operaciones-por-especialidad">Operaciones por especialidad</button>
         <button mat-menu-item routerLink="/informe-turnos-por-dia-semana">Turnos por dia de la semana</button>
         <button mat-menu-item routerLink="/informe-profesionales-por-turnos">Profesionales por turnos</button>
-        <button mat-menu-item routerLink="/informe-profesionales-por-dias-trabajados">Profesionales por días trabajados</button>
+        <button mat-menu-item routerLink="/informe-profesionales-por-dias-trabajados">Profesionales por días
+            trabajados</button>
     </mat-menu>
 
 
@@ -51,6 +51,15 @@
     <a routerLink="/login" routerLinkActive="active" *ngIf="!(this.auth.datosUsuario | async)"><button
             mat-button>Login</button></a>
 
+
+
+
+    <!-- <button mat-button [matMenuTriggerFor]="menu"><mat-icon svgIcon="bandera_argentina"></mat-icon>Español</button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item><mat-icon svgIcon="bandera_ingles"></mat-icon>Ingles</button>
+        <button mat-menu-item><mat-icon svgIcon="bandera_ingles">/button>
+    </mat-menu> -->
+
     <a *ngIf="(auth.datosUsuario | async)">
         <button mat-button [matMenuTriggerFor]="menu">
             <span class="nombre-usuario">{{this.datosUsuarioActual?.displayName}}</span>
@@ -58,6 +67,8 @@
             <img *ngIf="datosUsuarioActual?.imagen1" [src]="datosUsuarioActual?.imagen1" />
         </button>
     </a>
+
+
 
     <mat-menu #menu="matMenu">
 
@@ -72,6 +83,12 @@
         </button>
     </mat-menu>
 
+        <button mat-icon-button [matMenuTriggerFor]="menuIdiomas"><mat-icon [svgIcon]="this.idiomaSeleccionado"></mat-icon></button>
+        <mat-menu #menuIdiomas="matMenu">
+          <button mat-menu-item (click)="cambiarIdioma('en')" *ngIf="idiomaSeleccionado != 'en'"><mat-icon svgIcon="en"></mat-icon>English</button>
+          <button mat-menu-item (click)="cambiarIdioma('br')" *ngIf="idiomaSeleccionado != 'br'"><mat-icon svgIcon="br"></mat-icon>Português</button>
+          <button mat-menu-item (click)="cambiarIdioma('ar')" *ngIf="idiomaSeleccionado != 'ar'"><mat-icon svgIcon="ar"></mat-icon>Español</button>
+        </mat-menu>
 
 
     <!-- <a mat-icon-button routerLink="active"><mat-icon *ngIf="!avatar">account_circle</mat-icon><img *ngIf="avatar" [src]="avatar"/><span>Nombre Usuario</span></a> -->

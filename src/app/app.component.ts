@@ -8,5 +8,8 @@ import { slideInAnimation } from './route-animation';
   animations: [ slideInAnimation ]
 })
 export class AppComponent {
+  
   title = 'ClinicaOnline';
+
+
 }
