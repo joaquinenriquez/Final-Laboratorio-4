@@ -1,3 +1,7 @@
+import { InformeProfesionalesPorDiasTrabajadosComponent } from './pages/informe-profesionales-por-dias-trabajados/informe-profesionales-por-dias-trabajados.component';
+import { InformeProfesionalesPorTurnosComponent } from './pages/informe-profesionales-por-turnos/informe-profesionales-por-turnos.component';
+import { InformeTurnosPorDiaSemanaComponent } from './pages/informe-turnos-por-dia-semana/informe-turnos-por-dia-semana.component';
+import { InformeOperacionesPorEspecialidadComponent } from './pages/informe-operaciones-por-especialidad/informe-operaciones-por-especialidad.component';
 import { InformeInicioSesionComponent } from './pages/informe-inicio-sesion/informe-inicio-sesion.component';
 import { BusquedasComponent } from './pages/busquedas/busquedas.component';
 import { ListadoEspecialidadesComponent } from './../especialidades/components/listado-especialidades/listado-especialidades.component';
@@ -36,6 +40,10 @@ const routes: Routes = [
       { path: 'atender-turno/:id', component: AtenderTurnoComponent, canActivate: [VerificarLoginGuard]},
       { path: 'home', component: HomeComponent, canActivate: [VerificarLoginGuard]},
       { path: 'informe-inicio-sesion', component: InformeInicioSesionComponent, canActivate: [VerificarLoginGuard]},
+      { path: 'informe-operaciones-por-especialidad', component: InformeOperacionesPorEspecialidadComponent, canActivate: [VerificarLoginGuard]},
+      { path: 'informe-turnos-por-dia-semana', component: InformeTurnosPorDiaSemanaComponent, canActivate: [VerificarLoginGuard]},
+      { path: 'informe-profesionales-por-turnos', component: InformeProfesionalesPorTurnosComponent, canActivate: [VerificarLoginGuard]},
+      { path: 'informe-profesionales-por-dias-trabajados', component: InformeProfesionalesPorDiasTrabajadosComponent, canActivate: [VerificarLoginGuard]},
       { path: '', component: HomeComponent, canActivate: [VerificarLoginGuard]},
       { path: '**', redirectTo: '', pathMatch: 'full', canActivate: [VerificarLoginGuard]} 
     ]

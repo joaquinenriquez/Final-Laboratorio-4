@@ -27,9 +27,17 @@
         *ngIf="(auth.datosUsuario | async ) && (datosUsuarioActual?.rol == Roles.Administrador || datosUsuarioActual?.rol == Roles.Profesional)"><button
             mat-button>BÚSQUEDAS</button></a>
 
-    <a routerLink="/informe-inicio-sesion" routerLinkActive="active"
+    <a routerLinkActive="active"
         *ngIf="(auth.datosUsuario | async ) && (datosUsuarioActual?.rol == Roles.Administrador || datosUsuarioActual?.rol == Roles.Profesional)"><button
-            mat-button>INFORMES</button></a>
+            mat-button [matMenuTriggerFor]="menuInformes">INFORMES</button></a>
+
+    <mat-menu #menuInformes="matMenu">
+        <button mat-menu-item routerLink="/informe-inicio-sesion">Inicios de sesión</button>
+        <button mat-menu-item routerLink="/informe-operaciones-por-especialidad">Operaciones por especialidad</button>
+        <button mat-menu-item routerLink="/informe-turnos-por-dia-semana">Turnos por dia de la semana</button>
+        <button mat-menu-item routerLink="/informe-profesionales-por-turnos">Profesionales por turnos</button>
+        <button mat-menu-item routerLink="/informe-profesionales-por-dias-trabajados">Profesionales por días trabajados</button>
+    </mat-menu>
 
 
     <span class="fill-remaining-space"></span>

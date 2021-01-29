@@ -13,7 +13,7 @@ import { VisualizarEncuestaUsuarioDialogComponent } from "../../pages/visualizar
 import { LogDataService } from "../../services/log.service";
 import { FormControl, FormGroup } from '@angular/forms';
 
-import jspdf  from 'jspdf';
+import jspdf from 'jspdf';
 import 'jspdf-autotable';
 import { DatePipe } from '@angular/common';
 import { MatIconRegistry } from '@angular/material/icon';
@@ -29,7 +29,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class ListadoInicioSesionComponent implements OnInit {
 
-  displayedColumns: string[] =  ['fechaLog', 'horaLog', 'emailUsuario', 'rolUsuario', 'nombreUsuario', 'tipoAccion'];
+  /* #region  Atributos */
+
+  displayedColumns: string[] = ['fechaLog', 'horaLog', 'emailUsuario', 'rolUsuario', 'nombreUsuario', 'tipoAccion'];
   dataSource: MatTableDataSource<Log>;
 
   dtPerido: FormGroup;
@@ -39,36 +41,106 @@ export class ListadoInicioSesionComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
 
+  /* #endregion */
+
+
   constructor(private logDataService: LogDataService,
     private toastManager: MatSnackBar,
-    private authService: AuthService, 
+    private authService: AuthService,
     private dialog: MatDialog,
     private router: Router,
     private datePipe: DatePipe,
     private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer) { 
+    private domSanitizer: DomSanitizer) {
 
-      this.agregarIconos();
+    this.agregarIconos();
 
-      this.fechaMaximaFiltro.setDate(this.fechaMaximaFiltro.getDate() + 1)
+    this.dtPerido = new FormGroup({
+      fechaInicio: new FormControl(),
+      fechaFin: new FormControl()
+    });
 
-      this.dtPerido = new FormGroup({
-        fechaInicio: new FormControl(),
-        fechaFin: new FormControl()
-      });
-  
+  }
 
-    }
 
   ngOnInit(): void { }
 
+  ngAfterViewInit() {
+    this.traerLogs();
+  }
+
+  agregarIconos() {
+    console.log(this.matIconRegistry.addSvgIcon(`archivo_pdf`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-pdf.svg")));
+    console.log(this.matIconRegistry.addSvgIcon(`archivo_excel`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-type-excel.svg")));
+  }
+
+  traerLogs() {
+    this.logDataService.traerTodosLosLogs().subscribe(todosLosLogs => {
+      this.dataSource = new MatTableDataSource(todosLosLogs);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+  }
+
+
+  filtrarPorFecha() {
+
+    let fechaInicio = this.dtPerido.controls["fechaInicio"].value;
+    let fechaFin = this.dtPerido.controls["fechaFin"].value;
+
+    this.dataSource.filterPredicate = (data, filter) => {
+      if (fechaInicio && fechaFin) {
+        return data.fechaLog.toDate().setHours(0, 0, 0, 0) >= fechaInicio && data.fechaLog.toDate().setHours(0, 0, 0, 0) <= fechaFin;
+      }
+      return true;
+    }
+
+    this.dataSource.filter = '' + Math.random();
+
+  }
+
+
+  mostrarToast(mensaje: string, duracion: number) {
+    this.toastManager.open(mensaje, '', { duration: duracion, panelClass: ['toast-confirmado'] })
+  }
+
+
+  applyFilter(event: Event) {
+
+    // Volvemos el filterPredicate al por Default
+    this.dataSource.filterPredicate = (data, filter) => {
+      const dataStr = Object.keys(data).reduce((currentTerm, key) => {
+        return currentTerm + data[key] + '◬';
+      }, '').toLowerCase();
+      const transformedFilter = filter.trim().toLowerCase();
+      return dataStr.indexOf(transformedFilter) != -1;
+
+    };
+
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+
+  }
+
+  limpiarFiltros() {
+    this.dtPerido.controls["fechaInicio"].setValue(null);
+    this.dtPerido.controls["fechaFin"].setValue(null);
+    this.filtrarPorFecha();
+  }
+
+
+  /* #region  Exportar */
 
   crearPDF() {
     var doc = new jspdf();
     let columnas = ['Fecha', 'Hora', 'Email', 'Rol', 'Usuario', 'Acción'];
 
     let posicionX = this.getCentroHorizontalPDF(18, 'Informe de inicios de sesión', doc);
-    
+
     doc.setFontSize(18);
     doc.text(`Informe de inicio de sesión`, posicionX, 15);
 
@@ -83,7 +155,7 @@ export class ListadoInicioSesionComponent implements OnInit {
 
     (doc as any).autoTable({
       head: [columnas],
-      body: this.convertirDatosEnArray(),    
+      body: this.convertirDatosEnArray(),
       theme: 'striped',
       startY: 28,
       showHead: 'everyPage',
@@ -96,8 +168,8 @@ export class ListadoInicioSesionComponent implements OnInit {
 
     // Open PDF document in new tab
     doc.output('dataurlnewwindow')
-  
 
+    this.mostrarToast("Se generó el archivo PDF correctamente...", 300);
 
     // Download PDF document  
     //doc.save('table.pdf');
@@ -105,12 +177,7 @@ export class ListadoInicioSesionComponent implements OnInit {
 
   getCentroHorizontalPDF(fontSize: number, texto: string, documento: jspdf): number {
     let textWidth = documento.getStringUnitWidth(texto) * fontSize / documento.internal.scaleFactor;
-    return  (documento.internal.pageSize.width - textWidth) / 2;
-  }
-
-  agregarIconos() {
-    console.log(this.matIconRegistry.addSvgIcon(`archivo_pdf`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-pdf.svg")));
-    console.log(this.matIconRegistry.addSvgIcon(`archivo_excel`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-type-excel.svg")));
+    return (documento.internal.pageSize.width - textWidth) / 2;
   }
 
   agregarFooterAlPDF(documento: jspdf) {
@@ -120,28 +187,17 @@ export class ListadoInicioSesionComponent implements OnInit {
     documento.setFontSize(12);
 
     let fechaActual = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
-    
+
 
     for (var i = 1; i <= pageCount; i++) {
       documento.setPage(i)
 
       let texto = `${fechaActual} - Página ${i} de ${pageCount}`;
-      documento.text(texto, documento.internal.pageSize.width / 2, 287, {align: 'center'});
+      documento.text(texto, documento.internal.pageSize.width / 2, 287, { align: 'center' });
     }
   }
 
-
-
-  
-  
-
-  ngAfterViewInit() {
-    this.traerLogs();
-  }
-
-
-  convertirDatosEnArray(): Array<[]>  
-  {
+  convertirDatosEnArray(): Array<[]> {
     let arrayLogs = [];
     this.dataSource.filteredData.forEach(unLog => {
       let unLogArray = new Array;
@@ -157,104 +213,14 @@ export class ListadoInicioSesionComponent implements OnInit {
     return arrayLogs;
   }
 
-  filtrarPorFecha() {
-
-    let fechaInicio = this.dtPerido.controls["fechaInicio"].value;
-    let fechaFin = this.dtPerido.controls["fechaFin"].value;
-
-    this.dataSource.filterPredicate = (data, filter) =>{
-      if (fechaInicio && fechaFin) {
-        return data.fechaLog.toDate().setHours(0,0,0,0) >= fechaInicio && data.fechaLog.toDate().setHours(0,0,0,0) <= fechaFin;
-      }
-      return true;
-    }
-
-    this.dataSource.filter = ''+Math.random();
-
+  getDate() {
+    return this.datePipe.transform(new Date, "yyyy-MM-dd hh:mm:ss");
   }
 
 
-  mostrarToast(mensaje: string, duracion: number) {
-    this.toastManager.open(mensaje, '', { duration: duracion, panelClass: ['toast-confirmado'] })
-  }
+  /* #endregion */
 
 
-  applyFilter(event: Event) {
-    
-    this.dataSource.filterPredicate = (data, filter) => {
-      // Transform the data into a lowercase string of all property values.
-      const dataStr = Object.keys(data).reduce((currentTerm, key) => {
-          // Use an obscure Unicode character to delimit the words in the concatenated string.
-          // This avoids matches where the values of two columns combined will match the user's query
-          // (e.g. `Flute` and `Stop` will match `Test`). The character is intended to be something
-          // that has a very low chance of being typed in by somebody in a text field. This one in
-          // particular is "White up-pointing triangle with dot" from
-          // https://en.wikipedia.org/wiki/List_of_Unicode_characters
-          return currentTerm + data[key] + '◬';
-      }, '').toLowerCase();
-      // Transform the filter by converting it to lowercase and removing whitespace.
-      const transformedFilter = filter.trim().toLowerCase();
-      return dataStr.indexOf(transformedFilter) != -1;
-  };
-    
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
-
-
-
-  modificarDuracionTurno(turno: Turno): void {
-
-    const dialogoReg = this.dialog.open(ModificarDuracionTurnoDialogComponent,
-      {
-        width: '400px',
-        data: turno
-      });
-
-    dialogoReg.afterClosed().subscribe(resultadoDialogo => {
-
-      if (resultadoDialogo != undefined) {
-        turno.duracionEstimada = resultadoDialogo;
-        this.mostrarToast('Se cambió la duración del turno', 2000);
-      }
-
-    });
-
-  }
-
-  verEncuesta(turno: Turno): void {
-
-    const dialogoReg = this.dialog.open(VisualizarEncuestaUsuarioDialogComponent,
-      {
-        width: '600px',
-        height: 'auto',
-        data: turno
-      });
-
-    dialogoReg.afterClosed().subscribe(resultadoDialogo => {
-
-
-
-    });
-
-  }
-
-
-
-
-
-  traerLogs() {
-    this.logDataService.traerTodosLosLogs().subscribe(todosLosLogs =>  {
-      this.dataSource = new MatTableDataSource(todosLosLogs);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });
-  }
 
 }
 

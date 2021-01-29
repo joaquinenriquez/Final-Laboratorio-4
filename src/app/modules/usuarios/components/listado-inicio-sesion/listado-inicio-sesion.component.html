@@ -16,11 +16,9 @@
           </div>
 
 
+          <div fxFlex=40% fxLayout="row" fxLayoutAlign="flex-end center">
 
-
-          <div fxFlex=30% fxLayout="row" fxLayoutGap="10px" fxFlexFill fxLayoutAlign="flex-end center">
-
-            <div>
+            <div fxFlexAlign="end">
               <mat-form-field class="example-form-field" appearance="outline">
                 <mat-label>Período</mat-label>
                 <mat-date-range-input [formGroup]="dtPerido" [rangePicker]="campaignOnePicker"
@@ -34,9 +32,14 @@
             </div>
 
 
-            <div fxFlex="20%" fxFlexAlign="flex-end center">
-              <button color="primary" appearance="outline" mat-stroked-button
-                (click)="filtrarPorFecha()">Filtrar</button>
+            <div fxFlex="30%" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end">
+              <button color="primary" appearance="outline" mat-stroked-button (click)="filtrarPorFecha()">
+                <mat-icon>filter_alt</mat-icon>Filtrar
+              </button>
+              <button color="primary" appearance="outline" mat-stroked-button (click)="limpiarFiltros()"
+                [disabled]="this.dtPerido.controls['fechaInicio'].value == null && this.dtPerido.controls['fechaFin'].value == null">
+                <mat-icon>close</mat-icon>Limpiar Filtros
+              </button>
             </div>
 
           </div>
@@ -47,7 +50,8 @@
 
         <div class="mat-elevation-z8">
 
-          <table mat-table [dataSource]="dataSource" matSort>
+
+          <table mat-table [dataSource]="dataSource" matTableExporter #exporter="matTableExporter" matSort>
 
             <ng-container matColumnDef="fechaLog">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
@@ -92,11 +96,13 @@
 
             <!-- Row shown when there is no matching data. -->
             <tr class="mat-row" *matNoDataRow>
-              <td *ngIf="input?.value?.length > 0 && dataSource.data?.length > 0" class="mat-cell"
-                [attr.colspan]="displayedColumns?.length">No existe resultados para "{{input.value}}"</td>
+              <td
+                *ngIf="(input?.value?.length > 0 || (this.dtPerido.controls['fechaInicio'].value != null || this.dtPerido.controls['fechaFin'].value != null)) && dataSource.data?.length > 0"
+                class="mat-cell" [attr.colspan]="displayedColumns?.length">No existe resultados para "{{input.value}}"
+              </td>
               <td class="mat-cell sin-datos" *ngIf="dataSource.data?.length == 0"
                 [attr.colspan]="displayedColumns?.length">
-                <mat-icon class="icono">insert_emoticon</mat-icon>No tenés turnos en este estado
+                <mat-icon class="icono">insert_emoticon</mat-icon>No tenés registros de log
               </td>
             </tr>
 
@@ -111,17 +117,16 @@
     </mat-card-content>
 
     <div>
-      <!-- <button mat-stroked-button color="primary" mat-button [matMenuTriggerFor]="menuExportar"><mat-icon style="padding:8px;">mi_pdf</mat-icon>Exportar...</button>
-      <mat-menu #menuExportar="matMenu">
-        <button mat-menu-item>a PDF <mat-icon>mi_pdf</mat-icon></button>
-        <button mat-menu-item>Item 2</button>
-      </mat-menu> -->
-      <button mat-stroked-button color="primary" mat-button [matMenuTriggerFor]="menu"><mat-icon class="icono-boton">cloud_download</mat-icon>Exportar...</button>
+
+      <button mat-stroked-button color="primary" mat-button [matMenuTriggerFor]="menu">
+        <mat-icon class="icono-boton">cloud_download</mat-icon>Exportar...
+      </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item
+          (click)="exporter.exportTable('xlsx', {fileName:'Inicios de sesion ' + this.getDate(), sheet: 'UTN FRA', Props: {Author: 'UTN FRA'}})">
           <mat-icon svgIcon="archivo_excel"></mat-icon>a Excel...
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="crearPDF()">
           <mat-icon svgIcon="archivo_pdf"></mat-icon>a PDF...
         </button>
       </mat-menu>

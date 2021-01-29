@@ -1,3 +1,4 @@
+import { GraficosModule } from './../graficos/graficos.module';
 import { TurnosModule } from './../turnos/turnos.module';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from './../shared/shared.module';
@@ -41,13 +42,31 @@ import { BusquedasComponent } from './pages/busquedas/busquedas.component';
 import { ListadoInicioSesionComponent } from './components/listado-inicio-sesion/listado-inicio-sesion.component';
 import { InformeInicioSesionComponent } from './pages/informe-inicio-sesion/informe-inicio-sesion.component';
 
+
 // Pipes
 import { DatePipe } from '@angular/common';
 
 import { HttpClientModule } from "@angular/common/http";
+import { InformeOperacionesPorEspecialidadComponent } from './pages/informe-operaciones-por-especialidad/informe-operaciones-por-especialidad.component';
+import { ListadoOperacionesPorEspecialidadComponent } from './components/listado-operaciones-por-especialidad/listado-operaciones-por-especialidad.component';
+
+// Gráficos
+import { HighchartsChartModule } from 'highcharts-angular';
+
+// Exportar a Excel y otros formatos
+import { MatTableExporterModule } from 'mat-table-exporter';
+import { WidgetOperacionesPorEspecialidadComponent } from './components/widget-operaciones-por-especialidad/widget-operaciones-por-especialidad.component';
+import { InformeTurnosPorDiaSemanaComponent } from './pages/informe-turnos-por-dia-semana/informe-turnos-por-dia-semana.component';
+import { InformeProfesionalesPorTurnosComponent } from './pages/informe-profesionales-por-turnos/informe-profesionales-por-turnos.component';
+import { InformeProfesionalesPorDiasTrabajadosComponent } from './pages/informe-profesionales-por-dias-trabajados/informe-profesionales-por-dias-trabajados.component';
+import { ListadoProfesionalesPorDiasTrabajadosComponent } from './components/listado-profesionales-por-dias-trabajados/listado-profesionales-por-dias-trabajados.component';
+import { ListadoProfesionalesPorEspecialidadComponent } from './components/listado-profesionales-por-especialidad/listado-profesionales-por-especialidad.component';
+import { ListadoTurnosPorDiaSemanaComponent } from './components/listado-turnos-por-dia-semana/listado-turnos-por-dia-semana.component';
+import { ListadoProfesionalesPorTurnosComponent } from './components/listado-profesionales-por-turnos/listado-profesionales-por-turnos.component';
+
 
 @NgModule({
-  declarations: [LoginComponent, RegistroPacienteComponent, RegistroProfesionalComponent, ConfirmacionRegistroComponent, HomeUsuarioComponent, MisTurnosComponent, GestionTurnosProfesionalComponent, GestionUsuariosComponent, ListadoUsuariosComponent, ListadoHorariosProfesionalesComponent, CambiarEstadoUsuarioDialogComponent, NuevoUsuarioAdminDialogComponent, SolicitarTurnoComponent, AtenderTurnoComponent, EncuestaUsuarioComponent, EncuestaUsuarioDialogComponent, VisualizarEncuestaUsuarioDialogComponent, EncuestaProfesionalDialogComponent, VisualizarResenaUsuarioDialogComponent, BusquedasComponent, ListadoInicioSesionComponent, InformeInicioSesionComponent],
+  declarations: [LoginComponent, RegistroPacienteComponent, RegistroProfesionalComponent, ConfirmacionRegistroComponent, HomeUsuarioComponent, MisTurnosComponent, GestionTurnosProfesionalComponent, GestionUsuariosComponent, ListadoUsuariosComponent, ListadoHorariosProfesionalesComponent, CambiarEstadoUsuarioDialogComponent, NuevoUsuarioAdminDialogComponent, SolicitarTurnoComponent, AtenderTurnoComponent, EncuestaUsuarioComponent, EncuestaUsuarioDialogComponent, VisualizarEncuestaUsuarioDialogComponent, EncuestaProfesionalDialogComponent, VisualizarResenaUsuarioDialogComponent, BusquedasComponent, ListadoInicioSesionComponent, InformeInicioSesionComponent, InformeOperacionesPorEspecialidadComponent, ListadoOperacionesPorEspecialidadComponent, WidgetOperacionesPorEspecialidadComponent, InformeTurnosPorDiaSemanaComponent, InformeProfesionalesPorTurnosComponent, InformeProfesionalesPorDiasTrabajadosComponent, ListadoProfesionalesPorDiasTrabajadosComponent, ListadoProfesionalesPorEspecialidadComponent, ListadoTurnosPorDiaSemanaComponent, ListadoProfesionalesPorTurnosComponent],
   
   imports: [
     CommonModule,
@@ -61,7 +80,10 @@ import { HttpClientModule } from "@angular/common/http";
     RecaptchaModule,
     TurnosModule,
     RecaptchaFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableExporterModule,
+    HighchartsChartModule,
+    GraficosModule
 
     
   ],

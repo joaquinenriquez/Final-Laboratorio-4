@@ -1,0 +1,17 @@
+<div class="container" fxLayout="column" fxFlexFill>
+
+    <app-datos-profesional-bar [usuario]="this.datosUsuarioActual"></app-datos-profesional-bar>
+
+    <div fxFlex style="margin-bottom: 20px;" fxLayout="row" fxLayoutGap="20px">
+
+        <div fxFlex="50%">
+            <app-listado-operaciones-por-especialidad #listado></app-listado-operaciones-por-especialidad>
+        </div>
+
+        <div fxFlex="50%">
+            <app-widget-tarta #widget [datos]="datosInforme" [tituloGrafico]="this.tituloInforme"></app-widget-tarta>
+        </div>
+        
+    </div>
+
+</div>
