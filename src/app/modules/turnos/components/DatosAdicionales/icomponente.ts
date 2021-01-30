@@ -6,4 +6,4 @@ export interface IComponente {
     valor?: any;
 }
 
-export enum TipoComponente {Texto = 0, CasillaVerificacion = 1, Numerico = 2}
+export enum TipoComponente {Texto = 0, CasillaVerificacion = 1, Numerico = 2, Rango = 3}

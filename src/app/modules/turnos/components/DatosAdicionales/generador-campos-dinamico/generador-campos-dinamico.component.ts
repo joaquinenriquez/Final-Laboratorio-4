@@ -4,6 +4,7 @@ import { IComponente } from './../icomponente';
 import { TextoComponent } from './../texto/texto.component';
 import { Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { PlaceholderDirective } from '../../../directives/placeholder.directive';
+import { RangoComponent } from '../rango/rango.component';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class GeneradorCamposDinamicoComponent implements OnInit {
 
   @Output() changeEmit: EventEmitter<string> = new EventEmitter<string>();
   /**An array where we register what component we want to load */
-  components = [TextoComponent, CasillaVerificacionComponent, TextoNumericoComponent];
+  components = [TextoComponent, CasillaVerificacionComponent, TextoNumericoComponent, RangoComponent];
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {}
 

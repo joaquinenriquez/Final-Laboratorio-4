@@ -1,0 +1,18 @@
+<div class="container">
+
+    
+        <mat-label style="margin-right: 20px;">{{this.titulo}}</mat-label>
+        <mat-slider
+            class="example-margin"
+            [max]="100"
+            [min]="0"
+            [step]="1"
+            thumbLabel 
+            tickInterval="1"
+            [(ngModel)]="valor"
+            (change)="cambioValor()">
+        </mat-slider>
+    
+
+    
+</div>

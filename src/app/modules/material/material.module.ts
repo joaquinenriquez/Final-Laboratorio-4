@@ -29,6 +29,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSliderModule } from '@angular/material/slider';
 
 
 import {TableVirtualScrollModule} from 'ng-table-virtual-scroll';
@@ -67,7 +68,7 @@ const modulosMaterial = [
   MatMenuModule,
   MatSlideToggleModule,
   MatTooltipModule,
-
+  MatSliderModule,
   
   SelectAutocompleteModule
   

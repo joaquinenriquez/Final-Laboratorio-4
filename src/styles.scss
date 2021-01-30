@@ -21,3 +21,19 @@ html, body {
     margin: -24px !important;
     padding: -24px !important;
 }
+
+/* #region  Esto es para que los slider mantengan mostrando el valor */
+
+.mat-slider-thumb-label {
+    transform: rotate(45deg) !important;
+    border-radius: 50% 50% 0 !important;
+  }
+
+.mat-slider-thumb {
+    transform: scale(0) !important;
+}
+
+.mat-slider-thumb-label-text {
+    opacity: 1 !important;
+}
+/* #endregion */

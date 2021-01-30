@@ -100,6 +100,10 @@ export class AtenderTurnoComponent implements OnInit {
       case 2:
         tituloDialogo = "Tipo de dato numérico"
         break;
+
+      case 3:
+        tituloDialogo = "Rango"
+        break;
     }
 
 

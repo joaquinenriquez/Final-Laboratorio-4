@@ -24,11 +24,12 @@ import { CasillaVerificacionComponent } from './components/DatosAdicionales/casi
 import { TextoNumericoComponent } from './components/DatosAdicionales/texto-numerico/texto-numerico.component';
 import { DefinirTituloDialogComponent } from './components/DatosAdicionales/definir-titulo-dialog/definir-titulo-dialog.component';
 import { BuscadorComponent } from './components/buscador/buscador.component';
+import { RangoComponent } from './components/DatosAdicionales/rango/rango.component';
 
 
 
 @NgModule({
-  declarations: [SolicitarTurnoComponent, ListadoTurnosPacientesComponent, ListadoTurnosProfesionalesComponent, ModificarDuracionTurnoDialogComponent, SelectorDiasComponent, DiaLaboralPipe, SelectorHorariosComponent, TablaSeleccionProfesionalesComponent, TablaSeleccionEspecialidadesComponent, ConfirmacionSolicitudTurnoComponent, SelectorEspecialidadDialogComponent, DatosTurnosBarComponent, TextoComponent, GeneradorCamposDinamicoComponent, PlaceholderDirective, CasillaVerificacionComponent, TextoNumericoComponent, DefinirTituloDialogComponent, BuscadorComponent],
+  declarations: [SolicitarTurnoComponent, ListadoTurnosPacientesComponent, ListadoTurnosProfesionalesComponent, ModificarDuracionTurnoDialogComponent, SelectorDiasComponent, DiaLaboralPipe, SelectorHorariosComponent, TablaSeleccionProfesionalesComponent, TablaSeleccionEspecialidadesComponent, ConfirmacionSolicitudTurnoComponent, SelectorEspecialidadDialogComponent, DatosTurnosBarComponent, TextoComponent, GeneradorCamposDinamicoComponent, PlaceholderDirective, CasillaVerificacionComponent, TextoNumericoComponent, DefinirTituloDialogComponent, BuscadorComponent, RangoComponent],
   imports: [
     CommonModule,
     MaterialModule,
