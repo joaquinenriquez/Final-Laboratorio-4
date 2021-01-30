@@ -1,38 +1,4 @@
-<!-- <mat-card>
-    <mat-card-subtitle>No tengo alma de robot</mat-card-subtitle>
-    <div fxLayout fxLayoutGap="2%" class="container">
-
-        <div fxFlex>
-            <mat-form-field class="example-full-width">
-                <mat-label>Primer número</mat-label>
-                <input matInput [(ngModel)]="this.primerNumero">
-            </mat-form-field>
-        </div>
-
-        <div fxFlex>
-            <mat-form-field class="example-full-width">
-                <mat-label>Operación</mat-label>
-                <input matInput [(ngModel)]="this.segundoNumero">
-            </mat-form-field>
-        </div>
-
-        <div fxFlex>
-
-            <mat-form-field class="example-full-width">
-                <mat-label>Segundo Número</mat-label>
-                <input matInput>
-            </mat-form-field>
-
-        </div>
-
-    </div>
-
-
-
-</mat-card> -->
-
-<div>
-    <canvas #canvas width="130" height="50"></canvas>
-  
-    <input type="number" (input)="change(input.value)" #input>
-  </div>
+<div class="contenedor-captcha">
+    <canvas #canvas width="auto" height="150"></canvas>
+    <input class="txt-resultado" type="number" (input)="change(input.value)" #input>
+</div>

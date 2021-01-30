@@ -12,7 +12,7 @@
 
             <mat-card-content>
 
-                <form [formGroup]="formRegistro" (ngSubmit)="registrarConEmail(formRegistro.value)">
+                <form [formGroup]="formRegistro" (ngSubmit)="registrarConEmail(formRegistro.value)" #form="ngForm">
 
                     <p>
                         <mat-form-field class="datos-login">
@@ -107,6 +107,11 @@
                     <br>
                     <br>
 
+                    <app-mi-captcha formControlName="captcha"></app-mi-captcha>
+                    <div *ngIf="formRegistro.get('captcha').hasError('invalid') && form.submitted">
+                      Wrong answer...
+                    </div>
+
                     <p>
                         <button type="button" mat-raised-button color="primary" class="btn-login"
                             matStepperNext>Siguiente</button>
@@ -160,7 +165,7 @@
 
                 </div>
 
-                <!-- <app-mi-captcha></app-mi-captcha> -->
+
 
                 <br>
 

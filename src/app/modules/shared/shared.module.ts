@@ -23,10 +23,11 @@ import { DatosProfesionalBarComponent } from './components/datos-profesional-bar
 import { DatosAdminBarComponent } from './components/datos-admin-bar/datos-admin-bar.component';
 import { MiCaptchaComponent } from './mi-captcha/mi-captcha.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { CardComponent } from './components/card/card.component';
 
 
 @NgModule({
-  declarations: [ToolbarComponent, MultiSelectConBuscadorComponent, DatosUsuarioBarComponent, TablaComponent, ObtenerPropiedadPipePipe, CalificacionEstrellasComponent, SiNoPipe, DatosProfesionalBarComponent, DatosAdminBarComponent, MiCaptchaComponent],
+  declarations: [ToolbarComponent, MultiSelectConBuscadorComponent, DatosUsuarioBarComponent, TablaComponent, ObtenerPropiedadPipePipe, CalificacionEstrellasComponent, SiNoPipe, DatosProfesionalBarComponent, DatosAdminBarComponent, MiCaptchaComponent, CardComponent],
   imports: [
     CommonModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -41,7 +42,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
   providers: [AuthService],
 
-  exports: [ToolbarComponent, MultiSelectConBuscadorComponent, DatosUsuarioBarComponent, TablaComponent, CalificacionEstrellasComponent, SiNoPipe, DatosProfesionalBarComponent, DatosAdminBarComponent, MiCaptchaComponent]
+  exports: [ToolbarComponent, MultiSelectConBuscadorComponent, DatosUsuarioBarComponent, TablaComponent, CalificacionEstrellasComponent, SiNoPipe, DatosProfesionalBarComponent, DatosAdminBarComponent, MiCaptchaComponent, CardComponent]
 
 })
 export class SharedModule { }

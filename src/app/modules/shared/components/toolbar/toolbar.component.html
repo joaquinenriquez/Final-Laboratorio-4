@@ -32,11 +32,17 @@
 
     <mat-menu #menuInformes="matMenu">
         <button mat-menu-item routerLink="/informe-inicio-sesion">Inicios de sesión</button>
+        <mat-divider></mat-divider>
         <button mat-menu-item routerLink="/informe-operaciones-por-especialidad">Operaciones por especialidad</button>
         <button mat-menu-item routerLink="/informe-turnos-por-dia-semana">Turnos por dia de la semana</button>
+        <mat-divider></mat-divider>
         <button mat-menu-item routerLink="/informe-profesionales-por-turnos">Profesionales por turnos</button>
-        <button mat-menu-item routerLink="/informe-profesionales-por-dias-trabajados">Profesionales por días
-            trabajados</button>
+        <button mat-menu-item routerLink="/informe-profesionales-por-dias-trabajados">Profesionales por días trabajados</button>
+        <button mat-menu-item routerLink="/informe-profesionales-por-especialidad">Profesionales por especialidad</button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item routerLink="/informe-pacientes-por-especialidad">Pacientes por especialidad</button>
+        <button mat-menu-item routerLink="/informe-turnos-por-paciente">Turnos por pacientes</button>
+        <button mat-menu-item routerLink="/informe-detalle-respuestas-encuestas">Respuestas de encuestas</button>
     </mat-menu>
 
 
@@ -51,14 +57,6 @@
     <a routerLink="/login" routerLinkActive="active" *ngIf="!(this.auth.datosUsuario | async)"><button
             mat-button>Login</button></a>
 
-
-
-
-    <!-- <button mat-button [matMenuTriggerFor]="menu"><mat-icon svgIcon="bandera_argentina"></mat-icon>Español</button>
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item><mat-icon svgIcon="bandera_ingles"></mat-icon>Ingles</button>
-        <button mat-menu-item><mat-icon svgIcon="bandera_ingles">/button>
-    </mat-menu> -->
 
     <a *ngIf="(auth.datosUsuario | async)">
         <button mat-button [matMenuTriggerFor]="menu">

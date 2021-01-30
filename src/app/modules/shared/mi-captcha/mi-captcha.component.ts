@@ -1,5 +1,5 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl, NG_VALIDATORS } from '@angular/forms';
+import { Component, OnInit, ElementRef, ViewChild, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, Validator, AbstractControl, ValidationErrors, NG_VALIDATORS, FormControl } from "@angular/forms";
 
 @Component({
   selector: 'app-mi-captcha',
@@ -7,13 +7,19 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl, NG_VALIDATORS } f
   styleUrls: ['./mi-captcha.component.scss'],
   providers: [
     {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => MiCaptchaComponent),
+      multi: true,
+    },
+
+    {
       provide: NG_VALIDATORS,
-      useExisting: MiCaptchaComponent,
-      multi: true
+      useExisting: forwardRef(() => MiCaptchaComponent),
+      multi: true,
     }
   ]
 })
-export class MiCaptchaComponent implements ControlValueAccessor {
+export class MiCaptchaComponent implements OnInit, ControlValueAccessor {
 
   onChange;
   onTouched;
@@ -21,7 +27,7 @@ export class MiCaptchaComponent implements ControlValueAccessor {
   answer: number;
 
   ngOnInit() { this.createCaptcha(); }
-  
+
   writeValue(value) { }
 
   registerOnChange(fn) { this.onChange = fn; }
@@ -33,8 +39,16 @@ export class MiCaptchaComponent implements ControlValueAccessor {
     const [numOne, numTwo] = [random(), random()];
     this.answer = numOne + numTwo;
 
-    ctx.font = "30px Arial";
-    ctx.fillText(`${numOne} + ${numTwo} = `, 10, 35);
+
+    var img = new Image();
+    img.onload = function () {
+      ctx.drawImage(img, 5, 0, img.width / 2, img.height / 2);
+      ctx.font = "40px Arial";
+      ctx.fillText(`${numOne} + ${numTwo} = `, 160, 90);
+    }
+    img.src = "../assets/captcha.png";
+
+
   }
 
   change(value: string) {

@@ -1,3 +1,5 @@
+import { InformeDetalleRespuestasEncuestasComponent } from './pages/informe-detalle-respuestas-encuestas/informe-detalle-respuestas-encuestas.component';
+import { InformePacientesPorEspecialidadComponent } from './pages/informe-pacientes-por-especialidad/informe-pacientes-por-especialidad.component';
 import { InformeProfesionalesPorDiasTrabajadosComponent } from './pages/informe-profesionales-por-dias-trabajados/informe-profesionales-por-dias-trabajados.component';
 import { InformeProfesionalesPorTurnosComponent } from './pages/informe-profesionales-por-turnos/informe-profesionales-por-turnos.component';
 import { InformeTurnosPorDiaSemanaComponent } from './pages/informe-turnos-por-dia-semana/informe-turnos-por-dia-semana.component';
@@ -44,6 +46,8 @@ const routes: Routes = [
       { path: 'informe-turnos-por-dia-semana', component: InformeTurnosPorDiaSemanaComponent, canActivate: [VerificarLoginGuard]},
       { path: 'informe-profesionales-por-turnos', component: InformeProfesionalesPorTurnosComponent, canActivate: [VerificarLoginGuard]},
       { path: 'informe-profesionales-por-dias-trabajados', component: InformeProfesionalesPorDiasTrabajadosComponent, canActivate: [VerificarLoginGuard]},
+      { path: 'informe-pacientes-por-especialidad', component: InformePacientesPorEspecialidadComponent, canActivate: [VerificarLoginGuard]},
+      { path: 'informe-detalle-respuestas-encuestas', component: InformeDetalleRespuestasEncuestasComponent, canActivate: [VerificarLoginGuard]},
       { path: '', component: HomeComponent, canActivate: [VerificarLoginGuard]},
       { path: '**', redirectTo: '', pathMatch: 'full', canActivate: [VerificarLoginGuard]} 
     ]

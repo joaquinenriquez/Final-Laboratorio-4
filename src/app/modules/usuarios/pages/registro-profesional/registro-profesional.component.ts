@@ -22,6 +22,8 @@ import { EspecialidadesDataService } from 'src/app/modules/especialidades/servic
 })
 export class RegistroProfesionalComponent implements OnInit {
 
+  cardNumber = 0;
+
   largoMinPassword: number = environment.seguridad.minimoLargoPassword;
   ocultarPassword = true;
   @ViewChild('especialidadesControl') especialidadesControl: MultiSelectConBuscadorComponent;
@@ -39,6 +41,7 @@ export class RegistroProfesionalComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(this.largoMinPassword)]),
     nombre: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.\'-]+$')]),
     apellido: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.\'-]+$')]),
+    captcha: new FormControl()
   });
 
   constructor(private authService: AuthService,
@@ -49,7 +52,7 @@ export class RegistroProfesionalComponent implements OnInit {
   ngOnInit() {
     this.especialidadDataService.traerTodasLasEspecialidades().subscribe(datos => {
       this.espacialesString = datos.map(item => item['nombreEspecialidad']);
-      setTimeout( () => {this.especialidadesControl.cargarLista()}, 3);
+      // setTimeout( () => {this.especialidadesControl.cargarLista()}, 3); descomentar
     });
 
   }
@@ -96,9 +99,7 @@ export class RegistroProfesionalComponent implements OnInit {
     console.log('Guardar en DB', this.usuarioDataSvc.GuardarNuevoUsuario(nuevoUsuario));
   }
 
-  prueba() {
-    console.log(this.horariosTrabajo);
-  }
+
 
 }
 

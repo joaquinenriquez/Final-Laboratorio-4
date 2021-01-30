@@ -1,0 +1,23 @@
+<div fxLayout="column">
+
+    <app-datos-profesional-bar [usuario]="this.datosUsuarioActual"></app-datos-profesional-bar>
+
+    <div fxFlex style="margin-bottom: 20px;" fxLayout="row" fxLayoutGap="20px">
+
+        <div fxFlex="50%">
+            <app-listado-pacientes-por-especialidad [datos]="datosInforme" [tituloListado]="this.tituloInforme"></app-listado-pacientes-por-especialidad>
+            <br>
+            <mat-checkbox class="check-ocultar-valores-cero" [(ngModel)]="ocultarDatosCero" (change)="this.traerDatos()">Ocultar datos con valor 0 (cero)</mat-checkbox>
+            <br>
+            <br>
+            <mat-divider></mat-divider>
+        </div>
+
+        <div fxFlex="50%">
+            <app-widget-tarta [datos]="datosInforme" [tituloGrafico]="this.tituloInforme"></app-widget-tarta>
+        </div>
+        
+    </div>
+
+</div>
+

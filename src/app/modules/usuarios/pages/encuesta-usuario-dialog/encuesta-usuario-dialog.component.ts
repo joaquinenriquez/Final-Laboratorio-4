@@ -58,7 +58,6 @@ export class EncuestaUsuarioDialogComponent implements OnInit {
   public dialogRef: MatDialogRef<EncuestaUsuarioDialogComponent>,) { }
 
   ngOnInit() {
-    alert(this.usuario.idTurno)
   }
     
 
