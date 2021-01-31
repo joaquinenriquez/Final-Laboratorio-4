@@ -1,18 +1,15 @@
 import { EspecialidadesDataService } from 'src/app/modules/especialidades/services/especialidades-data.service';
-
 import { ListadoProfesionalesPorTurnosComponent } from './../../components/listado-profesionales-por-turnos/listado-profesionales-por-turnos.component';
-import { EspecialidadesDataService } from './../../../especialidades/services/especialidades-data.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { WidgetTartaComponent } from 'src/app/modules/graficos/components/widget-tarta/widget-tarta.component';
 import { DatosGrafico } from 'src/app/modules/graficos/models/datos-grafico';
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
 import { TurnosDataService } from 'src/app/modules/turnos/services/turnos-data.service';
-import { ListadoOperacionesPorEspecialidadComponent } from '../../components/listado-operaciones-por-especialidad/listado-operaciones-por-especialidad.component';
 import { UsuarioDataService } from '../../services/usuario-data.service';
 import firebase from 'firebase/app';
 import { EstadoTurno } from 'src/app/modules/turnos/models/estado-turno.enum';
 import { Turno } from 'src/app/modules/turnos/models/turno';
-import { Rol } from '../../models/rol.enum';
+
 
 @Component({
   selector: 'app-informe-pacientes-por-especialidad',

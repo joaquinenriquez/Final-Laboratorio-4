@@ -1,1 +1,41 @@
-<p>informe-detalle-respuestas-encuestas works!</p>
+<div fxLayout="column">
+
+    <app-datos-profesional-bar [usuario]="this.datosUsuarioActual"></app-datos-profesional-bar>
+
+    <div fxFlex style="margin-bottom: 20px;" fxLayout="row" fxLayoutGap="20px">
+
+        <div fxFlex="50%">
+            <app-listado-pacientes-por-especialidad [datos]="datosInformePregunta0" [tituloListado]="this.tituloPregunta0"></app-listado-pacientes-por-especialidad>
+            <br>
+            <mat-checkbox class="check-ocultar-valores-cero" [(ngModel)]="ocultarDatosCero" (change)="this.traerDatos()">Ocultar datos con valor 0 (cero)</mat-checkbox>
+            <br>
+            <br>
+            <mat-divider></mat-divider>
+        </div>
+
+        <div fxFlex="50%">
+            <app-widget-tarta [datos]="datosInformePregunta0" [tituloGrafico]="this.tituloPregunta0"></app-widget-tarta>
+        </div>
+        
+    </div>
+
+    <div fxFlex style="margin-bottom: 20px;" fxLayout="row" fxLayoutGap="20px">
+
+        <div fxFlex="50%">
+            <app-listado-pacientes-por-especialidad [datos]="this.datosInformePregunta1" [tituloListado]="this.tituloPregunta1"></app-listado-pacientes-por-especialidad>
+            <br>
+            <mat-checkbox class="check-ocultar-valores-cero" [(ngModel)]="ocultarDatosCero" (change)="this.traerDatos()">Ocultar datos con valor 0 (cero)</mat-checkbox>
+            <br>
+            <br>
+            <mat-divider></mat-divider>
+        </div>
+
+        <div fxFlex="50%">
+            <app-widget-barras [datos]="this.datosInformePregunta1" [tituloGrafico]="this.tituloPregunta1" [leyendaEjeVertical]="'Cantidad de respuesta'"></app-widget-barras>
+        </div>
+        
+    </div>
+
+
+</div>
+

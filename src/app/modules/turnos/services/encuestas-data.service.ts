@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { DocumentReference } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { DataService } from '../../shared/services/data.service';
 import { Encuesta } from '../models/encuesta';
@@ -15,7 +14,7 @@ export class EncuestasDataService {
   constructor(private db: DataService) { }
 
 
-  public traerTodasLasEncuestas(): Observable<Encuesta> {
+  public traerTodasLasEncuestas(): Observable<Encuesta[]> {
     return this.db.traerTodosLosDocumentos(this.nombreColeccion, this.campoId);
   }
 
