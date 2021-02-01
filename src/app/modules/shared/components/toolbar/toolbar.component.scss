@@ -18,12 +18,24 @@ a {
     margin-right: 1em;
 }
 
-img {
+.img-avatar {
     object-fit: cover;
     border-radius:50%;
     width: 30px;
     height: 30px;
   }
+
+.img-logo {
+  // object-fit: cover;
+  // border-radius:50%;
+  width: 62px;
+  height: 38px;
+  margin-right: 10px;
+}
+
+.logo {
+  margin-right: 20px;
+}
 
   .example-spacer {
     flex: 1 1 auto;
@@ -31,5 +43,15 @@ img {
 
 
   .active {
-    color: wheat;
+    color: #FFD834;
+}
+
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
 }

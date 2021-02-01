@@ -37,3 +37,26 @@ html, body {
     opacity: 1 !important;
 }
 /* #endregion */
+
+.mat-form-field-underline{
+    background-color:transparent;
+}
+
+.mat-header-cell {
+//   flex: 1;
+//   min-height: 48px;
+//   display: flex;
+//   align-items: center;
+  background-color: #585191 ;
+  // border-style: solid;
+  color: white !important;
+}
+
+
+.mat-row:hover {
+background-color: #e8f5e9;
+}
+
+
+@import 'themes/tema1.scss';
+@include angular-material-theme($light-theme);

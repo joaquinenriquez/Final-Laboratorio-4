@@ -40,9 +40,7 @@
           <mat-cell *matCellDef="let turno"> {{turno.horarioTurno}} </mat-cell>
         </ng-container>
 
-
-
-        <ng-container matColumnDef="nombreProfesional">
+        <ng-container matColumnDef="nombreProfesional"  color="primary">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Profesional </mat-header-cell>
           <mat-cell *matCellDef="let turno"> {{turno.nombreProfesional}} </mat-cell>
         </ng-container>
@@ -99,7 +97,7 @@
         </ng-container>
 
 
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
 

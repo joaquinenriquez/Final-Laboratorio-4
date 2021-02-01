@@ -1,3 +1,4 @@
+import { TipoGrafico } from './../../../graficos/widget-general/widget-general.component';
 import { EncuestasDataService } from './../../../turnos/services/encuestas-data.service';
 import { EspecialidadesDataService } from 'src/app/modules/especialidades/services/especialidades-data.service';
 import { ListadoProfesionalesPorTurnosComponent } from './../../components/listado-profesionales-por-turnos/listado-profesionales-por-turnos.component';
@@ -28,9 +29,14 @@ export class InformeDetalleRespuestasEncuestasComponent implements OnInit {
   datosInformePregunta1: DatosGrafico[] = [{name: 'sin datos', y:0}];
   datosInformePregunta2: DatosGrafico[] = [{name: 'sin datos', y:0}];
   datosInformePregunta3: DatosGrafico[] = [{name: 'sin datos', y:0}];
+  datosInformePregunta4: DatosGrafico[] = [{name: 'sin datos', y:0}];
+
+  cantidadRespuestas = 0;
 
   tituloInforme: string = 'Profesionales por turnos';
   ocultarDatosCero: boolean = true;
+
+  TipoGrafico = TipoGrafico;
 
   @ViewChild('listado') listado: ListadoProfesionalesPorTurnosComponent;
   @ViewChild('widget') widget: WidgetTartaComponent;
@@ -63,8 +69,12 @@ export class InformeDetalleRespuestasEncuestasComponent implements OnInit {
   traerDatos() {
     
     this.encuestasDataService.traerTodasLasEncuestas().subscribe(todasLasEncuestas => {
+      this.cantidadRespuestas = todasLasEncuestas.length;
       this.datosInformePregunta0 = this.calcularDatosPorPregunta(todasLasEncuestas, 0);
       this.datosInformePregunta1 = this.calcularDatosPorPregunta(todasLasEncuestas, 1);
+      this.datosInformePregunta2 = this.calcularDatosPorPregunta(todasLasEncuestas, 2);
+      this.datosInformePregunta3 = this.calcularDatosPorPregunta(todasLasEncuestas, 3);
+      this.datosInformePregunta4 = this.calcularDatosPorPregunta(todasLasEncuestas, 4);
     });
 
 
@@ -80,11 +90,11 @@ export class InformeDetalleRespuestasEncuestasComponent implements OnInit {
       preguntas.push(unaEncuesta.preguntas[idPregunta]);
     });
 
-    let respuestasPregunta0: string[] = preguntas.map(unaPregunta => unaPregunta.respuesta);
-    let respuestasUnicas: string[] = [... new Set(respuestasPregunta0)];
+    let respuestasPregunta: string[] = preguntas.map(unaPregunta => unaPregunta.respuesta);
+    let respuestasUnicas: string[] = [... new Set(respuestasPregunta)];
 
     respuestasUnicas.forEach(unaRespuesta => {
-      datos.push({name:unaRespuesta, y: respuestasPregunta0.filter(OtraRespuesta => unaRespuesta == OtraRespuesta).length});
+      datos.push({name:unaRespuesta, y: respuestasPregunta.filter(OtraRespuesta => unaRespuesta == OtraRespuesta).length});
     });
 
     return datos;

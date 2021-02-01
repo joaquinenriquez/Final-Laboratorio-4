@@ -1,3 +1,4 @@
+<!-- #region Pregunta 1 -->
 <div fxLayout="column">
 
     <app-datos-profesional-bar [usuario]="this.datosUsuarioActual"></app-datos-profesional-bar>
@@ -5,37 +6,118 @@
     <div fxFlex style="margin-bottom: 20px;" fxLayout="row" fxLayoutGap="20px">
 
         <div fxFlex="50%">
-            <app-listado-pacientes-por-especialidad [datos]="datosInformePregunta0" [tituloListado]="this.tituloPregunta0"></app-listado-pacientes-por-especialidad>
+            <app-listado-cantidad-respuestas-encuesta [datos]="datosInformePregunta0"
+                [tituloListado]="this.tituloPregunta0"></app-listado-cantidad-respuestas-encuesta>
             <br>
-            <mat-checkbox class="check-ocultar-valores-cero" [(ngModel)]="ocultarDatosCero" (change)="this.traerDatos()">Ocultar datos con valor 0 (cero)</mat-checkbox>
+            <mat-checkbox class="check-ocultar-valores-cero" [(ngModel)]="ocultarDatosCero"
+                (change)="this.traerDatos()">Ocultar datos con valor 0 (cero)</mat-checkbox>
             <br>
             <br>
             <mat-divider></mat-divider>
         </div>
 
         <div fxFlex="50%">
-            <app-widget-tarta [datos]="datosInformePregunta0" [tituloGrafico]="this.tituloPregunta0"></app-widget-tarta>
+            <app-widget-general [datos]="datosInformePregunta0" [tituloGrafico]="this.tituloPregunta0"
+                [graficoSeleccionado]="TipoGrafico.Tartas">
+            </app-widget-general>
         </div>
-        
+
     </div>
 
+
+    <!-- #endregion -->
+
+    <!-- #region Pregunta 2 -->
     <div fxFlex style="margin-bottom: 20px;" fxLayout="row" fxLayoutGap="20px">
 
         <div fxFlex="50%">
-            <app-listado-pacientes-por-especialidad [datos]="this.datosInformePregunta1" [tituloListado]="this.tituloPregunta1"></app-listado-pacientes-por-especialidad>
+            <app-listado-cantidad-respuestas-encuesta [datos]="datosInformePregunta1"
+                [tituloListado]="this.tituloPregunta1"></app-listado-cantidad-respuestas-encuesta>
             <br>
-            <mat-checkbox class="check-ocultar-valores-cero" [(ngModel)]="ocultarDatosCero" (change)="this.traerDatos()">Ocultar datos con valor 0 (cero)</mat-checkbox>
+            <mat-checkbox class="check-ocultar-valores-cero" [(ngModel)]="ocultarDatosCero"
+                (change)="this.traerDatos()">Ocultar datos con valor 0 (cero)</mat-checkbox>
             <br>
             <br>
             <mat-divider></mat-divider>
         </div>
 
         <div fxFlex="50%">
-            <app-widget-barras [datos]="this.datosInformePregunta1" [tituloGrafico]="this.tituloPregunta1" [leyendaEjeVertical]="'Cantidad de respuesta'"></app-widget-barras>
+            <app-widget-general [datos]="datosInformePregunta1" [tituloGrafico]="this.tituloPregunta1"
+                [graficoSeleccionado]="TipoGrafico.Barras">
+            </app-widget-general>
         </div>
-        
+
     </div>
+    <!-- #endregion -->
+
+    <!-- #region Pregunta 3 -->
+    <div fxFlex style="margin-bottom: 20px;" fxLayout="row" fxLayoutGap="20px">
+
+        <div fxFlex="50%">
+            <app-listado-cantidad-respuestas-encuesta [datos]="datosInformePregunta2"
+                [tituloListado]="this.tituloPregunta2"></app-listado-cantidad-respuestas-encuesta>
+            <br>
+            <mat-checkbox class="check-ocultar-valores-cero" [(ngModel)]="ocultarDatosCero"
+                (change)="this.traerDatos()">Ocultar datos con valor 0 (cero)</mat-checkbox>
+            <br>
+            <br>
+            <mat-divider></mat-divider>
+        </div>
+
+        <div fxFlex="50%">
+            <app-widget-general [datos]="datosInformePregunta2" [tituloGrafico]="this.tituloPregunta2"
+                [graficoSeleccionado]="TipoGrafico.Barras2">
+            </app-widget-general>
+        </div>
+
+    </div>
+    <!-- #endregion -->
+
+    <!-- #region Pregunta 4 -->
+    <div fxFlex style="margin-bottom: 20px;" fxLayout="row" fxLayoutGap="20px">
+
+        <div fxFlex="50%">
+            <app-listado-cantidad-respuestas-encuesta [datos]="datosInformePregunta3"
+                [tituloListado]="this.tituloPregunta3"></app-listado-cantidad-respuestas-encuesta>
+            <br>
+            <mat-checkbox class="check-ocultar-valores-cero" [(ngModel)]="ocultarDatosCero"
+                (change)="this.traerDatos()">Ocultar datos con valor 0 (cero)</mat-checkbox>
+            <br>
+            <br>
+            <mat-divider></mat-divider>
+        </div>
+
+        <div fxFlex="50%">
+            <app-widget-nube-de-palabras [datos]="datosInformePregunta3" [tituloGrafico]="this.tituloPregunta3">
+            </app-widget-nube-de-palabras>
+        </div>
+
+    </div>
+    <!-- #endregion -->
+
+
+    
+        <div fxFlex style="margin-bottom: 20px;" fxLayout="row" fxLayoutGap="20px">
+    
+            <div fxFlex="50%">
+                <app-listado-cantidad-respuestas-encuesta [datos]="datosInformePregunta4"
+                    [tituloListado]="this.tituloPregunta4"></app-listado-cantidad-respuestas-encuesta>
+                <br>
+                <mat-checkbox class="check-ocultar-valores-cero" [(ngModel)]="ocultarDatosCero"
+                    (change)="this.traerDatos()">Ocultar datos con valor 0 (cero)</mat-checkbox>
+                <br>
+                <br>
+                <mat-divider></mat-divider>
+            </div>
+    
+            <div fxFlex="50%">
+                <app-widget-estrellas [datos]="datosInformePregunta4" [tituloGrafico]="this.tituloPregunta4" [cantidadRespuestas]="this.cantidadRespuestas">
+                </app-widget-estrellas>
+            </div>
+    
+        </div>
+
+
 
 
 </div>
-

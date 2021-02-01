@@ -1,0 +1,33 @@
+<mat-card class="container">
+
+    <div fxLayout="column" fxLayoutGap="5%" fxLayoutAlign="end none">
+
+        <div fxFlex="90%">
+            <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions"  [oneToOne]="true" style="width: 100%; height: 400px; display: block;">
+            </highcharts-chart>
+        </div>
+
+        
+        <div fxFlexAlign="end">
+            <mat-divider></mat-divider>
+
+            <div style="margin-top:20px">
+                <mat-form-field appearance="outline">
+                    <mat-label>Formato gráfico</mat-label>
+                    <mat-select [(value)]="graficoSeleccionado" (selectionChange)="cambiarGrafico()">
+                      <mat-option [value]="TipoGrafico.Tartas">Tartas</mat-option>
+                      <mat-option [value]="TipoGrafico.Barras">Columnas</mat-option>
+                      <mat-option [value]="TipoGrafico.Barras2">Barras</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</mat-card>
+
+

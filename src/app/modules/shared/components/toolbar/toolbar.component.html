@@ -1,9 +1,13 @@
 <mat-toolbar color="primary">
 
-    <a>AUTOGESTIÓN</a>
+    
+        <img class="img-logo" src="../../../../../assets/fra2.png">
+        <a class="logo">AUTOGESTIÓN</a>
+    
 
 
-    <a routerLink="/gestion-usuarios" routerLinkActive="active"
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <a routerLink="/gestion-usuarios" routerLinkActive="active"
         *ngIf="(auth.datosUsuario | async) && (datosUsuarioActual?.rol == Roles.Administrador)"><button
             mat-button>GESTIÓN DE USUARIOS</button></a>
 
@@ -45,6 +49,10 @@
         <button mat-menu-item routerLink="/informe-detalle-respuestas-encuestas">Respuestas de encuestas</button>
     </mat-menu>
 
+    </div>
+
+
+
 
     <span class="fill-remaining-space"></span>
 
@@ -62,7 +70,7 @@
         <button mat-button [matMenuTriggerFor]="menu">
             <span class="nombre-usuario">{{this.datosUsuarioActual?.displayName}}</span>
             <mat-icon *ngIf="!datosUsuarioActual?.imagen1">account_circle</mat-icon>
-            <img *ngIf="datosUsuarioActual?.imagen1" [src]="datosUsuarioActual?.imagen1" />
+            <img class="img-avatar" *ngIf="datosUsuarioActual?.imagen1" [src]="datosUsuarioActual?.imagen1" />
         </button>
     </a>
 

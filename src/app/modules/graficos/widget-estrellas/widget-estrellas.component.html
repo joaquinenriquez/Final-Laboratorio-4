@@ -1,0 +1,33 @@
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5%">
+
+    <div fxLayout="column" fxLayoutAlign="center center">
+        <div>
+            <span class="promedio">{{promedioCalificacion}}</span>
+        </div>
+
+        <div #estrellas class="estrellas">
+            <mat-icon>star</mat-icon>
+            <mat-icon>star</mat-icon>
+            <mat-icon>star</mat-icon>
+            <mat-icon>star</mat-icon>
+            <mat-icon>star</mat-icon>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center">
+
+            <mat-icon fxFlexAlign="center" class="icono-cantidad">person</mat-icon>
+            <span>{{cantidadRespuestas}} total</span>
+
+        </div>
+
+    </div>
+
+    <div fxFlex="80%">
+        <mat-card class="container">
+            <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions" [oneToOne]="true"
+                style="width: 100%; height: 400px; display: block;">
+            </highcharts-chart>
+        </mat-card>
+    </div>
+
+</div>
