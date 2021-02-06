@@ -44,7 +44,8 @@ export class RegistroPacienteComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(this.largoMinPassword)]),
     nombre: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.\'-]+$')]),
     apellido: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.\'-]+$')]),
-    captcha: new FormControl({value: '', disabled: this.deshabilitarcaptcha})
+    captcha: new FormControl({value: '', disabled: this.deshabilitarcaptcha}, Validators.required)
+    //captcha: new FormControl({value: ''})
   });
 
   constructor(private authService: AuthService,
@@ -52,11 +53,7 @@ export class RegistroPacienteComponent implements OnInit {
     private usuarioDataSvc: UsuarioDataService,
     private storage: AngularFireStorage) { }
 
-  ngOnInit(): void {
-
-  }
-
-
+  ngOnInit(): void {}
 
   registrarConEmail(nuevoUsuario: Usuario) {
     nuevoUsuario.displayName = `${nuevoUsuario.nombre} ${nuevoUsuario.apellido}`;
@@ -144,15 +141,19 @@ export class RegistroPacienteComponent implements OnInit {
     this.imagenes.splice(indice, 1);
   }
 
-  ocultarCaptcha() {
+  deshabilitarCaptcha() {
 
     if (this.deshabilitarcaptcha) {
-      this.deshabilitarcaptcha = false;
-      this.formRegistro.addControl('captcha', new FormControl(''));
+      this.formRegistro.controls['captcha']?.disable();
+      this.formRegistro.addControl('captcha', new FormControl({value: '', disabled: this.deshabilitarcaptcha}, Validators.required));
     } else {
-      this.deshabilitarcaptcha = true;
       this.formRegistro.removeControl('captcha');
     }
+
+    this.deshabilitarcaptcha = !this.deshabilitarcaptcha;
+
+    console.log(this.formRegistro);
+
   }
 
 }

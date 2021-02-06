@@ -79,12 +79,13 @@ export class LoginComponent implements OnInit {
         case Rol.Paciente:
           {
             if (!resultadoLogin.user.emailVerified) {
+              this.authService.cerrarSesion();
               this.mostrarMensajeCuentaNoVerificadaPaciente();
             } else {
               if (usuario.estado == EstadoUsuario.Deshabilitado) {
                 this.mostrarMensajeCuentaDeshabilitada();
               } else {
-                console.log('Login Correcto!', resultadoLogin);
+                console.log('Login Corecto!', resultadoLogin);
                 this.guardarLogInicioSesion(resultadoLogin, usuario.rol);
                 this.router.navigate(['/solicitar-turno']);
               }

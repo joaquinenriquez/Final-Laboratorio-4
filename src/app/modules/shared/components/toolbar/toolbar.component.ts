@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Usuario } from 'src/app/modules/usuarios/models/usuario';
@@ -18,7 +19,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class ToolbarComponent implements OnInit {
 
   Roles = Rol;
-  datosUsuarioActual;
+  datosUsuarioActual: Observable<Usuario>;
 
   idiomaSeleccionado
 
@@ -33,20 +34,23 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit(): void {
 
-      this.auth.auth.onAuthStateChanged((user) =>{ 
-      if(user) { this.datosUsuarioActual = user ; 
+    this.auth.auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.datosUsuarioActual = this.usuarioDataService.TraerUsuarioPorId(user.uid);
       }
-      else { this.datosUsuarioActual = false; 
-      } });
-
-    //this.auth.getUsuarioActual().then(usuario => this.datosUsuarioActual = usuario);
+      else {
+        this.datosUsuarioActual = null;
+      }
+    });
 
     this.idiomaSeleccionado = localStorage.getItem('idioma') || 'ar';
 
   }
 
+
   onLogOut() {
     this.auth.cerrarSesion();
+    this.datosUsuarioActual
     this.router.navigate(['/login']);
   }
 

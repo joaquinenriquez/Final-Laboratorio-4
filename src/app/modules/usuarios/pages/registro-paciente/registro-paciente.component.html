@@ -82,15 +82,15 @@
 
             <div>
                 <re-captcha name="captcha" required formControlName="captcha"
-                    siteKey="6Lf3fQAaAAAAAByz1gtAp9jcdUOO6RXCuhaRsuOF"></re-captcha>
+                    siteKey="6Lf3fQAaAAAAAByz1gtAp9jcdUOO6RXCuhaRsuOF" [disabled]="this.deshabilitarCaptcha"></re-captcha>
             </div>
 
 
 
             <br>
 
-            <button type="submit" mat-raised-button color="primary" class="btn-login"
-                [disabled]="formRegistro.invalid">Registrarse</button>
+            <button type="button" mat-raised-button color="primary" class="btn-login"
+                [disabled]="formRegistro.invalid" (click)="registrarConEmail(formRegistro.value)">Registrarse</button>
 
 
         </form>
@@ -100,7 +100,7 @@
 
 
     <div class="toggle-captcha">
-        <mat-slide-toggle checked (change)="ocultarCaptcha()">Habilitar CAPTCHA</mat-slide-toggle>
+        <mat-slide-toggle checked (change)="deshabilitarCaptcha()">Habilitar CAPTCHA</mat-slide-toggle>
     </div>
 
 

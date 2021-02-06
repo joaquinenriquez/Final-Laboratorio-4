@@ -1,53 +1,59 @@
 <mat-toolbar color="primary">
 
-    
-        <img class="img-logo" src="../../../../../assets/fra2.png">
-        <a class="logo">AUTOGESTIÓN</a>
-    
+
+    <img class="img-logo" src="../../../../../assets/fra2.png">
+    <a class="logo">AUTOGESTIÓN</a>
+
 
 
     <div fxLayout="row" fxLayoutAlign="center center">
         <a routerLink="/gestion-usuarios" routerLinkActive="active"
-        *ngIf="(auth.datosUsuario | async) && (datosUsuarioActual?.rol == Roles.Administrador)"><button
-            mat-button>GESTIÓN DE USUARIOS</button></a>
+            *ngIf="(this.datosUsuarioActual | async) && ((this.datosUsuarioActual | async)?.rol == Roles.Administrador)"><button
+                mat-button>GESTIÓN DE USUARIOS</button></a>
 
-    <a routerLink="/mis-turnos" routerLinkActive="active"
-        *ngIf="(auth.datosUsuario | async) && (datosUsuarioActual?.rol == Roles.Paciente)"><button mat-button>MIS
-            TURNOS</button></a>
+        <a routerLink="/mis-turnos" routerLinkActive="active"
+            *ngIf="(this.datosUsuarioActual | async) && ((this.datosUsuarioActual | async)?.rol == Roles.Paciente)"><button
+                mat-button>MIS
+                TURNOS</button></a>
 
-    <a routerLink="/solicitar-turno" routerLinkActive="active"
-        *ngIf="(auth.datosUsuario | async) && (datosUsuarioActual?.rol == Roles.Paciente)"><button mat-button>SOLICITAR
-            TURNOS</button></a>
+        <a routerLink="/solicitar-turno" routerLinkActive="active"
+            *ngIf="(this.datosUsuarioActual | async) && ((this.datosUsuarioActual | async)?.rol == Roles.Paciente)"><button
+                mat-button>SOLICITAR
+                TURNOS</button></a>
 
-    <a routerLink="/especialidades" routerLinkActive="active"
-        *ngIf="(auth.datosUsuario | async ) && (datosUsuarioActual?.rol == Roles.Administrador)"><button
-            mat-button>ESPECIALIDADES</button></a>
+        <a routerLink="/especialidades" routerLinkActive="active"
+            *ngIf="(auth.datosUsuario | async ) && ((this.datosUsuarioActual | async)?.rol == Roles.Administrador)"><button
+                mat-button>ESPECIALIDADES</button></a>
 
-    <a routerLink="/gestion-turnos" routerLinkActive="active"
-        *ngIf="(auth.datosUsuario | async) && (datosUsuarioActual?.rol == Roles.Profesional)"><button mat-button>{{'GESTIÓN DE TURNOS' | translate}}</button></a>
+        <a routerLink="/gestion-turnos" routerLinkActive="active"
+            *ngIf="(this.datosUsuarioActual | async) && ((this.datosUsuarioActual | async)?.rol == Roles.Profesional)"><button
+                mat-button>{{'GESTIÓN DE TURNOS' | translate}}</button></a>
 
-    <a routerLink="/busquedas" routerLinkActive="active"
-        *ngIf="(auth.datosUsuario | async ) && (datosUsuarioActual?.rol == Roles.Administrador || datosUsuarioActual?.rol == Roles.Profesional)"><button
-            mat-button>BÚSQUEDAS</button></a>
+        <a routerLink="/busquedas" routerLinkActive="active"
+            *ngIf="(auth.datosUsuario | async ) && ((this.datosUsuarioActual | async)?.rol == Roles.Administrador || (this.datosUsuarioActual | async)?.rol == Roles.Profesional)"><button
+                mat-button>BÚSQUEDAS</button></a>
 
-    <a routerLinkActive="active"
-        *ngIf="(auth.datosUsuario | async ) && (datosUsuarioActual?.rol == Roles.Administrador || datosUsuarioActual?.rol == Roles.Profesional)"><button
-            mat-button [matMenuTriggerFor]="menuInformes">INFORMES</button></a>
+        <a routerLinkActive="active"
+            *ngIf="(auth.datosUsuario | async ) && ((this.datosUsuarioActual | async)?.rol == Roles.Administrador || (this.datosUsuarioActual | async)?.rol == Roles.Profesional)"><button
+                mat-button [matMenuTriggerFor]="menuInformes">INFORMES</button></a>
 
-    <mat-menu #menuInformes="matMenu">
-        <button mat-menu-item routerLink="/informe-inicio-sesion">Inicios de sesión</button>
-        <mat-divider></mat-divider>
-        <button mat-menu-item routerLink="/informe-operaciones-por-especialidad">Operaciones por especialidad</button>
-        <button mat-menu-item routerLink="/informe-turnos-por-dia-semana">Turnos por dia de la semana</button>
-        <mat-divider></mat-divider>
-        <button mat-menu-item routerLink="/informe-profesionales-por-turnos">Profesionales por turnos</button>
-        <button mat-menu-item routerLink="/informe-profesionales-por-dias-trabajados">Profesionales por días trabajados</button>
-        <button mat-menu-item routerLink="/informe-profesionales-por-especialidad">Profesionales por especialidad</button>
-        <mat-divider></mat-divider>
-        <button mat-menu-item routerLink="/informe-pacientes-por-especialidad">Pacientes por especialidad</button>
-        <button mat-menu-item routerLink="/informe-turnos-por-paciente">Turnos por pacientes</button>
-        <button mat-menu-item routerLink="/informe-detalle-respuestas-encuestas">Respuestas de encuestas</button>
-    </mat-menu>
+        <mat-menu #menuInformes="matMenu">
+            <button mat-menu-item routerLink="/informe-inicio-sesion">Inicios de sesión</button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item routerLink="/informe-operaciones-por-especialidad">Operaciones por
+                especialidad</button>
+            <button mat-menu-item routerLink="/informe-turnos-por-dia-semana">Turnos por dia de la semana</button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item routerLink="/informe-profesionales-por-turnos">Profesionales por turnos</button>
+            <button mat-menu-item routerLink="/informe-profesionales-por-dias-trabajados">Profesionales por días
+                trabajados</button>
+            <button mat-menu-item routerLink="/informe-profesionales-por-especialidad">Profesionales por
+                especialidad</button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item routerLink="/informe-pacientes-por-especialidad">Pacientes por especialidad</button>
+            <button mat-menu-item routerLink="/informe-turnos-por-paciente">Turnos por pacientes</button>
+            <button mat-menu-item routerLink="/informe-detalle-respuestas-encuestas">Respuestas de encuestas</button>
+        </mat-menu>
 
     </div>
 
@@ -68,13 +74,12 @@
 
     <a *ngIf="this.datosUsuarioActual">
         <button mat-button [matMenuTriggerFor]="menu">
-            <span class="nombre-usuario">{{this.datosUsuarioActual.displayName }}</span>
-            <mat-icon *ngIf="!datosUsuarioActual?.imagen1">account_circle</mat-icon>
-            <img class="img-avatar" *ngIf="datosUsuarioActual?.imagen1" [src]="datosUsuarioActual?.imagen1" />
+            <span class="nombre-usuario">{{(this.datosUsuarioActual | async)?.displayName }}</span>
+            <mat-icon *ngIf="!(datosUsuarioActual | async)?.imagen1">account_circle</mat-icon>
+            <img class="img-avatar" *ngIf="(datosUsuarioActual |async)?.imagen1"
+                [src]="(datosUsuarioActual | async)?.imagen1" />
         </button>
     </a>
-
-
 
     <mat-menu #menu="matMenu">
 
@@ -89,12 +94,23 @@
         </button>
     </mat-menu>
 
-        <button mat-icon-button [matMenuTriggerFor]="menuIdiomas"><mat-icon [svgIcon]="this.idiomaSeleccionado"></mat-icon></button>
-        <mat-menu #menuIdiomas="matMenu">
-          <button mat-menu-item (click)="cambiarIdioma('en')" *ngIf="idiomaSeleccionado != 'en'"><mat-icon svgIcon="en"></mat-icon>English</button>
-          <button mat-menu-item (click)="cambiarIdioma('br')" *ngIf="idiomaSeleccionado != 'br'"><mat-icon svgIcon="br"></mat-icon>Português</button>
-          <button mat-menu-item (click)="cambiarIdioma('ar')" *ngIf="idiomaSeleccionado != 'ar'"><mat-icon svgIcon="ar"></mat-icon>Español</button>
-        </mat-menu>
+
+    <button mat-icon-button [matMenuTriggerFor]="menuIdiomas">
+        <mat-icon [svgIcon]="this.idiomaSeleccionado"></mat-icon>
+    </button>
+    <mat-menu #menuIdiomas="matMenu">
+        <button mat-menu-item (click)="cambiarIdioma('en')" *ngIf="idiomaSeleccionado != 'en'">
+            <mat-icon svgIcon="en"></mat-icon>English
+        </button>
+        <button mat-menu-item (click)="cambiarIdioma('br')" *ngIf="idiomaSeleccionado != 'br'">
+            <mat-icon svgIcon="br"></mat-icon>Português
+        </button>
+        <button mat-menu-item (click)="cambiarIdioma('ar')" *ngIf="idiomaSeleccionado != 'ar'">
+            <mat-icon svgIcon="ar"></mat-icon>Español
+        </button>
+    </mat-menu>
+
+
 
 
     <!-- <a mat-icon-button routerLink="active"><mat-icon *ngIf="!avatar">account_circle</mat-icon><img *ngIf="avatar" [src]="avatar"/><span>Nombre Usuario</span></a> -->
@@ -102,7 +118,7 @@
 
 
     <!-- 
-    <button mat-button [matMenuTriggerFor]="menu" *ngIf="(auth.datosUsuario | async)">
+    <button mat-button [matMenuTriggerFor]="menu" *ngIf="(this.datosUsuarioActual | async)">
         <span>{{this.datosUsuarioActual?.displayName}}</span>
         <mat-icon></mat-icon>
     </button>
