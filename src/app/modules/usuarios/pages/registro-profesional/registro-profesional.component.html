@@ -1,187 +1,234 @@
-<mat-card class="contenedor-principal" fxLayout="column">
+<div fxLayout="row" fxLayoutAlign="center start" style="background-color: black;" fxFlexFill>
 
+    <!-- De aca regulamos el ancho total del form para todas las cards -->
+    <form style="background-color: mediumorchid;" fxFlex="50%">
 
+        <mat-horizontal-stepper fxFlexFill #stepper style="background-color: midnightblue;">
 
-    <mat-horizontal-stepper #stepper>
-
-        <mat-step>
-
-            <ng-template matStepLabel>Datos de la cuenta</ng-template>
-
-            <mat-card-title>Bienvenidos</mat-card-title>
-
-            <mat-card-content>
-
-                <form [formGroup]="formRegistro" (ngSubmit)="registrarConEmail(formRegistro.value)" #form="ngForm">
-
-                    <p>
-                        <mat-form-field class="datos-login">
-                            <mat-label>Nombre</mat-label>
-                            <input type="text" matInput formControlName="nombre"
-                                placeholder="Ingrese su nombre, por favor">
-                            <mat-error
-                                *ngIf="formRegistro.controls['nombre'].hasError('pattern') && !formRegistro.controls['nombre'].hasError('required')">
-                                El nombre no puede contener números ni caractéres especiales</mat-error>
-                            <mat-error *ngIf="formRegistro.controls['nombre'].hasError('required')">Es
-                                <strong>obligatorio</strong>ingresar su nombre</mat-error>
-                        </mat-form-field>
-                    </p>
-
-                    <p>
-                        <mat-form-field class="datos-login">
-                            <mat-label>Apellido</mat-label>
-                            <input type="text" matInput formControlName="apellido"
-                                placeholder="Ingrese su apellido, por favor">
-                            <mat-error
-                                *ngIf="formRegistro.controls['apellido'].hasError('pattern') && !formRegistro.controls['apellido'].hasError('required')">
-                                El apellido no puede contener números ni caractéres especiales</mat-error>
-                            <mat-error *ngIf="formRegistro.controls['apellido'].hasError('required')">Es
-                                <strong>obligatorio</strong>ingresar su apellido</mat-error>
-                        </mat-form-field>
-                    </p>
-
-                    <p>
-                        <mat-form-field class="datos-login">
-                            <mat-label>Email</mat-label>
-                            <input type="email" matInput formControlName="email"
-                                placeholder="Ej. tito@uolsinectis.com.ar">
-                            <mat-error
-                                *ngIf="formRegistro.controls['email'].hasError('email') && !formRegistro.controls['email'].hasError('required')">
-                                Vas a necesitar ingresar tu email para iniciar sesión</mat-error>
-                            <mat-error *ngIf="formRegistro.controls['email'].hasError('required')">La dirección de email
-                                es
-                                <strong>obligatoria</strong></mat-error>
-                        </mat-form-field>
-                    </p>
-
-                    <p>
-                        <mat-form-field class="datos-login">
-                            <mat-label>Contraseña</mat-label>
-                            <input [type]="ocultarPassword ? 'password': 'text'" matInput formControlName="password">
-                            <mat-icon matSuffix (click)="ocultarPassword = !ocultarPassword">
-                                {{ocultarPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        </mat-form-field>
-                    </p>
-
-                    <p>
-                        <mat-form-field class="datos-login">
-                            <mat-label>Repetir contraseña</mat-label>
-                            <input [type]="ocultarPassword ? 'password': 'text'" matInput formControlName="password">
-                            <mat-icon matSuffix (click)="ocultarPassword = !ocultarPassword">
-                                {{ocultarPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        </mat-form-field>
-                    </p>
-
-                    <!-- [disabled]="formRegistro.invalid"  -->
-                    <button type="button" mat-raised-button color="primary" class="btn-login"
-                        matStepperNext>Siguiente</button>
-
-                </form>
-
-            </mat-card-content>
-
-
-        </mat-step>
-
-
-        <mat-step>
-            <ng-template matStepLabel>Especialidades</ng-template>
-
-            <mat-card-title>¿En que estás especializados?</mat-card-title>
-
-            <br>
-            <br>
-
-            <mat-card-content>
-
-                <form [formGroup]="formRegistro" (ngSubmit)="registrarConEmail(formRegistro.value)">
-
-
-                    <div>
-
-                        <app-multi-select-con-buscador [items]="this.espacialesString" #especialidadesControl>
-                        </app-multi-select-con-buscador>
-
-                    </div>
-
-                    <br>
-                    <br>
-
-                    <app-mi-captcha formControlName="captcha"></app-mi-captcha>
-                    <div *ngIf="formRegistro.get('captcha').hasError('invalid') && form.submitted">
-                      Wrong answer...
-                    </div>
-
-                    <p>
-                        <button type="button" mat-raised-button color="primary" class="btn-login"
-                            matStepperNext>Siguiente</button>
-                    </p>
-
-
-
-                </form>
-
-            </mat-card-content>
-
-
-
-
-
-        </mat-step>
-
-
-        <mat-step>
-            <ng-template matStepLabel>Disponibilidad horaria</ng-template>
-
-            <mat-card-title>Decinos tu disponibilidad para trabajar</mat-card-title>
-
-            <br>
-
-            <div fxLayout="column">
-
-
-                <div fxLayout fxLayoutGap="5%" fxFlexAlign="center" *ngFor="let dia of horariosTrabajo">
-
-
-                    <mat-checkbox fxFlexAlign="start" class="check" [(ngModel)]="dia.check" fxFlex="30%">
-                        {{dia.nombreDia}}</mat-checkbox>
-
-                    <mat-form-field appearance="fill" fxFlexAlign="center" fxFlex="30%">
-                        <mat-label>Horario de incio</mat-label>
-                        <mat-select [disabled]="!dia.check" [(ngModel)]="dia.horarioInicio">
-                            <mat-option *ngFor="let horario of horariosApertura" [value]="horario">{{horario}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="fill" fxFlexAlign="end" fxFlex="30%">
-                        <mat-label>Horario de finalización</mat-label>
-                        <mat-select [disabled]="!dia.check" [(ngModel)]="dia.horarioFin">
-                            <mat-option *ngFor="let horario of horariosApertura" [value]="horario">{{horario}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-
-
-                </div>
-
-
+            <mat-step style="background-color: moccasin;">
+                <ng-template matStepLabel>Datos de la cuenta</ng-template>
 
                 <br>
 
-                
-                <button fxFlexAlign="center" (click)="registrarConEmail(formRegistro.value)" mat-raised-button color="primary" class="btn-login"
-                [disabled]="formRegistro.invalid">Registrarse</button>
+                <mat-card fxLayout="column" fxFlexFill fxLayoutAlign="center center" class="card-principal" style="background-color: orange;">
+
+                    <mat-card-title fxFlexAlign="center" class="card-titulo">Bienvenidos</mat-card-title>
 
 
-            </div>
+                    <mat-card-content fxFlexFill fxLayout="row" fxLayoutAlign="center" style="background-color: green;">
+
+                        <!-- desde aca agrandamos el ancho de los campos -->
+
+                        <div fxFlex="50%" style="background-color: orchid;">
+
+                            <div>
+                                <mat-form-field class="datos-login">
+                                    <mat-label>Nombre</mat-label>
+                                    <input type="text" matInput formControlName="nombre"
+                                        placeholder="Ingrese su nombre, por favor">
+                                    <mat-error
+                                        *ngIf="formRegistro.controls['nombre'].hasError('pattern') && !formRegistro.controls['nombre'].hasError('required')">
+                                        El nombre no puede contener números ni caractéres especiales</mat-error>
+                                    <mat-error *ngIf="formRegistro.controls['nombre'].hasError('required')">Es
+                                        <strong>obligatorio</strong>ingresar su nombre
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+
+                            <div>
+                                <mat-form-field class="datos-login">
+                                    <mat-label>Apellido</mat-label>
+                                    <input type="text" matInput formControlName="apellido"
+                                        placeholder="Ingrese su apellido, por favor">
+                                    <mat-error
+                                        *ngIf="formRegistro.controls['apellido'].hasError('pattern') && !formRegistro.controls['apellido'].hasError('required')">
+                                        El apellido no puede contener números ni caractéres especiales</mat-error>
+                                    <mat-error *ngIf="formRegistro.controls['apellido'].hasError('required')">Es
+                                        <strong>obligatorio</strong>ingresar su apellido
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div>
+                                <mat-form-field class="datos-login">
+                                    <mat-label>Email</mat-label>
+                                    <input type="email" matInput formControlName="email"
+                                        placeholder="Ej. tito@uolsinectis.com.ar">
+                                    <mat-error
+                                        *ngIf="formRegistro.controls['email'].hasError('email') && !formRegistro.controls['email'].hasError('required')">
+                                        Vas a necesitar ingresar tu email para iniciar sesión</mat-error>
+                                    <mat-error *ngIf="formRegistro.controls['email'].hasError('required')">La
+                                        dirección
+                                        de email es <strong>obligatoria</strong></mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div>
+                                <mat-form-field class="datos-login">
+                                    <mat-label>Contraseña</mat-label>
+                                    <input [type]="ocultarPassword ? 'password': 'text'" matInput
+                                        formControlName="password">
+                                    <mat-icon matSuffix (click)="ocultarPassword = !ocultarPassword">
+                                        {{ocultarPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </mat-form-field>
+                            </div>
+
+                            <div>
+                                <mat-form-field class="datos-login">
+                                    <mat-label>Repetir contraseña</mat-label>
+                                    <input [type]="ocultarPassword ? 'password': 'text'" matInput
+                                        formControlName="password">
+                                    <mat-icon matSuffix (click)="ocultarPassword = !ocultarPassword">
+                                        {{ocultarPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+
+                    </mat-card-content>
+
+
+                    <mat-card-footer fxFlexFill fxLayout="row" fxLayoutAlign="center" style="background-color:maroon;">
+
+                            <button fxFlex="50%" type="button" mat-raised-button color="primary" class="btn-login"
+                                matStepperNext>Siguiente</button>
+
+                    </mat-card-footer>
+
+
+                </mat-card>
+
+            </mat-step>
+
+
+            <mat-step fxFlexFill style="background-color: moccasin;">
+                <ng-template matStepLabel>Especialidades</ng-template>
+
+                <br>
+
+                <mat-card fxLayout="column" fxFlexFill fxLayoutAlign="center center" class="card-principal" style="background-color: orange;">
+
+                    <mat-card-title fxFlexAlign="center" class="card-titulo">¿En que estás especializados?</mat-card-title>
+
+
+                    <mat-card-content fxFlexFill fxLayout="row" fxLayoutAlign="center" style="background-color: green;">
+
+                        <!-- desde aca agrandamos el ancho de los campos -->
+
+                        <div fxFlex="50%" style="background-color: orchid;">
+                            <app-multi-select-con-buscador [items]="this.espacialesString" #especialidadesControl>
+                            </app-multi-select-con-buscador>
+                        </div>
+
+                    </mat-card-content>
+
+
+                    <mat-card-footer fxFlexFill fxLayout="row" fxLayoutAlign="center" style="background-color:maroon;">
+
+                            <button fxFlex="50%" type="button" mat-raised-button color="primary" class="btn-login"
+                                matStepperNext>Siguiente</button>
+
+                    </mat-card-footer>
+
+
+                </mat-card>
+
+            </mat-step>
+
+            <mat-step style="background-color: moccasin;">
+                <ng-template matStepLabel>Disponibilidad horaria</ng-template>
+
+                <br>
+
+                <mat-card fxLayout="column" fxFlexFill fxLayoutAlign="center center" class="card-principal" style="background-color: orange;">
+
+                    <mat-card-title fxFlexAlign="center" class="card-titulo">Decinos tu disponibilidad para trabajar</mat-card-title>
+
+
+                    <mat-card-content fxFlexFill fxLayout="row" fxLayoutAlign="center" style="background-color: green;">
+
+                        <!-- desde aca agrandamos el ancho de los campos -->
+
+                        <div fxFlex="100%" style="background-color: orchid;">
+
+                            <div fxLayout="row" fxLayoutAlign="center center" style="background-color: palegreen;" fxLayoutGap="auto">
+                                
+                                <div fxFlex="25%" style="background-color: palegoldenrod;">
+                                    <strong>Dia</strong>
+                                </div>
+
+                                <div fxFlex="25%" style="background-color: palegoldenrod;">
+                                    <strong>Horario de inicio</strong>
+                                </div>
+
+                                <div fxFlex="25%" style="background-color: palegoldenrod;">
+                                    <strong>Horario de finalización</strong>
+                                </div>
+
+
+                            </div>
+
+                            <br>
+
+                            <div fxLayout="row" style="background-color: palegreen;" fxLayoutGap="auto" *ngFor="let dia of horariosTrabajo">
+                                
+                                <div fxFlex="25%" fxFlexAlign="start" style="background-color: palegoldenrod;">
+                                    <mat-checkbox fxFlexAlign="start" class="check" [(ngModel)]="dia.check" fxFlex="30%">
+                                        {{dia.nombreDia}}</mat-checkbox>
+                                </div>
+
+                                <div fxFlex="25%" fxFlexAlign="center" style="background-color: palegoldenrod;">
+                                    <mat-form-field appearance="outline" style="width:100%;">
+                                        <mat-label>Horario de incio</mat-label>
+                                        <mat-select [disabled]="!dia.check" [(ngModel)]="dia.horarioInicio" [ngModelOptions]="{standalone: true}">
+                                            <mat-option *ngFor="let horario of horariosApertura" [value]="horario">{{horario}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxFlex="25%" fxFlexAlign="end" style="background-color: palegoldenrod;">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Horario de finalización</mat-label>
+                                        <mat-select [disabled]="!dia.check" [(ngModel)]="dia.horarioFin" [ngModelOptions]="{standalone: true}">
+                                            <mat-option *ngFor="let horario of horariosApertura" [value]="horario">{{horario}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+                    </mat-card-content>
+
+
+                    <mat-card-footer fxFlexFill fxLayout="row" fxLayoutAlign="center" style="background-color:maroon;">
+
+                            <button fxFlex="50%" type="button" mat-raised-button color="primary" class="btn-login"
+                                matStepperNext>Siguiente</button>
+
+                    </mat-card-footer>
+
+
+                </mat-card>
+
+            </mat-step>
+
+
+        </mat-horizontal-stepper>
+
+
+    </form>
 
 
 
 
-        </mat-step>
-
-
-    </mat-horizontal-stepper>
-
-</mat-card>
+</div>

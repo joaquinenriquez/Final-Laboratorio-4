@@ -1,11 +1,11 @@
-:host {
-    display: flex;
-    justify-content: center;
-    vertical-align: center;
-    // margin: 100px 0;
-    align-items: center;
+// :host {
+//     display: flex;
+//     justify-content: center;
+//     vertical-align: center;
+//     // margin: 100px 0;
+//     align-items: center;
   
-}
+// }
 
 
 // .contenedor-principal {
@@ -18,28 +18,48 @@
 
 .datos-login {
       width: 100%;
-      min-width: 300px;
     }
 
-.btn-login {
-  min-width: 300px;
-  max-width: 300px;
-  justify-content: center;
-}
+// .btn-login {
+// //   min-width: 300px;
+// //   max-width: 300px;
+// //   justify-content: center;
+// width: 0%;
+// }
 
-mat-card-title,
-mat-card-content {
-    display: flex;
-    justify-content: center;
-}
+// mat-card-title,
+// mat-card-content {
+//     display: flex;
+//     justify-content: center;
+// }
+
+
+// .card-principal {
+//     min-height: 50vh;
+//     height: 50vh;
+// }
+
+// .card-content-principal {
+//     height: 100%;
+//     min-height: 100%;
+// }
 
 
 
   
 
 
-.check {
+// .check {
 
-    position:relative;
-    top:15px;
+//     position:relative;
+//     top:15px;
+// }
+
+.card-titulo {
+    font-size: 2em;
+}
+
+
+mat-card-content {
+    min-height: 50vh !important;
 }

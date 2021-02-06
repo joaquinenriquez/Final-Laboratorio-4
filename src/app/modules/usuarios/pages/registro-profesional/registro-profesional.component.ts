@@ -27,11 +27,11 @@ export class RegistroProfesionalComponent implements OnInit {
   largoMinPassword: number = environment.seguridad.minimoLargoPassword;
   ocultarPassword = true;
   @ViewChild('especialidadesControl') especialidadesControl: MultiSelectConBuscadorComponent;
-  especiales: Especialidad [];
-  espacialesString: string [] = [];
+  especiales: Especialidad[];
+  espacialesString: string[] = [];
 
-  horariosTrabajo: HorarioTrabajo [] = [ {nombreDia: DiaSemana.Lunes, check: false}, {nombreDia: DiaSemana.Martes, check: false}, {nombreDia: DiaSemana.Miercoles, check: false}, {nombreDia: DiaSemana.Jueves, check: false} ,{nombreDia: DiaSemana.Viernes, check: false}, {nombreDia: DiaSemana.Sabado, check: false}]
-  
+  horariosTrabajo: HorarioTrabajo[] = [{ nombreDia: DiaSemana.Lunes, check: false }, { nombreDia: DiaSemana.Martes, check: false }, { nombreDia: DiaSemana.Miercoles, check: false }, { nombreDia: DiaSemana.Jueves, check: false }, { nombreDia: DiaSemana.Viernes, check: false }, { nombreDia: DiaSemana.Sabado, check: false }]
+
   //diasTrabajo = [{nombreDia: 'Lunes', check: false}, {nombreDia: 'Martes', check: false}, {nombreDia: 'Miércoles', check: false}, {nombreDia: 'Jueves', check: false}, {nombreDia: 'Viernes', check: false}, {nombreDia: 'Sábado', check: false}];
   horariosApertura = ['8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00'];
 
@@ -52,7 +52,7 @@ export class RegistroProfesionalComponent implements OnInit {
   ngOnInit() {
     this.especialidadDataService.traerTodasLasEspecialidades().subscribe(datos => {
       this.espacialesString = datos.map(item => item['nombreEspecialidad']);
-      // setTimeout( () => {this.especialidadesControl.cargarLista()}, 3); descomentar
+      setTimeout( () => {this.especialidadesControl.cargarLista()}, 3);
     });
 
   }
@@ -62,15 +62,15 @@ export class RegistroProfesionalComponent implements OnInit {
     nuevoUsuario.HorarioTrabajo = this.horariosTrabajo;
     this.authService.cearUsuarioConEmail(nuevoUsuario)
       .then(resultado => {
-        resultado.user.updateProfile({displayName: nuevoUsuario.displayName});
+        resultado.user.updateProfile({ displayName: nuevoUsuario.displayName });
         nuevoUsuario.idUsuario = resultado.user.uid
         this.guardarBD(nuevoUsuario);
         Swal.fire({
-          icon: 'info', 
-          title: 'Gracias por registrarte', 
-          html: `Nuestro staff debe aprobar su cuenta. Por favor intente ingresar en unos momentos`, 
+          icon: 'info',
+          title: 'Gracias por registrarte',
+          html: `Nuestro staff debe aprobar su cuenta. Por favor intente ingresar en unos momentos`,
           confirmButtonText: 'Acpetar'
-        }).then( async registroExitoso => {
+        }).then(async registroExitoso => {
           this.authService.cerrarSesion();
           //Mostrar spinner
           this.router.navigate(['/login']);
@@ -85,7 +85,7 @@ export class RegistroProfesionalComponent implements OnInit {
             break;
         }
 
-        Swal.fire({icon: 'error', title: 'Error al crear el usuario', text: mensajeError, confirmButtonText: 'Acpetar'})
+        Swal.fire({ icon: 'error', title: 'Error al crear el usuario', text: mensajeError, confirmButtonText: 'Acpetar' })
 
         console.log(error)
       });
@@ -97,6 +97,15 @@ export class RegistroProfesionalComponent implements OnInit {
     nuevoUsuario.estado = EstadoUsuario.PendienteAprobacion;
     nuevoUsuario.especialidades = this.especialidadesControl.selectControl?.value;
     console.log('Guardar en DB', this.usuarioDataSvc.GuardarNuevoUsuario(nuevoUsuario));
+  }
+
+  verficarCamposPaso1(): boolean {
+    return (
+      this.formRegistro.controls['email'].valid &&
+      this.formRegistro.controls['password'].valid &&
+      this.formRegistro.controls['nombre'].valid &&
+      this.formRegistro.controls['apellido'].valid
+    );
   }
 
 

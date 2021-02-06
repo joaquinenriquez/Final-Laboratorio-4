@@ -10,19 +10,29 @@
         {{item}}
       </mat-option>
 
+
     </mat-select>
   </mat-form-field>
 </p>
 
 <div>
 
-  <p *ngIf="selectControl?.value">
+  <p style="text-align: center;">
     <strong>Especialidades seleccionadas:</strong>
   </p>
+
+  <br>
+  <div style="height: 300px;">
+
+  <div *ngIf="!selectControl?.value?.length">
+    <em>No has seleccionado ninguna...</em>
+  </div>
 
   <ul *ngFor="let item of selectControl?.value">
     <li>{{item}}</li>
   </ul>
+
+</div>
 
 </div>
 
