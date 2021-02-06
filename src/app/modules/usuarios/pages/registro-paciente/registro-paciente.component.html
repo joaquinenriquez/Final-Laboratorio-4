@@ -14,7 +14,8 @@
                         *ngIf="formRegistro.controls['nombre'].hasError('pattern') && !formRegistro.controls['nombre'].hasError('required')">
                         El nombre no puede contener números ni caractéres especiales</mat-error>
                     <mat-error *ngIf="formRegistro.controls['nombre'].hasError('required')">Es
-                        <strong>obligatorio</strong>ingresar su nombre</mat-error>
+                        <strong>obligatorio</strong>ingresar su nombre
+                    </mat-error>
                 </mat-form-field>
             </p>
 
@@ -26,7 +27,8 @@
                         *ngIf="formRegistro.controls['apellido'].hasError('pattern') && !formRegistro.controls['apellido'].hasError('required')">
                         El apellido no puede contener números ni caractéres especiales</mat-error>
                     <mat-error *ngIf="formRegistro.controls['apellido'].hasError('required')">Es
-                        <strong>obligatorio</strong>ingresar su apellido</mat-error>
+                        <strong>obligatorio</strong>ingresar su apellido
+                    </mat-error>
                 </mat-form-field>
             </p>
 
@@ -39,54 +41,53 @@
                         *ngIf="formRegistro.controls['email'].hasError('email') && !formRegistro.controls['email'].hasError('required')">
                         Vas a necesitar ingresar tu email para iniciar sesión</mat-error>
                     <mat-error *ngIf="formRegistro.controls['email'].hasError('required')">La dirección de email es
-                        <strong>obligatoria</strong></mat-error>
+                        <strong>obligatoria</strong>
+                    </mat-error>
                 </mat-form-field>
             </p>
 
             <p>
                 <mat-form-field class="datos-login">
                     <mat-label>Contraseña</mat-label>
-                    <input [type]="ocultarPassword ? 'password': 'text'" matInput formControlName="password">
+                    <input [type]="ocultarPassword ? 'password': 'text'" matInput formControlName="password"
+                        autocomplete="on">
                     <mat-icon matSuffix (click)="ocultarPassword = !ocultarPassword">
                         {{ocultarPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </mat-form-field>
             </p>
 
             <p>
-                <mat-form-field class="chips-imagenes">
+                <mat-form-field class="chips-imagenes" appearance="none" *ngIf="this.imagenes.length > 0">
                     <mat-chip-list>
-                      <mat-chip *ngFor="let unaImagen of imagenes" (removed)="quitarFoto(unaImagen)">
-                        {{unaImagen.texto}}
-                        <mat-icon matChipRemove>cancel</mat-icon>
-                      </mat-chip>
+                        <mat-chip *ngFor="let unaImagen of imagenes" (removed)="quitarFoto(unaImagen)">
+                            {{unaImagen.texto}}
+                            <mat-icon matChipRemove>cancel</mat-icon>
+                        </mat-chip>
                     </mat-chip-list>
-                  </mat-form-field>
+                </mat-form-field>
             </p>
 
 
             <p>
 
 
-                    <button type="button" class="btn-login" mat-raised-button color="accent" [disabled]="this.imagenes.length > 1" (click)="fileInput.click()">Elegir fotos</button>
-                    <input hidden (change)="subirFoto($event)" #fileInput type="file" accept=".png, .jpg" id="file">
-                    
+                <button type="button" class="btn-login" mat-raised-button color="accent"
+                    [disabled]="this.imagenes.length > 1" (click)="fileInput.click()">
+                    <mat-icon class="icono-boton">photo</mat-icon>Elegir fotos de perfil
+                </button>
+                <input hidden (change)="subirFoto($event)" #fileInput type="file" accept=".png, .jpg" id="file">
+
             </p>
 
 
-                <div>
-                    <re-captcha
-                    disabled
-                      [(ngModel)]="formModel.captcha"
-                      name="captcha"
-                      required
-                      formControlName="captcha"
-                      siteKey="6Lf3fQAaAAAAAByz1gtAp9jcdUOO6RXCuhaRsuOF"
-                      ></re-captcha>
-                </div>
+            <div>
+                <re-captcha name="captcha" required formControlName="captcha"
+                    siteKey="6Lf3fQAaAAAAAByz1gtAp9jcdUOO6RXCuhaRsuOF"></re-captcha>
+            </div>
 
 
-                
-                  <br>
+
+            <br>
 
             <button type="submit" mat-raised-button color="primary" class="btn-login"
                 [disabled]="formRegistro.invalid">Registrarse</button>
@@ -98,11 +99,11 @@
     </mat-card-content>
 
 
-        <div class="toggle-captcha">
-            <mat-slide-toggle  checked (change)="ocultarCaptcha()" >Habilitar CAPTCHA</mat-slide-toggle>
-        </div>
-    
-    
+    <div class="toggle-captcha">
+        <mat-slide-toggle checked (change)="ocultarCaptcha()">Habilitar CAPTCHA</mat-slide-toggle>
+    </div>
+
+
 
 
 

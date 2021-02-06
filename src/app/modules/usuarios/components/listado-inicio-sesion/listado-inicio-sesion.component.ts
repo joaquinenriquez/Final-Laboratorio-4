@@ -7,19 +7,13 @@ import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/modules/shared/services/auth.service";
-import { ModificarDuracionTurnoDialogComponent } from "src/app/modules/turnos/components/modificar-duracion-turno-dialog/modificar-duracion-turno-dialog.component";
-import { Turno } from "src/app/modules/turnos/models/turno";
-import { VisualizarEncuestaUsuarioDialogComponent } from "../../pages/visualizar-encuesta-usuario-dialog/visualizar-encuesta-usuario-dialog.component";
 import { LogDataService } from "../../services/log.service";
 import { FormControl, FormGroup } from '@angular/forms';
 
-import jspdf from 'jspdf';
-import 'jspdf-autotable';
 import { DatePipe } from '@angular/common';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-
-
+import { PdfCreator } from 'src/app/modules/shared/tools/pdf-creator';
 
 
 @Component({
@@ -36,6 +30,8 @@ export class ListadoInicioSesionComponent implements OnInit {
 
   dtPerido: FormGroup;
   fechaMaximaFiltro: Date = new Date();
+
+  tituloInforme: string = "Infome de inicios de sesión";
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -136,66 +132,10 @@ export class ListadoInicioSesionComponent implements OnInit {
   /* #region  Exportar */
 
   crearPDF() {
-    var doc = new jspdf();
     let columnas = ['Fecha', 'Hora', 'Email', 'Rol', 'Usuario', 'Acción'];
-
-    let posicionX = this.getCentroHorizontalPDF(18, 'Informe de inicios de sesión', doc);
-
-    doc.setFontSize(18);
-    doc.text(`Informe de inicio de sesión`, posicionX, 15);
-
-
-    let logo = new Image();
-    logo.src = 'assets/connombre.jpg';
-    doc.addImage(logo, 'jpg', 175, 5, 20, 18);
-
-    doc.setFontSize(11);
-    doc.setTextColor(100);
-
-
-    (doc as any).autoTable({
-      head: [columnas],
-      body: this.convertirDatosEnArray(),
-      theme: 'striped',
-      startY: 28,
-      showHead: 'everyPage',
-      didDrawCell: data => {
-        console.log(data.column.index)
-      }
-    });
-
-    this.agregarFooterAlPDF(doc);
-
-    // Open PDF document in new tab
-    doc.output('dataurlnewwindow')
-
-    this.mostrarToast("Se generó el archivo PDF correctamente...", 300);
-
-    // Download PDF document  
-    //doc.save('table.pdf');
+    PdfCreator.CrearPDF(columnas, this.tituloInforme, this.convertirDatosEnArray(), false, true);
   }
 
-  getCentroHorizontalPDF(fontSize: number, texto: string, documento: jspdf): number {
-    let textWidth = documento.getStringUnitWidth(texto) * fontSize / documento.internal.scaleFactor;
-    return (documento.internal.pageSize.width - textWidth) / 2;
-  }
-
-  agregarFooterAlPDF(documento: jspdf) {
-
-    const pageCount = documento.getNumberOfPages();
-    documento.setFont('helvetica', 'italic');
-    documento.setFontSize(12);
-
-    let fechaActual = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
-
-
-    for (var i = 1; i <= pageCount; i++) {
-      documento.setPage(i)
-
-      let texto = `${fechaActual} - Página ${i} de ${pageCount}`;
-      documento.text(texto, documento.internal.pageSize.width / 2, 287, { align: 'center' });
-    }
-  }
 
   convertirDatosEnArray(): Array<[]> {
     let arrayLogs = [];

@@ -14,7 +14,7 @@ import { EspecialidadesModule } from './modules/especialidades/especialidades.mo
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es-AR';
 
-import { AngularFireStorageModule } from '@angular/fire/storage';
+//import { AngularFireStorageModule } from '@angular/fire/storage';
 
 // Esto es 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
@@ -50,7 +50,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     EspecialidadesModule,
     AppRoutingModule,
     FlexLayoutModule,
-    AngularFireStorageModule,
+    // AngularFireStorageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

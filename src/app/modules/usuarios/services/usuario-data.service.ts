@@ -47,14 +47,5 @@ export class UsuarioDataService {
   public modificarUsuario(usuario: Usuario): Promise<void> {
     return this.db.modificarDocumentoPorId(this.nombreColeccion, usuario.idUsuario , usuario);
   }
-
-  public traerDatosUsuarioActual(): Observable<Usuario> {
-
-    return this.auth.datosUsuario.pipe(
-      mergeMap((usuarioActual) => this.TraerUsuarioPorId(usuarioActual.uid))
-      );
-  
-  }
-
   
 }

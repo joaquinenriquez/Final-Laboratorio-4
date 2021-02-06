@@ -13,9 +13,9 @@ export class AuthService {
 
   public datosUsuario: Observable<firebase.User>
 
-  constructor(public auth: AngularFireAuth) { 
+  constructor(public auth: AngularFireAuth) {
     this.datosUsuario = this.auth.authState;
-    
+
   }
 
   public cearUsuarioConEmail(nuevoUsuario: Usuario): Promise<firebase.auth.UserCredential> {
@@ -33,5 +33,23 @@ export class AuthService {
   public async enviarEmailDeVerificacion(): Promise<void> {
     return (await this.auth.currentUser).sendEmailVerification();
   }
+
+  // Desde aca lo obtenemos como nos devuelve el authService. Desde el servicio del usuario, devolvemos mas datos
+  public getUsuarioActual(): Promise<firebase.User> {
+    return new Promise<any>((resolve, reject) => {
+      this.auth.onAuthStateChanged(function (user) {
+        if (user) {
+          resolve(user);
+        } else {
+          reject('El Usuario no esta logeado');
+        }
+      })
+    });
+  }
+
+
+
+
+
 
 }

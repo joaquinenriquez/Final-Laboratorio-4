@@ -56,19 +56,19 @@
 
     <span class="fill-remaining-space"></span>
 
-    <a routerLink="/registro-pacientes" routerLinkActive="active" *ngIf="!(auth.datosUsuario | async)"><button
+    <a routerLink="/registro-pacientes" routerLinkActive="active" *ngIf="!this.datosUsuarioActual"><button
             mat-button>Registrarse</button></a>
 
-    <a routerLink="/registro-profesionales" routerLinkActive="active" *ngIf="!(auth.datosUsuario | async)"><button
+    <a routerLink="/registro-profesionales" routerLinkActive="active" *ngIf="!this.datosUsuarioActual"><button
             mat-button>¿Sos profesional?</button></a>
 
-    <a routerLink="/login" routerLinkActive="active" *ngIf="!(this.auth.datosUsuario | async)"><button
+    <a routerLink="/login" routerLinkActive="active" *ngIf="!this.datosUsuarioActual"><button
             mat-button>Login</button></a>
 
 
-    <a *ngIf="(auth.datosUsuario | async)">
+    <a *ngIf="this.datosUsuarioActual">
         <button mat-button [matMenuTriggerFor]="menu">
-            <span class="nombre-usuario">{{this.datosUsuarioActual?.displayName}}</span>
+            <span class="nombre-usuario">{{this.datosUsuarioActual.displayName }}</span>
             <mat-icon *ngIf="!datosUsuarioActual?.imagen1">account_circle</mat-icon>
             <img class="img-avatar" *ngIf="datosUsuarioActual?.imagen1" [src]="datosUsuarioActual?.imagen1" />
         </button>

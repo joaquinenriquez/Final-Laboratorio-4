@@ -4,6 +4,7 @@ import HC_exporting from 'highcharts/modules/exporting';
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { DatosGrafico } from '../models/datos-grafico';
 
+declare var require: any;
 const Wordcloud = require('highcharts/modules/wordcloud');
 Wordcloud(Highcharts);
 

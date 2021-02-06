@@ -1,3 +1,4 @@
+
 import { EstadoTurno } from './../../models/estado-turno.enum';
 
 import { Router } from '@angular/router';
@@ -13,7 +14,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { TableVirtualScrollDataSource } from 'ng-table-virtual-scroll';
 import * as moment from 'moment';
 import { Turno } from '../../models/turno';
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
 
 enum TipoBusqueda { Profesional = 'Profesional', Especialidad = 'Especialidad' }
 
@@ -230,7 +231,7 @@ export class SolicitarTurnoComponent implements OnInit {
       nombreProfesional: this.profesionalSeleccionado.displayName,
       especialidadProfesional: this.especialidadSeleccionada,
 
-      fechaTurno: firebase.default.firestore.Timestamp.fromDate(this.fechaSeleccionadaTurno),
+      fechaTurno: firebase.firestore.Timestamp.fromDate(this.fechaSeleccionadaTurno),
       horarioTurno: this.horarioSeleccionado.horario,
       duracionEstimada: 30,
       estadoTurno: EstadoTurno.Pendiente_Confirmar,

@@ -18,12 +18,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class ToolbarComponent implements OnInit {
 
   Roles = Rol;
-  datosUsuarioActual: Usuario;
+  datosUsuarioActual;
+
   idiomaSeleccionado
 
   constructor(public auth: AuthService,
     private router: Router,
-    public userDataSvc: UsuarioDataService,
+    public usuarioDataService: UsuarioDataService,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
     private translateService: TranslateService) {
@@ -32,12 +33,13 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.auth.datosUsuario.subscribe(datosUsuario => {
-      let usuario = datosUsuario as firebase.User;
-      this.userDataSvc.TraerUsuarioPorId(usuario?.uid).subscribe(datosUsuario => {
-        this.datosUsuarioActual = datosUsuario
-      });
-    });
+      this.auth.auth.onAuthStateChanged((user) =>{ 
+      if(user) { this.datosUsuarioActual = user ; 
+      }
+      else { this.datosUsuarioActual = false; 
+      } });
+
+    //this.auth.getUsuarioActual().then(usuario => this.datosUsuarioActual = usuario);
 
     this.idiomaSeleccionado = localStorage.getItem('idioma') || 'ar';
 

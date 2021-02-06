@@ -57,6 +57,10 @@ html, body {
 background-color: #e8f5e9;
 }
 
+.icono-boton {
+    padding: 8px;
+  }
+
 
 @import 'themes/tema1.scss';
 @include angular-material-theme($light-theme);

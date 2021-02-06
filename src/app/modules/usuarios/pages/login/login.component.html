@@ -23,7 +23,7 @@
             <p>
                 <mat-form-field class="datos-login">
                     <mat-label>Contraseña</mat-label>
-                    <input type="password" matInput formControlName="password" placeholder="tu password">
+                    <input type="password" matInput formControlName="password" placeholder="tu password" autocomplete="on">
                     <mat-error
                         *ngIf="formLogin.controls['password'].hasError('minlength') && !formLogin.controls['password'].hasError('required')">
                         La contraseña es muy corta</mat-error>

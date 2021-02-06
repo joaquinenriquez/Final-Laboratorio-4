@@ -1,11 +1,11 @@
-import jspdf from 'jspdf';
-import 'jspdf-autotable';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable'
 
 export class PdfCreator {
 
     public static CrearPDF(columnas: string[], titulo: string, filas: any, mostrarGuardar?: boolean, abrirEnNavegador?: boolean) {
 
-        let documentoPDF = new jspdf();
+        let documentoPDF = new jsPDF();
 
         let posicionX = this.getCentroHorizontalPDF(18, titulo, documentoPDF);
 
@@ -49,12 +49,12 @@ export class PdfCreator {
 
     }
 
-    static getCentroHorizontalPDF(fontSize: number, texto: string, documento: jspdf): number {
+    static getCentroHorizontalPDF(fontSize: number, texto: string, documento): number {
         let textWidth = documento.getStringUnitWidth(texto) * fontSize / documento.internal.scaleFactor;
         return (documento.internal.pageSize.width - textWidth) / 2;
     }
 
-    static agregarFooterAlPDF(documento: jspdf) {
+    static agregarFooterAlPDF(documento) {
 
         const pageCount = documento.getNumberOfPages();
         documento.setFont('helvetica', 'italic');
