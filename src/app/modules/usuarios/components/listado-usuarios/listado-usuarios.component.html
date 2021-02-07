@@ -8,24 +8,28 @@
 
       <div fxLayout="row" fxLayoutGap="5%">
 
- 
-
-          <mat-form-field class="txtBuscador" appearance="outline" fxFlexAlign="center">
-            <mat-label>Buscar</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Ingresa el texto que queres buscar..." #input>
-          </mat-form-field>
 
 
-          <div fxFlexAlign="center" *ngIf="tipoFiltro == Rol.Administrador">
-            <button type="button" class="btn-nuevo-usuario-admin" mat-raised-button color="primary" (click)="nuevoUsuarioAdmin()">
-              <mat-icon class="icono-boton">person_add</mat-icon>Nuevo usuario administrador...  
-            </button>
-          </div>
+        <mat-form-field class="txtBuscador" appearance="outline" fxFlexAlign="center">
+          <mat-label>Buscar</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ingresa el texto que queres buscar..." #input>
+        </mat-form-field>
+
+
+        <div fxFlexAlign="center" *ngIf="tipoFiltro == Rol.Administrador">
+          <button type="button" class="btn-nuevo-usuario-admin" mat-raised-button color="primary"
+            (click)="nuevoUsuarioAdmin()">
+            <mat-icon class="icono-boton">person_add</mat-icon>Nuevo usuario administrador...
+          </button>
+        </div>
 
       </div>
 
 
       <!-- #endregion -->
+
+
+      <!-- #region Tabla -->
 
 
       <mat-table #table [dataSource]="dataSource" matSort>
@@ -80,14 +84,13 @@
       <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
       </mat-paginator>
 
-      <div>
-        <button mat-raised-button color="primary">Filtros avanzados...</button>
-      </div>
+
+
+      <!-- #endregion -->
 
     </mat-card-content>
 
   </mat-card>
 
-
-
+  
 </div>

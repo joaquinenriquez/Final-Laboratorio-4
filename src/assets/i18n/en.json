@@ -1,3 +1,22 @@
 {
-    "GESTIÓN DE TURNOS": "TURN MANAGER"
+    "GESTIÓN DE TURNOS": "APPOINTMENT MANAGER",
+    "BÚSQUEDAS": "SERACH",
+    "INFORMES": "REPORTS",
+    
+    "Inicios de sesión" : "Logins history",
+    "Operaciones por especialidad" : "Appointments per speciality",
+    "Turnos por dia de la semana" : "Appointments per day of week",
+    "Profesionales por turnos" : "Professionals per appointment",
+    "Profesionales por días trabajados" : "Profesionals per day worked",
+    "Profesionales por especialidad" : "Profesionals per specialty",
+    "Pacientes por especialidad" : "Patients per specialty",
+    "Turnos por pacientes" : "Appointments per patients",
+    "Respuestas de encuestas" : "Survey responses",
+
+    "Mi perfil": "My profile",
+    "Cerrar sesión": "Logout",
+
+    "Error al crear el usuario" : "Error creating user"
+
+
 }

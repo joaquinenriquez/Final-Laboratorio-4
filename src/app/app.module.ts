@@ -59,7 +59,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       }
     })
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'es-AR' }, { provide: LocationStrategy, useClass: HashLocationStrategy }],
+  providers: [{ provide: LOCALE_ID, useValue: 'es-AR' }, { provide: LocationStrategy, useClass: HashLocationStrategy }, HttpClient],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

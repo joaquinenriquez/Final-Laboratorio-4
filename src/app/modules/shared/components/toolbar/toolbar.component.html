@@ -2,74 +2,96 @@
 
 
     <img class="img-logo" src="../../../../../assets/fra2.png">
-    <a class="logo">AUTOGESTIÓN</a>
+    <a class="logo">{{'AUTOGESTIÓN' | translate}}</a>
 
 
+<!-- #region  Menu Principal -->
 
     <div fxLayout="row" fxLayoutAlign="center center">
+
         <a routerLink="/gestion-usuarios" routerLinkActive="active"
-            *ngIf="(this.datosUsuarioActual | async) && ((this.datosUsuarioActual | async)?.rol == Roles.Administrador)"><button
-                mat-button>GESTIÓN DE USUARIOS</button></a>
+            *ngIf="(this.datosUsuarioActual | async) && ((this.datosUsuarioActual | async)?.rol == Roles.Administrador)">
+            <button mat-button>{{ 'GESTIÓN DE USUARIOS' | translate }}</button>
+        </a>
 
         <a routerLink="/mis-turnos" routerLinkActive="active"
-            *ngIf="(this.datosUsuarioActual | async) && ((this.datosUsuarioActual | async)?.rol == Roles.Paciente)"><button
-                mat-button>MIS
-                TURNOS</button></a>
+            *ngIf="(this.datosUsuarioActual | async) && ((this.datosUsuarioActual | async)?.rol == Roles.Paciente)">
+            <button mat-button>{{ 'MIS TURNOS' | translate }}</button></a>
 
         <a routerLink="/solicitar-turno" routerLinkActive="active"
-            *ngIf="(this.datosUsuarioActual | async) && ((this.datosUsuarioActual | async)?.rol == Roles.Paciente)"><button
-                mat-button>SOLICITAR
-                TURNOS</button></a>
+            *ngIf="(this.datosUsuarioActual | async) && ((this.datosUsuarioActual | async)?.rol == Roles.Paciente)">
+            <button mat-button>{{ 'SOLICITAR TURNOS' | translate }}</button>
+        </a>
 
         <a routerLink="/especialidades" routerLinkActive="active"
-            *ngIf="(auth.datosUsuario | async ) && ((this.datosUsuarioActual | async)?.rol == Roles.Administrador)"><button
-                mat-button>ESPECIALIDADES</button></a>
+            *ngIf="(auth.datosUsuario | async ) && ((this.datosUsuarioActual | async)?.rol == Roles.Administrador)">
+            <button mat-button>{{ 'ESPECIALIDADES' | translate }}</button></a>
 
         <a routerLink="/gestion-turnos" routerLinkActive="active"
-            *ngIf="(this.datosUsuarioActual | async) && ((this.datosUsuarioActual | async)?.rol == Roles.Profesional)"><button
-                mat-button>{{'GESTIÓN DE TURNOS' | translate}}</button></a>
+            *ngIf="(this.datosUsuarioActual | async) && ((this.datosUsuarioActual | async)?.rol == Roles.Profesional)">
+            <button mat-button>{{'GESTIÓN DE TURNOS' | translate}}</button></a>
 
         <a routerLink="/busquedas" routerLinkActive="active"
-            *ngIf="(auth.datosUsuario | async ) && ((this.datosUsuarioActual | async)?.rol == Roles.Administrador || (this.datosUsuarioActual | async)?.rol == Roles.Profesional)"><button
-                mat-button>BÚSQUEDAS</button></a>
+            *ngIf="(auth.datosUsuario | async ) && ((this.datosUsuarioActual | async)?.rol == Roles.Administrador || (this.datosUsuarioActual | async)?.rol == Roles.Profesional)">
+            <button mat-button>{{'BÚSQUEDAS' | translate}}</button>
+        </a>
 
-        <a routerLinkActive="active"
-            *ngIf="(auth.datosUsuario | async ) && ((this.datosUsuarioActual | async)?.rol == Roles.Administrador || (this.datosUsuarioActual | async)?.rol == Roles.Profesional)"><button
-                mat-button [matMenuTriggerFor]="menuInformes">INFORMES</button></a>
+        <a routerLinkActive="active" *ngIf="(auth.datosUsuario | async ) && ((this.datosUsuarioActual | async)?.rol == Roles.Administrador || (this.datosUsuarioActual | async)?.rol == Roles.Profesional)">
+            <button mat-button [matMenuTriggerFor]="menuInformes">{{'INFORMES' | translate}}</button>
+        </a>
+
+
 
         <mat-menu #menuInformes="matMenu">
-            <button mat-menu-item routerLink="/informe-inicio-sesion">Inicios de sesión</button>
+            <button mat-menu-item routerLink="/informe-inicio-sesion">{{'Inicios de sesión' | translate}}</button>
+            
             <mat-divider></mat-divider>
-            <button mat-menu-item routerLink="/informe-operaciones-por-especialidad">Operaciones por
-                especialidad</button>
-            <button mat-menu-item routerLink="/informe-turnos-por-dia-semana">Turnos por dia de la semana</button>
+            
+            <button mat-menu-item routerLink="/informe-operaciones-por-especialidad">{{ 'Operaciones por especialidad' | translate }}</button>
+            
+            <button mat-menu-item routerLink="/informe-turnos-por-dia-semana">{{ 'Turnos por dia de la semana' | translate }}</button>
+            
             <mat-divider></mat-divider>
-            <button mat-menu-item routerLink="/informe-profesionales-por-turnos">Profesionales por turnos</button>
-            <button mat-menu-item routerLink="/informe-profesionales-por-dias-trabajados">Profesionales por días
-                trabajados</button>
-            <button mat-menu-item routerLink="/informe-profesionales-por-especialidad">Profesionales por
-                especialidad</button>
+            
+            <button mat-menu-item routerLink="/informe-profesionales-por-turnos"> {{ 'Profesionales por turnos' | translate }}</button>
+            
+            <button mat-menu-item routerLink="/informe-profesionales-por-dias-trabajados">{{ 'Profesionales por días trabajados' | translate }}</button>
+
+            <button mat-menu-item routerLink="/informe-profesionales-por-especialidad">{{ 'Profesionales por especialidad' | translate }}</button>
+
             <mat-divider></mat-divider>
-            <button mat-menu-item routerLink="/informe-pacientes-por-especialidad">Pacientes por especialidad</button>
-            <button mat-menu-item routerLink="/informe-turnos-por-paciente">Turnos por pacientes</button>
-            <button mat-menu-item routerLink="/informe-detalle-respuestas-encuestas">Respuestas de encuestas</button>
+
+            <button mat-menu-item routerLink="/informe-pacientes-por-especialidad">{{ 'Pacientes por especialidad' | translate }}</button>
+            
+            <button mat-menu-item routerLink="/informe-turnos-por-paciente">{{ 'Turnos por pacientes' | translate}}</button>
+            
+            <button mat-menu-item routerLink="/informe-detalle-respuestas-encuestas">{{ 'Respuestas de encuestas' | translate }} </button>
+        
         </mat-menu>
 
+    
+    
     </div>
 
 
+<!-- #endregion -->
+
+    
 
 
     <span class="fill-remaining-space"></span>
 
-    <a routerLink="/registro-pacientes" routerLinkActive="active" *ngIf="!this.datosUsuarioActual"><button
-            mat-button>Registrarse</button></a>
+    <a routerLink="/registro-pacientes" routerLinkActive="active" *ngIf="!this.datosUsuarioActual">
+        <button mat-button>{{ 'Registrarse' | translate }}</button>
+    </a>
 
-    <a routerLink="/registro-profesionales" routerLinkActive="active" *ngIf="!this.datosUsuarioActual"><button
-            mat-button>¿Sos profesional?</button></a>
+    <a routerLink="/registro-profesionales" routerLinkActive="active" *ngIf="!this.datosUsuarioActual">
+        <button mat-button>{{ '¿Sos profesional?' | translate }}</button>
+    </a>
 
-    <a routerLink="/login" routerLinkActive="active" *ngIf="!this.datosUsuarioActual"><button
-            mat-button>Login</button></a>
+    <a routerLink="/login" routerLinkActive="active" *ngIf="!this.datosUsuarioActual">
+        <button mat-button>{{ 'Login' | translate }}</button>
+    </a>
 
 
     <a *ngIf="this.datosUsuarioActual">
@@ -85,12 +107,12 @@
 
         <button mat-menu-item>
             <mat-icon>fact_check</mat-icon>
-            <span>Mi perfil</span>
+            <span>{{ 'Mi perfil' | translate }}</span>
         </button>
 
         <button mat-menu-item (click)="onLogOut()">
             <mat-icon>logout</mat-icon>
-            <span>Cerrar sesión</span>
+            <span>{{ 'Cerrar sesión' | translate }}</span>
         </button>
     </mat-menu>
 
@@ -109,35 +131,6 @@
             <mat-icon svgIcon="ar"></mat-icon>Español
         </button>
     </mat-menu>
-
-
-
-
-    <!-- <a mat-icon-button routerLink="active"><mat-icon *ngIf="!avatar">account_circle</mat-icon><img *ngIf="avatar" [src]="avatar"/><span>Nombre Usuario</span></a> -->
-
-
-
-    <!-- 
-    <button mat-button [matMenuTriggerFor]="menu" *ngIf="(this.datosUsuarioActual | async)">
-        <span>{{this.datosUsuarioActual?.displayName}}</span>
-        <mat-icon></mat-icon>
-    </button>
-
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-            <mat-icon>dialpad</mat-icon>
-            <span>Redial</span>
-        </button>
-        <button mat-menu-item disabled>
-            <mat-icon>voicemail</mat-icon>
-            <span>Check voice mail</span>
-        </button>
-        <button mat-menu-item>
-            <mat-icon>logout</mat-icon>
-            <span>Cerrar sesión</span>
-        </button>
-    </mat-menu>
- -->
 
 
 

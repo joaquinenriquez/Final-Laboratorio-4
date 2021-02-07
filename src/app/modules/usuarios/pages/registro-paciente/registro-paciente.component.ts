@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { environment } from './../../../../../environments/environment';
 import { UsuarioDataService } from '../../services/usuario-data.service';
@@ -50,7 +51,8 @@ export class RegistroPacienteComponent implements OnInit {
   constructor(private authService: AuthService,
     private router: Router,
     private usuarioDataSvc: UsuarioDataService,
-    private storage: AngularFireStorage) { }
+    private storage: AngularFireStorage,
+    private translateService: TranslateService) { }
 
   ngOnInit(): void {}
 
@@ -83,7 +85,7 @@ export class RegistroPacienteComponent implements OnInit {
             break;
         }
 
-        Swal.fire({ icon: 'error', title: 'Error al crear el usuario', text: mensajeError, confirmButtonText: 'Acpetar' })
+        Swal.fire({ icon: 'error', title: this.translateService.instant('Error al crear el usuario'), text: mensajeError, confirmButtonText: 'Acpetar' })
 
         console.log(error)
       });
