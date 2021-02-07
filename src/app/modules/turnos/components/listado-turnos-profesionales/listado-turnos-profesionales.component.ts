@@ -1,9 +1,10 @@
+import { Orden } from './../../../shared/components/tabla/orden.enum';
 import { Router } from '@angular/router';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { mergeMap } from 'rxjs/operators';
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
@@ -20,15 +21,17 @@ import { VisualizarEncuestaUsuarioDialogComponent } from 'src/app/modules/usuari
   templateUrl: './listado-turnos-profesionales.component.html',
   styleUrls: ['./listado-turnos-profesionales.component.scss']
 })
-export class ListadoTurnosProfesionalesComponent implements OnInit {
+export class ListadoTurnosProfesionalesComponent implements OnInit, AfterViewInit {
 
   @Input() tipoFiltro: string;
 
   displayedColumns: string[];
   dataSource: MatTableDataSource<Turno>;
-
+  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+
+  cargaTablaPrimeraVez: boolean = true;
 
 
   constructor(private turnosDataService: TurnosDataService,
@@ -43,6 +46,15 @@ export class ListadoTurnosProfesionalesComponent implements OnInit {
   ngAfterViewInit() {
     console.log(this.tipoFiltro);
     this.traerTurnos();
+  }
+
+  ordernarTabla(nombreColumna: string, orden: Orden) {
+    const sortState: Sort = {active: nombreColumna, direction: orden};
+    this.dataSource.paginator = this.paginator;
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);
+    console.log('Ordenado');
   }
 
 
@@ -128,8 +140,16 @@ export class ListadoTurnosProfesionalesComponent implements OnInit {
             }
         }
 
-        this.dataSource.paginator = this.paginator;
+
         this.dataSource.sort = this.sort;
+
+        // Ordenamos por default
+        if (this.cargaTablaPrimeraVez) {
+          this.ordernarTabla('fechaTurno', Orden.Descendente);
+          this.cargaTablaPrimeraVez = false;
+        }
+
+
       });
   }
 
@@ -170,9 +190,3 @@ export class ListadoTurnosProfesionalesComponent implements OnInit {
   }
 
 }
-// this.dialog.open(ListadoHorariosProfesionalesComponent,
-//   {
-//     width: '500px',
-//     data: { idUsuario: idUsuario },
-//     panelClass: 'horarios-profesional-dialog-container'
-//   });

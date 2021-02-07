@@ -1,25 +1,25 @@
-<div fxLayout="row" fxLayoutAlign="center start" style="background-color: black;" fxFlexFill>
+<div fxLayout="row" fxLayoutAlign="center start" fxFlexFill>
 
     <!-- De aca regulamos el ancho total del form para todas las cards -->
-    <form style="background-color: mediumorchid;" fxFlex="50%">
+    <form [formGroup]="formRegistro" (ngSubmit)="registrarConEmail(formRegistro.value)" #form>
 
-        <mat-horizontal-stepper fxFlexFill #stepper style="background-color: midnightblue;">
+        <mat-horizontal-stepper fxFlexFill [linear]="true" #stepper>
 
-            <mat-step style="background-color: moccasin;">
+            <mat-step  [stepControl]="this.formRegistro">
                 <ng-template matStepLabel>Datos de la cuenta</ng-template>
 
-                <br>
 
-                <mat-card fxLayout="column" fxFlexFill fxLayoutAlign="center center" class="card-principal" style="background-color: orange;">
+
+                <mat-card fxLayout="column" fxFlexFill fxLayoutAlign="center center" class="card-principal">
 
                     <mat-card-title fxFlexAlign="center" class="card-titulo">Bienvenidos</mat-card-title>
 
 
-                    <mat-card-content fxFlexFill fxLayout="row" fxLayoutAlign="center" style="background-color: green;">
+                    <mat-card-content fxFlexFill fxLayout="row" fxLayoutAlign="center">
 
                         <!-- desde aca agrandamos el ancho de los campos -->
 
-                        <div fxFlex="50%" style="background-color: orchid;">
+                        <div fxFlex="80%">
 
                             <div>
                                 <mat-form-field class="datos-login">
@@ -84,16 +84,30 @@
                                 </mat-form-field>
                             </div>
 
+                            <div>
+                                <app-mi-captcha required formControlName="captcha"></app-mi-captcha>
+                                <div
+                                    *ngIf="formRegistro.get('captcha')?.hasError('invalid') && formRegistro.get('captcha')?.dirty">
+                                    <mat-error>Respuesta equivocada</mat-error>
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <div class="toggle-captcha">
+                                <mat-slide-toggle (change)="deshabilitarCaptcha()" checked>Habilitar CAPTCHA</mat-slide-toggle>
+                            </div>
+
                         </div>
 
 
                     </mat-card-content>
 
 
-                    <mat-card-footer fxFlexFill fxLayout="row" fxLayoutAlign="center" style="background-color:maroon;">
+                    <mat-card-footer fxFlexFill fxLayout="row" fxLayoutAlign="center">
 
-                            <button fxFlex="50%" type="button" mat-raised-button color="primary" class="btn-login"
-                                matStepperNext>Siguiente</button>
+                        <button fxFlex="50%" type="button" mat-raised-button color="primary" class="btn-login"
+                            matStepperNext [disabled]="formRegistro.invalid">Siguiente</button>
 
                     </mat-card-footer>
 
@@ -103,21 +117,24 @@
             </mat-step>
 
 
-            <mat-step fxFlexFill style="background-color: moccasin;">
+            <mat-step fxFlexFill>
                 <ng-template matStepLabel>Especialidades</ng-template>
 
                 <br>
 
-                <mat-card fxLayout="column" fxFlexFill fxLayoutAlign="center center" class="card-principal" style="background-color: orange;">
+                <mat-card fxLayout="column" fxFlexFill fxLayoutAlign="center center" class="card-principal">
 
-                    <mat-card-title fxFlexAlign="center" class="card-titulo">¿En que estás especializados?</mat-card-title>
+                    <mat-card-title fxFlexAlign="center" class="card-titulo">¿En que estás especializado?
+                    </mat-card-title>
+
+                    <br>
 
 
-                    <mat-card-content fxFlexFill fxLayout="row" fxLayoutAlign="center" style="background-color: green;">
+                    <mat-card-content fxFlexFill fxLayout="row" fxLayoutAlign="center">
 
                         <!-- desde aca agrandamos el ancho de los campos -->
 
-                        <div fxFlex="50%" style="background-color: orchid;">
+                        <div fxFlex="50%">
                             <app-multi-select-con-buscador [items]="this.espacialesString" #especialidadesControl>
                             </app-multi-select-con-buscador>
                         </div>
@@ -125,10 +142,10 @@
                     </mat-card-content>
 
 
-                    <mat-card-footer fxFlexFill fxLayout="row" fxLayoutAlign="center" style="background-color:maroon;">
+                    <mat-card-footer fxFlexFill fxLayout="row" fxLayoutAlign="center">
 
-                            <button fxFlex="50%" type="button" mat-raised-button color="primary" class="btn-login"
-                                matStepperNext>Siguiente</button>
+                        <button fxFlex="50%" type="button" mat-raised-button color="primary" class="btn-login"
+                            matStepperNext [disabled]="!this.especialidadesControl.selectControl?.value?.length">Siguiente</button>
 
                     </mat-card-footer>
 
@@ -137,63 +154,55 @@
 
             </mat-step>
 
-            <mat-step style="background-color: moccasin;">
+            <mat-step>
                 <ng-template matStepLabel>Disponibilidad horaria</ng-template>
 
                 <br>
 
-                <mat-card fxLayout="column" fxFlexFill fxLayoutAlign="center center" class="card-principal" style="background-color: orange;">
+                <mat-card fxLayout="column" fxFlexFill fxLayoutAlign="center center" class="card-principal">
 
-                    <mat-card-title fxFlexAlign="center" class="card-titulo">Decinos tu disponibilidad para trabajar</mat-card-title>
+                    <mat-card-title fxFlexAlign="center" class="card-titulo">Decinos tu disponibilidad para trabajar
+                    </mat-card-title>
 
+                    <br>
 
-                    <mat-card-content fxFlexFill fxLayout="row" fxLayoutAlign="center" style="background-color: green;">
+                    <mat-card-content fxFlexFill fxLayout="row" fxLayoutAlign="center">
 
                         <!-- desde aca agrandamos el ancho de los campos -->
 
-                        <div fxFlex="100%" style="background-color: orchid;">
-
-                            <div fxLayout="row" fxLayoutAlign="center center" style="background-color: palegreen;" fxLayoutGap="auto">
-                                
-                                <div fxFlex="25%" style="background-color: palegoldenrod;">
-                                    <strong>Dia</strong>
-                                </div>
-
-                                <div fxFlex="25%" style="background-color: palegoldenrod;">
-                                    <strong>Horario de inicio</strong>
-                                </div>
-
-                                <div fxFlex="25%" style="background-color: palegoldenrod;">
-                                    <strong>Horario de finalización</strong>
-                                </div>
-
-
-                            </div>
+                        <div fxFlex="95%">
 
                             <br>
 
-                            <div fxLayout="row" style="background-color: palegreen;" fxLayoutGap="auto" *ngFor="let dia of horariosTrabajo">
-                                
-                                <div fxFlex="25%" fxFlexAlign="start" style="background-color: palegoldenrod;">
-                                    <mat-checkbox fxFlexAlign="start" class="check" [(ngModel)]="dia.check" fxFlex="30%">
+                            <div fxLayout="row" fxLayoutGap="auto" *ngFor="let dia of horariosTrabajo">
+
+                                <div fxFlex="20%" fxFlexAlign="start">
+                                    <mat-checkbox fxFlexAlign="start" class="check" [(ngModel)]="dia.check"
+                                        [ngModelOptions]="{standalone: true}">
                                         {{dia.nombreDia}}</mat-checkbox>
                                 </div>
 
-                                <div fxFlex="25%" fxFlexAlign="center" style="background-color: palegoldenrod;">
-                                    <mat-form-field appearance="outline" style="width:100%;">
+                                <div fxFlex="30%" fxFlexAlign="center">
+                                    <mat-form-field appearance="outline" style="height:60px; width: 100%;">
                                         <mat-label>Horario de incio</mat-label>
-                                        <mat-select [disabled]="!dia.check" [(ngModel)]="dia.horarioInicio" [ngModelOptions]="{standalone: true}">
-                                            <mat-option *ngFor="let horario of horariosApertura" [value]="horario">{{horario}}
+                                        <mat-select [disabled]="!dia.check" [(ngModel)]="dia.horarioInicio"
+                                            [ngModelOptions]="{standalone: true}">
+                                            <mat-option *ngFor="let horario of horariosApertura;" [value]="horario">
+                                                {{horario}}
                                             </mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
 
-                                <div fxFlex="25%" fxFlexAlign="end" style="background-color: palegoldenrod;">
-                                    <mat-form-field appearance="outline">
+                                
+                                
+                                <div fxFlex="40%" fxFlexAlign="end">
+                                    <mat-form-field appearance="outline" style="height:60px; width: 100%;">
                                         <mat-label>Horario de finalización</mat-label>
-                                        <mat-select [disabled]="!dia.check" [(ngModel)]="dia.horarioFin" [ngModelOptions]="{standalone: true}">
-                                            <mat-option *ngFor="let horario of horariosApertura" [value]="horario">{{horario}}
+                                        <mat-select [disabled]="!(dia.check && dia.horarioInicio)" [(ngModel)]="dia.horarioFin"
+                                            [ngModelOptions]="{standalone: true}">
+                                            <mat-option *ngFor="let horario of horariosApertura | slice: horariosApertura.indexOf(dia.horarioInicio) + 1" [value]="horario">
+                                                {{horario}}
                                             </mat-option>
                                         </mat-select>
                                     </mat-form-field>
@@ -210,10 +219,10 @@
                     </mat-card-content>
 
 
-                    <mat-card-footer fxFlexFill fxLayout="row" fxLayoutAlign="center" style="background-color:maroon;">
+                    <mat-card-footer fxFlexFill fxLayout="row" fxLayoutAlign="center">
 
-                            <button fxFlex="50%" type="button" mat-raised-button color="primary" class="btn-login"
-                                matStepperNext>Siguiente</button>
+                        <button fxFlex="50%" type="button" mat-raised-button color="primary" class="btn-login"
+                            matStepperNext [disabled]="this.validarHorarios()" (click)="registrarConEmail(formRegistro.value)">Siguiente</button>
 
                     </mat-card-footer>
 

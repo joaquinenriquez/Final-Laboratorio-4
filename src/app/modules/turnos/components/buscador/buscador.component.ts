@@ -1,12 +1,12 @@
+import { Orden } from './../../../shared/components/tabla/orden.enum';
 import { Turno } from './../../models/turno';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { mergeMap } from 'rxjs/operators';
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
 import { VisualizarEncuestaUsuarioDialogComponent } from 'src/app/modules/usuarios/pages/visualizar-encuesta-usuario-dialog/visualizar-encuesta-usuario-dialog.component';
 import Swal from 'sweetalert2';
@@ -20,6 +20,8 @@ import { ModificarDuracionTurnoDialogComponent } from '../modificar-duracion-tur
   styleUrls: ['./buscador.component.scss']
 })
 export class BuscadorComponent implements OnInit {
+  
+  /* #region  Atributos  */
 
   @Input() tipoFiltro: string;
 
@@ -28,14 +30,15 @@ export class BuscadorComponent implements OnInit {
 
   dataSource: MatTableDataSource<Object>;
 
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  cargaTablaPrimeraVez: boolean = true;
+
+  /* #endregion */
 
   constructor(private turnosDataService: TurnosDataService,
     private toastManager: MatSnackBar,
-    private authService: AuthService, 
     private dialog: MatDialog,
     private router: Router) { }
 
@@ -98,23 +101,27 @@ export class BuscadorComponent implements OnInit {
     }
   }
 
-  
-  traerTurnos() {
-        
-      this.turnosDataService.traerTodasLosTurnos().subscribe(todosLosTurnos => {
-        this.dataSource = new MatTableDataSource(todosLosTurnos);
-        console.log(todosLosTurnos);
 
-        this.displayedColumns = ['fechaTurno', 'horarioTurno', 'especialidad', 'nombreProfesional', 'nombreUsuario', 'estadoTurno', 'duracionEstimada', 'edad', 'peso', 'temperatura', 'resena'];
-        let auxTodosLosCampos = this.getNombrePropiedades(todosLosTurnos);
-        
-        this.camposAdicionales = auxTodosLosCampos.filter(unCampo => unCampo.substring(0,3) == 'CA_');
-        console.log(this.camposAdicionales);
+  traerTurnos() {
+
+    this.turnosDataService.traerTodasLosTurnos().subscribe(todosLosTurnos => {
+      this.dataSource = new MatTableDataSource(todosLosTurnos);
+      console.log(todosLosTurnos);
+
+      this.displayedColumns = ['fechaTurno', 'horarioTurno', 'especialidad', 'nombreProfesional', 'nombreUsuario', 'estadoTurno', 'duracionEstimada', 'edad', 'peso', 'temperatura', 'resena'];
+      let auxTodosLosCampos = this.getNombrePropiedades(todosLosTurnos);
+
+      this.camposAdicionales = auxTodosLosCampos.filter(unCampo => unCampo.substring(0, 3) == 'CA_');
+      console.log(this.camposAdicionales);
+
+      this.displayedColumns = this.displayedColumns.concat(this.camposAdicionales);
+      this.dataSource.sort = this.sort;
  
-        this.displayedColumns = this.displayedColumns.concat(this.camposAdicionales);
-        this.dataSource.sort = this.sort;
-      
-      });
+      if (this.cargaTablaPrimeraVez) {
+        this.ordernarTabla('fechaTurno', Orden.Descendente);
+      }
+
+    });
 
 
   }
@@ -145,10 +152,10 @@ export class BuscadorComponent implements OnInit {
     let result;
 
     listado.forEach(function (o) {
-        Object.keys(o).forEach(function (k) {
-            names[k] = true;
-        });
+      Object.keys(o).forEach(function (k) {
+        names[k] = true;
       });
+    });
 
     result = Object.keys(names);
     return result;
@@ -168,6 +175,15 @@ export class BuscadorComponent implements OnInit {
 
     });
 
+  }
+
+  ordernarTabla(nombreColumna: string, orden: Orden) {
+    const sortState: Sort = { active: nombreColumna, direction: orden };
+    this.dataSource.paginator = this.paginator;
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);
+    console.log('Ordenado');
   }
 
 }

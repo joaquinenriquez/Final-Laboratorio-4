@@ -49,11 +49,11 @@
   
 
 
-// .check {
+.check {
 
-//     position:relative;
-//     top:15px;
-// }
+    position:relative;
+    top:15px;
+}
 
 .card-titulo {
     font-size: 2em;
@@ -62,4 +62,15 @@
 
 mat-card-content {
     min-height: 50vh !important;
+}
+
+mat-card {
+    padding-bottom:  2em;
+}
+
+
+.toggle-captcha  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

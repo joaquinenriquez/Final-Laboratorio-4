@@ -44,9 +44,9 @@ export class MiCaptchaComponent implements OnInit, ControlValueAccessor {
     img.onload = function () {
       ctx.drawImage(img, 5, 0, img.width / 2, img.height / 2);
       ctx.font = "40px Arial";
-      ctx.fillText(`${numOne} + ${numTwo} = `, 160, 90);
+      ctx.fillText(`${numOne} + ${numTwo} = `, 140, 90);
     }
-    img.src = "../assets/captcha.png";
+    img.src = "../assets/img/captcha.png";
 
 
   }
