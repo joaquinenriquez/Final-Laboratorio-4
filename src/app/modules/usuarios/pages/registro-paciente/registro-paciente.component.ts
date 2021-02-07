@@ -1,10 +1,9 @@
 import { Observable } from 'rxjs';
 import { environment } from './../../../../../environments/environment';
 import { UsuarioDataService } from '../../services/usuario-data.service';
-import { DataService } from '../../../shared/services/data.service';
 import { Usuario } from '../../models/usuario';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
 
@@ -12,7 +11,8 @@ import Swal from 'sweetalert2';
 import { Rol } from '../../models/rol.enum';
 import { EstadoUsuario } from '../../models/estado-usuario.enum';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { finalize, first } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
+// import firebase from 'firebase/app';
 
 export interface FormModel {
   captcha?: string;
@@ -45,7 +45,6 @@ export class RegistroPacienteComponent implements OnInit {
     nombre: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.\'-]+$')]),
     apellido: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.\'-]+$')]),
     captcha: new FormControl({value: '', disabled: this.deshabilitarcaptcha}, Validators.required)
-    //captcha: new FormControl({value: ''})
   });
 
   constructor(private authService: AuthService,
@@ -99,12 +98,13 @@ export class RegistroPacienteComponent implements OnInit {
       nuevoUsuario.imagen1 = this.imagenes[0].urlImagen;
     }
 
+    // nuevoUsuario.fechaAlta = firebase.firestore.Timestamp.now();
     nuevoUsuario.rol = Rol.Paciente;
     nuevoUsuario.estado = EstadoUsuario.Habilitado;
     console.log('Guardar en DB', this.usuarioDataSvc.GuardarNuevoUsuario(nuevoUsuario));
   }
 
-  subirFoto(event) {
+  subirFoto(event) {  
 
     const idFoto = Math.random().toString(36).substring(2);
     const archivo = event.target.files[0];

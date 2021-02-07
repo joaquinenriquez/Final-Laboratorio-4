@@ -75,51 +75,59 @@ export class LoginComponent implements OnInit {
     {
       let usuario = datosUsuario as Usuario;
 
-      switch (usuario.rol) {
+      switch (usuario.rol) 
+      {
+
         case Rol.Paciente:
-          {
+
             if (!resultadoLogin.user.emailVerified) {
               this.authService.cerrarSesion();
               this.mostrarMensajeCuentaNoVerificadaPaciente();
-            } else {
-              if (usuario.estado == EstadoUsuario.Deshabilitado) {
+            } 
+            
+            else if (usuario.estado == EstadoUsuario.Deshabilitado) {
                 this.mostrarMensajeCuentaDeshabilitada();
-              } else {
+            } 
+            
+            else if (usuario.estado == EstadoUsuario.Habilitado && resultadoLogin.user.emailVerified) {
                 console.log('Login Corecto!', resultadoLogin);
                 this.guardarLogInicioSesion(resultadoLogin, usuario.rol);
                 this.router.navigate(['/solicitar-turno']);
-              }
             }
 
             break;
-          }
-
+  
         case Rol.Profesional:
-          {
+
             if (usuario.estado == EstadoUsuario.Habilitado) {
               console.log('Login Correcto!', resultadoLogin);
               this.guardarLogInicioSesion(resultadoLogin, usuario.rol);
               this.router.navigate(['/gestion-turnos']);
-            } else {
+
+            } else if (usuario.estado == EstadoUsuario.Deshabilitado) {
+              this.mostrarMensajeCuentaDeshabilitada();
+              this.authService.cerrarSesion();
+
+            } else if (usuario.estado == EstadoUsuario.PendienteAprobacion) {
               this.mostrarMensajeCuentaNoAprobadaProfesional();
               this.authService.cerrarSesion();
             }
+            
             break;
-          }
 
-          case Rol.Administrador:
-            {
-              this.guardarLogInicioSesion(resultadoLogin, usuario.rol);
-              this.router.navigate(['/gestion-usuarios']);
-              // if (usuario.estado == EstadoUsuario.Habilitado) {
-              //   console.log('Login Correcto!', resultadoLogin);
-              //   this.router.navigate(['/gestion-usuarios']);
-              // } else {
-              //   this.mostrarMensajeCuentaNoAprobadaProfesional();
-              //   this.authService.cerrarSesion();
-              // }
-              // break;
-            }
+
+          case Rol.Administrador: 
+
+          if (usuario.estado == EstadoUsuario.Habilitado) {
+            console.log('Login Correcto!', resultadoLogin);
+            this.guardarLogInicioSesion(resultadoLogin, usuario.rol);
+            this.router.navigate(['/gestion-usuarios']);
+          } 
+
+          else if (usuario.estado == EstadoUsuario.Deshabilitado) {
+            this.mostrarMensajeCuentaDeshabilitada();
+            this.authService.cerrarSesion();
+          }
 
       }
     });

@@ -67,8 +67,7 @@
                             <div>
                                 <mat-form-field class="datos-login">
                                     <mat-label>Contraseña</mat-label>
-                                    <input [type]="ocultarPassword ? 'password': 'text'" matInput
-                                        formControlName="password">
+                                    <input [type]="ocultarPassword ? 'password': 'text'" matInput formControlName="password" autocomplete="on">
                                     <mat-icon matSuffix (click)="ocultarPassword = !ocultarPassword">
                                         {{ocultarPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                                 </mat-form-field>
@@ -77,8 +76,7 @@
                             <div>
                                 <mat-form-field class="datos-login">
                                     <mat-label>Repetir contraseña</mat-label>
-                                    <input [type]="ocultarPassword ? 'password': 'text'" matInput
-                                        formControlName="password">
+                                    <input [type]="ocultarPassword ? 'password': 'text'" matInput formControlName="password"  autocomplete="on">
                                     <mat-icon matSuffix (click)="ocultarPassword = !ocultarPassword">
                                         {{ocultarPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                                 </mat-form-field>
@@ -222,7 +220,7 @@
                     <mat-card-footer fxFlexFill fxLayout="row" fxLayoutAlign="center">
 
                         <button fxFlex="50%" type="button" mat-raised-button color="primary" class="btn-login"
-                            matStepperNext [disabled]="this.validarHorarios()" (click)="registrarConEmail(formRegistro.value)">Siguiente</button>
+                            matStepperNext [disabled]="this.validarHorarios() || !this.especialidadesControl.selectControl?.value?.length" (click)="registrarConEmail(formRegistro.value)">Registrarse</button>
 
                     </mat-card-footer>
 

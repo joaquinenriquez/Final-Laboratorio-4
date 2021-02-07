@@ -119,6 +119,7 @@ export class BuscadorComponent implements OnInit {
  
       if (this.cargaTablaPrimeraVez) {
         this.ordernarTabla('fechaTurno', Orden.Descendente);
+        this.cargaTablaPrimeraVez = false;
       }
 
     });

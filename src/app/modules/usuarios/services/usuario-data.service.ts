@@ -36,7 +36,7 @@ export class UsuarioDataService {
     return this.db.traerDocumentoPorId('usuarios', idUsuario);
   }
 
-  public TraerTodosLosUsuario() {
+  public TraerTodosLosUsuario(): Observable<Usuario[]> {
     return this.db.traerTodosLosDocumentos(this.nombreColeccion, this.campoId);
   }
 

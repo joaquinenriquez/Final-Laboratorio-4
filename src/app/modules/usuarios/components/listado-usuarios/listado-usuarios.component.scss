@@ -1,41 +1,70 @@
-table {
+  
+  .txtBuscador {
+    font-size: 14px;
     width: 100%;
   }
 
-  .icono-boton {
-      margin-right: 0.5em;
+  .btn-nuevo-usuario-admin {
+    margin-bottom: 1.4em;
   }
 
-
+  .alinear-centro {
+    display:flex !important;
+    justify-content: center !important;
+  }
   
-  .usuario-habilitado {
-    color: #3BAF55;
-    font-weight: bold;
+  .mat-table{
+      background-color: rgba(255, 255, 255, 0.959);
+      height : 50vh;
+      overflow: auto;   
+      width: 100%;
+  }
+  .mat-header-cell, .mat-cell {
+      min-width: 250px;
   }
 
-  .usuario-pendiente-confirmacion {
-    color: #FFC925;
-    font-weight: bold;
+  .mat-form-field-underline{
+      background-color:transparent;
   }
 
-  .usuario-deshabilitado {
-    color: #8E959B;
-    font-weight: bold;
-  }
+  .mat-header-cell {
+    flex: 1;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    background-color: #585191 ;
+    // border-style: solid;
+    color: white !important;
+}
 
-  .sin-datos {
-    font-size: 16px;
-    text-align: center;
-    color:#8BC34A;
-  }
-
-//   .w-75{
-//     width: 200px;
-// }
-
-.button-text {
-  padding-left: 8px;
-  padding-right: 4px; /* Add 24px to align the text in the center since the icon's width is 24px */
+.mat-row:hover {
+  background-color: #e8f5e9;
 }
 
 
+
+// .mat-column-especialidad{
+//   flex: 0 0 250px;
+// }
+
+// .mat-column-email{
+//   flex: 0 0 250px;
+// }
+
+// .mat-column-estado{
+//   flex: 0 0 300px;
+// }
+
+// .mat-column-verHorarios{
+//   flex: 0 0 250px;
+  
+// }
+
+.centrar-celda {
+  display:flex;
+  justify-content: center;
+ }
+
+
+
+ 

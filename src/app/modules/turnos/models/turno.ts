@@ -1,5 +1,7 @@
 import { EstadoTurno } from './estado-turno.enum';
 import { Time } from '@angular/common';
+
+
 export interface Turno {
     idTurno?: string;
     idProfesional: string;

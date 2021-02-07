@@ -12,7 +12,7 @@
                   <mat-icon class="example-tab-icon">account_circle</mat-icon>
                   Profesionales
               </ng-template>
-              <app-listado-usuarios [filtroRol]="Roles.Profesional"></app-listado-usuarios>
+              <app-listado-usuarios [tipoFiltro]="Roles.Profesional"></app-listado-usuarios>
           </mat-tab>
   
             
@@ -21,7 +21,7 @@
                     <mat-icon class="example-tab-icon color-pendiente">supervised_user_circle</mat-icon>
                     Pacientes
                 </ng-template>
-                <app-listado-usuarios [filtroRol]="Roles.Paciente"></app-listado-usuarios>
+                <app-listado-usuarios [tipoFiltro]="Roles.Paciente"></app-listado-usuarios>
             </mat-tab>
   
             <mat-tab>
@@ -29,7 +29,7 @@
                     <mat-icon class="example-tab-icon">admin_panel_settings</mat-icon>
                     Administradores
                 </ng-template>
-                <app-listado-usuarios [filtroRol]="Roles.Administrador"></app-listado-usuarios>
+                <app-listado-usuarios [tipoFiltro]="Roles.Administrador"></app-listado-usuarios>
             </mat-tab>
   
         </mat-tab-group>
@@ -37,6 +37,9 @@
     </div>
   
   </div>
+
+
+
   
   
   

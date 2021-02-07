@@ -46,7 +46,7 @@
             <p>
                 <mat-form-field class="datos-login">
                     <mat-label>Contraseña</mat-label>
-                    <input [type]="ocultarPassword ? 'password': 'text'" matInput formControlName="password">
+                    <input [type]="ocultarPassword ? 'password': 'text'" matInput formControlName="password" autocomplete="on">
                     <mat-icon matSuffix (click)="ocultarPassword = !ocultarPassword">
                         {{ocultarPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </mat-form-field>

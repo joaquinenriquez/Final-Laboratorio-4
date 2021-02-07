@@ -1,15 +1,26 @@
-import { CambiarEstadoUsuarioDialogComponent } from './../cambiar-estado-usuario-dialog/cambiar-estado-usuario-dialog.component';
-import { ListadoHorariosProfesionalesComponent } from './../listado-horarios-profesionales/listado-horarios-profesionales.component';
 import { Rol } from './../../models/rol.enum';
 import { UsuarioDataService } from './../../services/usuario-data.service';
-import { Usuario } from './../../models/usuario';
+import { Orden } from './../../../shared/components/tabla/orden.enum';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { VisualizarEncuestaUsuarioDialogComponent } from 'src/app/modules/usuarios/pages/visualizar-encuesta-usuario-dialog/visualizar-encuesta-usuario-dialog.component';
+import Swal from 'sweetalert2';
+import { TurnosDataService } from 'src/app/modules/turnos/services/turnos-data.service';
+import { EstadoTurno } from 'src/app/modules/turnos/models/estado-turno.enum';
+import { Turno } from 'src/app/modules/turnos/models/turno';
+import { ModificarDuracionTurnoDialogComponent } from 'src/app/modules/turnos/components/modificar-duracion-turno-dialog/modificar-duracion-turno-dialog.component';
+import { ListadoHorariosProfesionalesComponent } from '../listado-horarios-profesionales/listado-horarios-profesionales.component';
+import { CambiarEstadoUsuarioDialogComponent } from '../cambiar-estado-usuario-dialog/cambiar-estado-usuario-dialog.component';
+import { Usuario } from '../../models/usuario';
 import { NuevoUsuarioAdminDialogComponent } from '../nuevo-usuario-admin-dialog/nuevo-usuario-admin-dialog.component';
+
+
+
 
 
 @Component({
@@ -19,25 +30,182 @@ import { NuevoUsuarioAdminDialogComponent } from '../nuevo-usuario-admin-dialog/
 })
 export class ListadoUsuariosComponent implements OnInit {
 
-  @Input() filtroRol: Rol;
+  /* #region  Atributos  */
 
+  @Input() tipoFiltro: Rol;
   Rol = Rol;
-
   displayedColumns: string[];
+
   dataSource: MatTableDataSource<Usuario>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  especialidadesDataServices: any;
 
+  cargaTablaPrimeraVez: boolean = true;
 
-  constructor(private usuarioDataService: UsuarioDataService,
+  /* #endregion */
+
+  constructor(private turnosDataService: TurnosDataService,
     private toastManager: MatSnackBar,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private router: Router,
+    private usuariosDataService: UsuarioDataService) { }
 
-  ngOnInit(): void {
-    this.traerUsuarios(this.filtroRol);
+  ngOnInit(): void { 
+    this.definirColumnas();
   }
+
+
+  ngAfterViewInit() {
+    this.traerUsuarios(this.tipoFiltro);
+  }
+
+  private definirColumnas() {
+    switch (this.tipoFiltro) {
+      case Rol.Profesional:
+        this.displayedColumns = ['fechaAlta', 'displayName', 'email', 'especialidad', 'horarios', 'estado'];
+        break;
+
+      case Rol.Paciente:
+      case Rol.Administrador:
+        this.displayedColumns = ['fechaAlta', 'displayName', 'email', 'estado'];
+        break;
+    }
+  }
+
+
+  cancelarTurno(turno: Turno) {
+
+    Swal.fire({
+      title: '<strong>Cancelar turno</strong>',
+      icon: 'warning',
+      html:
+        `¿Estas seguro que queres cancelar el turno con <b><i>${turno.nombreUsuario}</i></b>, ` +
+        `para el día <b>${turno.fechaTurno.toDate().toLocaleDateString()}</b> ` +
+        `a las <b>${turno.horarioTurno}</b>?`,
+      showCancelButton: true,
+      focusConfirm: false,
+      confirmButtonColor: '#F44336',
+      confirmButtonText: '<i>Si, estoy seguro!</i>',
+      cancelButtonText: '<b>No cancelar</b>',
+    }).then(resultadoDialogo => {
+      if (resultadoDialogo.isConfirmed) {
+        turno.estadoTurno = EstadoTurno.Cancelado;
+        this.turnosDataService.modificarTurno(turno);
+        this.mostrarToast('El turno fue cancelado con éxito', 2000);
+      }
+    })
+  }
+
+  confirmarTurno(turno: Turno) {
+    turno.estadoTurno = EstadoTurno.Confirmado;
+    this.turnosDataService.modificarTurno(turno);
+    this.mostrarToast('El turno fue confirmado con éxito', 2000);
+  }
+
+  atenderTurno(turno: Turno) {
+    turno.estadoTurno = EstadoTurno.Atendiendo;
+    this.turnosDataService.modificarTurno(turno);
+    this.router.navigate(['/atender-turno', turno.idTurno]);
+  }
+
+
+  mostrarToast(mensaje: string, duracion: number) {
+    this.toastManager.open(mensaje, '', { duration: duracion, panelClass: ['toast-confirmado'] })
+  }
+
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+
+  traerUsuarios(rol: Rol) {
+
+    if (rol == undefined)
+    return;
+
+    this.usuariosDataService.TraerTodosLosUsuariosPorRol(rol).subscribe(todosLosUsuarios => {
+      
+
+
+      this.dataSource = new MatTableDataSource(todosLosUsuarios);
+      this.dataSource.sort = this.sort;
+ 
+      if (this.cargaTablaPrimeraVez) {
+        this.ordernarTabla('fechaAlta', Orden.Descendente);
+        this.cargaTablaPrimeraVez = false;
+      }
+
+    });
+
+  }
+
+  modificarDuracionTurno(turno: Turno): void {
+
+    const dialogoReg = this.dialog.open(ModificarDuracionTurnoDialogComponent,
+      {
+        width: '400px',
+        data: turno
+      });
+
+    dialogoReg.afterClosed().subscribe(resultadoDialogo => {
+
+      if (resultadoDialogo != undefined) {
+        turno.duracionEstimada = resultadoDialogo;
+        this.mostrarToast('Se cambió la duración del turno', 2000);
+      }
+
+    });
+
+  }
+
+  getNombrePropiedades(listado: Array<Object>): Array<string> {
+    // return Object.keys(listado.reduce((o,c) => Object.assign(o, c)));
+
+    let names = Object.create(null);
+    let result;
+
+    listado.forEach(function (o) {
+      Object.keys(o).forEach(function (k) {
+        names[k] = true;
+      });
+    });
+
+    result = Object.keys(names);
+    return result;
+
+  }
+
+  verEncuesta(turno: Turno): void {
+
+    const dialogoReg = this.dialog.open(VisualizarEncuestaUsuarioDialogComponent,
+      {
+        width: '600px',
+        height: 'auto',
+        data: turno
+      });
+
+    dialogoReg.afterClosed().subscribe(resultadoDialogo => {
+
+    });
+
+  }
+
+  ordernarTabla(nombreColumna: string, orden: Orden) {
+    const sortState: Sort = { active: nombreColumna, direction: orden };
+    this.dataSource.paginator = this.paginator;
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);
+    console.log('Ordenado');
+  }
+
 
   verHorarios(idUsuario: string): void {
 
@@ -62,52 +230,12 @@ export class ListadoUsuariosComponent implements OnInit {
 
       if (resultadoDialogo != undefined) {
         usuario.estado = resultadoDialogo;
-        this.usuarioDataService.modificarUsuario(usuario).then(() => this.mostrarToast('Se cambió el estado del usuario', 2000));
+        this.usuariosDataService.modificarUsuario(usuario).then(() => this.mostrarToast('Se cambió el estado del usuario', 2000));
       }
 
     });
 
   }
-
-
-  ngAfterViewInit() { }
-
-
-  mostrarToast(mensaje: string, duracion: number) {
-    this.toastManager.open(mensaje, '', { duration: duracion, panelClass: ['toast-confirmado'] })
-  }
-
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
-  traerUsuarios(rol: Rol) {
-
-    if (rol == undefined)
-      return;
-
-    switch (rol) {
-      case Rol.Profesional:
-        this.displayedColumns = ['displayName', 'email', 'especialidad', 'verHorarios', 'estado'];
-        break;
-
-      case Rol.Paciente:
-      case Rol.Administrador:
-        this.displayedColumns = ['displayName', 'email', 'estado'];
-        break;
-    }
-
-    this.usuarioDataService.TraerTodosLosUsuariosPorRol(rol).subscribe(datosUsusario => {
-      this.dataSource = new MatTableDataSource(datosUsusario)
-    });
-  }
-
 
   nuevoUsuarioAdmin() {
     this.dialog.open(NuevoUsuarioAdminDialogComponent,
@@ -118,46 +246,9 @@ export class ListadoUsuariosComponent implements OnInit {
       });
   }
 
-
-
+  
+  formatearArray(unArray: string[]): string {
+    return unArray?.join(" - ");
+  }
 
 }
-
-
-
-
-
-
-
-//         let todosLosTurnos = datos as Turno[];
-
-//         switch (this.tipoFiltro) {
-
-//           case 'confirmados':
-//             {
-//               this.displayedColumns = ['fechaTurno', 'horarioTurno', 'especialidad', 'nombreUsuario', 'estadoTurno', 'atenderTurno', 'cancelarTurno'];
-//               this.dataSource = new MatTableDataSource(todosLosTurnos.filter(unTurno => unTurno.estadoTurno == EstadoTurno.Confirmado || unTurno.estadoTurno == EstadoTurno.Atendiendo));
-//               break;
-//             }
-
-//           case 'pendientes':
-//             {
-//               this.displayedColumns = ['fechaTurno', 'horarioTurno', 'especialidad', 'nombreUsuario', 'estadoTurno', 'confirmarTurno', 'cancelarTurno'];
-//               this.dataSource = new MatTableDataSource(todosLosTurnos.filter(unTurno => unTurno.estadoTurno == EstadoTurno.Pendiente_Confirmar));
-//               break;
-//             }
-
-//           case 'anteriores':
-//             {
-//               this.dataSource = new MatTableDataSource(todosLosTurnos.filter(unTurno => unTurno.estadoTurno == EstadoTurno.Finalizado || unTurno.estadoTurno == EstadoTurno.Suspendido || unTurno.estadoTurno == EstadoTurno.Cancelado));
-//               this.displayedColumns = ['fechaTurno', 'horarioTurno', 'especialidad', 'nombreUsuario', 'estadoTurno'];
-//               break;
-//             }
-//         }
-
-//         this.dataSource.paginator = this.paginator;
-//         this.dataSource.sort = this.sort;
-//       });
-//   }
-
-// }

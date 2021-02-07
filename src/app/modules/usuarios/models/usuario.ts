@@ -18,4 +18,5 @@ export interface Usuario extends firebase.User {
     imagen1?: string;
     imagen2?: string;
     calificacion?: number;
+    fechaAlta?: firebase.firestore.Timestamp;
 }

@@ -7,7 +7,6 @@ import { UsuarioDataService } from './../../../usuarios/services/usuario-data.se
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import firebase from 'firebase/app';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 

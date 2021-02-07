@@ -10,6 +10,7 @@ import { UsuarioDataService } from '../../services/usuario-data.service';
 import Swal from 'sweetalert2';
 import { Rol } from '../../models/rol.enum';
 import { first, mergeMap } from 'rxjs/operators';
+import firebase from 'firebase/app';
 
 @Component({
   selector: 'app-nuevo-usuario-admin-dialog',
@@ -54,6 +55,7 @@ export class NuevoUsuarioAdminDialogComponent implements OnInit {
 
         resultado.user.updateProfile({ displayName: nuevoUsuario.displayName });
         nuevoUsuario.idUsuario = resultado.user.uid
+        nuevoUsuario.fechaAlta = firebase.firestore.Timestamp.now();
         nuevoUsuario.rol = Rol.Administrador;
         nuevoUsuario.estado = EstadoUsuario.Habilitado;
 
