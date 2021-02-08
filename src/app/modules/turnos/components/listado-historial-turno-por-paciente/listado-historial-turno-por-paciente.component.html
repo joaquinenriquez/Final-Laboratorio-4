@@ -1,0 +1,142 @@
+<div class="example-container mat-elevation-z8 table-responsive" fxLayout="column">
+
+    <mat-card>
+      <mat-card-content>
+  
+  
+        <!-- #region Buscador simple -->
+  
+        <div fxLayout="row">
+  
+          <div fxFlex="100%">
+  
+            <mat-form-field class="txtBuscador" appearance="outline">
+              <mat-label>Buscar</mat-label>
+              <input matInput (keyup)="applyFilter($event)" placeholder="Ingresa el texto que queres buscar..." #input>
+            </mat-form-field>
+  
+          </div>
+        
+  
+          </div>
+  
+        
+        <!-- #endregion -->
+  
+  
+        <mat-table #table [dataSource]="dataSource" matSort>
+  
+          <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+  
+  
+          <ng-container matColumnDef="fechaTurno">
+            <mat-header-cell  *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
+            <mat-cell *matCellDef="let turno"> {{turno.fechaTurno?.toDate() | date:'dd/MM/yyyy' }} </mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="horarioTurno">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Horario </mat-header-cell>
+            <mat-cell *matCellDef="let turno"> {{turno.horarioTurno}} </mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="nombreProfesional"  color="primary">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Profesional </mat-header-cell>
+            <mat-cell *matCellDef="let turno"> {{turno.nombreProfesional}} </mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="nombreUsuario">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Paciente </mat-header-cell>
+            <mat-cell *matCellDef="let turno"> {{turno.nombreUsuario}} </mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="especialidad">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Especialidad </mat-header-cell>
+            <mat-cell *matCellDef="let turno"> {{turno.especialidadProfesional}} </mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="estadoTurno">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
+            <mat-cell *matCellDef="let turno" [ngClass]="{
+              'turno-cancelado': 'Cancelado' == turno.estadoTurno, 
+              'turno-finalizado': 'Finalizado' == turno.estadoTurno,
+              'turno-pendiente-confirmacion': 'Pendiente Confirmación' == turno.estadoTurno,
+              'turno-confirmado': 'Confirmado' == turno.estadoTurno,
+              'turno-atendiendo': 'Atendiendo' == turno.estadoTurno,
+              'turno-suspendido': 'Suspendido' == turno.estadoTurno}"> {{turno.estadoTurno}} </mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="duracionEstimada">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Duración estimada </mat-header-cell>
+            <mat-cell *matCellDef="let turno" class="alinear-centro"> {{turno.duracionEstimada}} </mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="edad">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Edad </mat-header-cell>
+            <mat-cell *matCellDef="let turno"> {{turno.edad}} </mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="peso">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Peso </mat-header-cell>
+            <mat-cell *matCellDef="let turno"> {{turno.peso}} </mat-cell>
+          </ng-container>
+  
+        <ng-container matColumnDef="temperatura">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Temperatura </mat-header-cell>
+            <mat-cell *matCellDef="let turno"> {{turno.temperatura}} </mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="resena">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Reseña </mat-header-cell>
+            <mat-cell *matCellDef="let turno"> {{turno.resena}} </mat-cell>
+          </ng-container>  -->
+  
+          <ng-container *ngFor="let unCampoAdicional of camposAdicionales" matColumnDef={{unCampoAdicional}}>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> {{unCampoAdicional.substring(3, unCampoAdicional.length)}} </mat-header-cell>
+            <mat-cell *matCellDef="let turno"> {{turno[unCampoAdicional]}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="verEncuesta">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> <strong>Ver encuesta</strong></mat-header-cell>
+            <mat-cell *matCellDef="let turno">
+              <button mat-icon-button class="boton-ver-encuesta" [disabled]="turno.contestoEncuesta == false || turno.estadoTurno != 'Finalizado'" (click)="verEncuesta(turno)">
+                <mat-icon class="mat-18">playlist_add_check</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+  
+  
+          <mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+
+          <tr class="mat-row mat-row-sin-datos" *matNoDataRow>
+            <td *ngIf="input?.value?.length > 0 && dataSource.data?.length > 0" class="mat-cell"
+              [attr.colspan]="displayedColumns?.length">No existe resultados para "{{input.value}}"</td>
+            <td class="mat-cell sin-datos" *ngIf="dataSource.data?.length == 0"
+              [attr.colspan]="displayedColumns?.length">
+              <mat-icon class="icono">insert_emoticon</mat-icon>El paciente no tuvo turnos anteriores
+            </td>
+          </tr>
+
+  
+  
+        </mat-table>
+
+    
+
+
+
+        <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
+        </mat-paginator>
+  
+  
+      </mat-card-content>
+  
+    </mat-card>
+  
+  
+  
+  </div>
+  
+  

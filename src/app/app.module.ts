@@ -19,16 +19,17 @@ import localeEs from '@angular/common/locales/es-AR';
 // Esto es 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
-// Traducciones
-// import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
+// Spinner
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 registerLocaleData(localeEs, 'es-AR');
 
 // Traducciones
-import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -50,6 +51,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     EspecialidadesModule,
     AppRoutingModule,
     FlexLayoutModule,
+    NgxSpinnerModule,
     // AngularFireStorageModule,
     TranslateModule.forRoot({
       loader: {

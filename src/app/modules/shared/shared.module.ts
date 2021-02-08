@@ -24,10 +24,11 @@ import { DatosAdminBarComponent } from './components/datos-admin-bar/datos-admin
 import { MiCaptchaComponent } from './mi-captcha/mi-captcha.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { CardComponent } from './components/card/card.component';
+import { NotificacionesDialogComponent } from './components/notificaciones-dialog/notificaciones-dialog.component';
 
 
 @NgModule({
-  declarations: [ToolbarComponent, MultiSelectConBuscadorComponent, DatosUsuarioBarComponent, TablaComponent, ObtenerPropiedadPipePipe, CalificacionEstrellasComponent, SiNoPipe, DatosProfesionalBarComponent, DatosAdminBarComponent, MiCaptchaComponent, CardComponent],
+  declarations: [ToolbarComponent, MultiSelectConBuscadorComponent, DatosUsuarioBarComponent, TablaComponent, ObtenerPropiedadPipePipe, CalificacionEstrellasComponent, SiNoPipe, DatosProfesionalBarComponent, DatosAdminBarComponent, MiCaptchaComponent, CardComponent, NotificacionesDialogComponent],
   imports: [
     CommonModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),

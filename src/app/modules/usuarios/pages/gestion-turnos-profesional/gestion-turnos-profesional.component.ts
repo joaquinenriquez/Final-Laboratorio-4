@@ -11,7 +11,9 @@ import firebase from 'firebase/app';
 export class GestionTurnosProfesionalComponent implements OnInit {
 
   datosUsuarioActual;
-
+  cantidadTurnosConfirmados: number;
+  cantidadTurnosPendientes: number;
+  cantidadTurnosAnteriores: number;
 
   constructor(private usuarioDataService: UsuarioDataService, private authService: AuthService) {}
 
@@ -26,5 +28,6 @@ export class GestionTurnosProfesionalComponent implements OnInit {
     const idiomaSeleccionado = localStorage.getItem('idioma') || 'ar';
 
   }
+
 
 }

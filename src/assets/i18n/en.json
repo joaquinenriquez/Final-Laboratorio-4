@@ -16,7 +16,10 @@
     "Mi perfil": "My profile",
     "Cerrar sesión": "Logout",
 
-    "Error al crear el usuario" : "Error creating user"
+    "Error al crear el usuario" : "Error creating user",
+
+
+    "Cargando...": "Loading..."
 
 
 }

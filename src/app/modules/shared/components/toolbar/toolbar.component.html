@@ -117,6 +117,13 @@
     </mat-menu>
 
 
+    <button mat-icon-button *ngIf="this.datosUsuarioActual" (click)="this.mostrarNotificaciones($event)">
+        <mat-icon *ngIf="!this.notificaciones?.length">notifications</mat-icon>
+        <mat-icon *ngIf="this.notificaciones?.length" [matBadge]="(this.notificaciones?.length)" matBadgeColor="warn">notifications_active</mat-icon>
+    </button>
+
+    
+
     <button mat-icon-button [matMenuTriggerFor]="menuIdiomas">
         <mat-icon [svgIcon]="this.idiomaSeleccionado"></mat-icon>
     </button>

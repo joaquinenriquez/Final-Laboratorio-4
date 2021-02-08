@@ -1,4 +1,4 @@
-  .turno-cancelado {
+.turno-cancelado {
     color: #F44336;
     font-weight: bold;
   }
@@ -42,7 +42,7 @@
 
   .mat-table{
       background-color: rgba(255, 255, 255, 0.959);
-      height : 50vh;
+      height : auto;
       overflow: auto;   
       width: 100%;
   }
@@ -68,7 +68,26 @@
   background-color: #e8f5e9;
 }
   
+.sin-datos {
+  font-size: 16px;
+  text-align: center;
+  color:#8BC34A;
+}
 
+.mat-row-sin-datos {
+  display: flex;
+  justify-content: center;
+}
+
+.icono {
+  position: relative;
+  /* Adjust these values accordingly */
+  top: 5px;
+  color:#8BC34A;
+  // left: 10px;
+}
+
+/* #region  Esto arregla cuando se romple el formato de la tabla al ser tan larga */
 
 .mat-header-row{
   width: fit-content !important;
@@ -76,3 +95,6 @@
 .mat-row{
   width: fit-content !important;
 }
+
+
+/* #endregion */

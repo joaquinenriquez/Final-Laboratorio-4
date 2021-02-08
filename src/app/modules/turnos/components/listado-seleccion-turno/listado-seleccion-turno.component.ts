@@ -19,15 +19,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Encuesta } from '../../models/encuesta';
 import firebase from 'firebase/app';
 
-
-
-
 @Component({
-  selector: 'app-listado-turnos-pacientes',
-  templateUrl: './listado-turnos-pacientes.component.html',
-  styleUrls: ['./listado-turnos-pacientes.component.scss']
+  selector: 'app-listado-seleccion-turno',
+  templateUrl: './listado-seleccion-turno.component.html',
+  styleUrls: ['./listado-seleccion-turno.component.scss']
 })
-export class ListadoTurnosPacientesComponent implements OnInit {
+export class ListadoSeleccionTurnoComponent implements OnInit {
 
   @Input() tipoFiltro: string;
 
@@ -198,6 +195,5 @@ export class ListadoTurnosPacientesComponent implements OnInit {
 
 
 }
-
 
 

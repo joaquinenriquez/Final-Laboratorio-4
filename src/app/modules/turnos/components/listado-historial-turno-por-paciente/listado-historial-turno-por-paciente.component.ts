@@ -1,22 +1,24 @@
-import { Usuario } from 'src/app/modules/usuarios/models/usuario';
 import { Orden } from './../../../shared/components/tabla/orden.enum';
 import { Turno } from './../../models/turno';
-import { Component, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { VisualizarEncuestaUsuarioDialogComponent } from 'src/app/modules/usuarios/pages/visualizar-encuesta-usuario-dialog/visualizar-encuesta-usuario-dialog.component';
 import { TurnosDataService } from '../../services/turnos-data.service';
+import { EstadoTurno } from '../../models/estado-turno.enum';
 
 @Component({
-  selector: 'app-buscador',
-  templateUrl: './buscador.component.html',
-  styleUrls: ['./buscador.component.scss']
+  selector: 'app-listado-historial-turno-por-paciente',
+  templateUrl: './listado-historial-turno-por-paciente.component.html',
+  styleUrls: ['./listado-historial-turno-por-paciente.component.scss']
 })
-export class BuscadorComponent implements OnInit, AfterViewInit {
-  
+export class ListadoHistorialTurnoPorPacienteComponent implements OnInit, OnChanges {
+
   /* #region  Atributos  */
+
+  @Input() idUsuario: string;
 
   displayedColumns: string[];
   camposAdicionales: string[] = [];
@@ -37,7 +39,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
 
   
   ngAfterViewInit() {
-    this.traerTurnos();
+
   }
 
 
@@ -53,12 +55,14 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
 
   traerTurnos() {
 
-    this.turnosDataService.traerTodasLosTurnos().subscribe(todosLosTurnos => {
-      this.dataSource = new MatTableDataSource(todosLosTurnos);
+    this.turnosDataService.traerTurnosPorUsuario(this.idUsuario).subscribe(todosLosTurnos => {
 
+      let soloTurnosFinalizados = todosLosTurnos.filter(unTurno => unTurno.estadoTurno == EstadoTurno.Finalizado);
 
-      this.displayedColumns = ['fechaTurno', 'horarioTurno', 'especialidad', 'nombreProfesional', 'nombreUsuario', 'estadoTurno', 'duracionEstimada', 'edad', 'peso', 'temperatura', 'resena'];
-      let auxTodosLosCampos = this.getNombrePropiedades(todosLosTurnos);
+      this.dataSource = new MatTableDataSource(soloTurnosFinalizados);
+
+      this.displayedColumns = ['fechaTurno', 'horarioTurno', 'especialidad', 'nombreProfesional', 'nombreUsuario', 'estadoTurno', 'duracionEstimada', 'edad', 'peso', 'temperatura', 'resena', 'verEncuesta'];
+      let auxTodosLosCampos = this.getNombrePropiedades(soloTurnosFinalizados);
 
       this.camposAdicionales = auxTodosLosCampos.filter(unCampo => unCampo.substring(0, 3) == 'CA_');
 
@@ -115,6 +119,13 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     this.sort.direction = sortState.direction;
     this.sort.sortChange.emit(sortState);
     console.log('Ordenado');
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Cuando cambia algun valor de los que recibimos por input se produce este evento
+    if (changes.idUsuario?.currentValue != undefined) {
+      this.traerTurnos();
+    }
   }
 
 }

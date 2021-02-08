@@ -11,6 +11,8 @@ import firebase from 'firebase/app';
 export class MisTurnosComponent implements OnInit {
 
   datosUsuarioActual;
+  cantidadProximosTurnos: number = 0;
+  cantidadTurnosAnteriores: number = 0;
 
   constructor(private usuarioDataService: UsuarioDataService, private authService: AuthService) {
 

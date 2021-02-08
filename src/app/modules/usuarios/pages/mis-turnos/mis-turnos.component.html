@@ -10,17 +10,17 @@
             <mat-tab>
                 <ng-template mat-tab-label>
                     <mat-icon class="example-tab-icon">book_online</mat-icon>
-                    Próximos turnos
+                    Próximos turnos ({{this.cantidadProximosTurnos}})
                 </ng-template>
-                <app-listado-turnos-pacientes tipoFiltro="proximos"></app-listado-turnos-pacientes>
+                <app-listado-turnos-pacientes tipoFiltro="proximos" (cambioCantidadTurnos)="this.cantidadProximosTurnos = $event" [datosUsuarioActual]="this.datosUsuarioActual"></app-listado-turnos-pacientes>
             </mat-tab>
 
             <mat-tab>
                 <ng-template mat-tab-label>
                     <mat-icon class="example-tab-icon">history</mat-icon>
-                    Turnos anteriores y cancelados
+                    Turnos anteriores y cancelados ({{this.cantidadTurnosAnteriores}})
                 </ng-template>
-                <app-listado-turnos-pacientes tipoFiltro="anteriores"></app-listado-turnos-pacientes>
+                <app-listado-turnos-pacientes tipoFiltro="anteriores" (cambioCantidadTurnos)="this.cantidadTurnosAnteriores = $event" [datosUsuarioActual]="this.datosUsuarioActual"></app-listado-turnos-pacientes>
             </mat-tab>
 
         </mat-tab-group>

@@ -13,7 +13,9 @@ import { Rol } from '../../models/rol.enum';
 import { UsuarioDataService } from '../../services/usuario-data.service';
 import { EstadoUsuario } from '../../models/estado-usuario.enum';
 import { EspecialidadesDataService } from 'src/app/modules/especialidades/services/especialidades-data.service';
-// import firebase from 'firebase/app';
+
+// Firebase
+import firebase from 'firebase/app';
 
 
 @Component({
@@ -95,7 +97,7 @@ export class RegistroProfesionalComponent implements OnInit {
 
 
   guardarBD(nuevoUsuario: Usuario) {
-    // nuevoUsuario.fechaAlta = firebase.firestore.Timestamp.now();
+    nuevoUsuario.fechaAlta = firebase.firestore.Timestamp.now();
     nuevoUsuario.rol = Rol.Profesional;
     nuevoUsuario.estado = EstadoUsuario.PendienteAprobacion;
     nuevoUsuario.especialidades = this.especialidadesControl.selectControl?.value;

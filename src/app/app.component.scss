@@ -5,3 +5,24 @@ html, body {
   .full-height {
     height: 100vh;
   }
+
+
+  .img-logo {
+    // object-fit: cover;
+    // border-radius:50%;
+    z-index: 9999;
+    width: 124px;
+    height: 75px;
+    margin-bottom: 350px;
+    // margin-right: 50px;
+    opacity: 0.6;
+  }
+
+.txt-cargando {
+  color: #EAD032 ;
+  font-size: 1.4em;
+  justify-content: center;
+  display: flex;
+  // margin-left: 80px;
+}
+  

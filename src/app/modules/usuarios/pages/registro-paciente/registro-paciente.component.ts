@@ -1,3 +1,4 @@
+import { SpinnerService } from './../../../shared/services/spinner.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { environment } from './../../../../../environments/environment';
@@ -13,7 +14,9 @@ import { Rol } from '../../models/rol.enum';
 import { EstadoUsuario } from '../../models/estado-usuario.enum';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
-// import firebase from 'firebase/app';
+
+// Firebase
+import firebase from 'firebase/app';
 
 export interface FormModel {
   captcha?: string;
@@ -52,9 +55,12 @@ export class RegistroPacienteComponent implements OnInit {
     private router: Router,
     private usuarioDataSvc: UsuarioDataService,
     private storage: AngularFireStorage,
-    private translateService: TranslateService) { }
+    private translateService: TranslateService,
+    private spinnerService: SpinnerService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.spinnerService.mostrarSpinner(10000);
+  }
 
   registrarConEmail(nuevoUsuario: Usuario) {
     nuevoUsuario.displayName = `${nuevoUsuario.nombre} ${nuevoUsuario.apellido}`;
@@ -100,7 +106,7 @@ export class RegistroPacienteComponent implements OnInit {
       nuevoUsuario.imagen1 = this.imagenes[0].urlImagen;
     }
 
-    // nuevoUsuario.fechaAlta = firebase.firestore.Timestamp.now();
+    nuevoUsuario.fechaAlta = firebase.firestore.Timestamp.now();
     nuevoUsuario.rol = Rol.Paciente;
     nuevoUsuario.estado = EstadoUsuario.Habilitado;
     console.log('Guardar en DB', this.usuarioDataSvc.GuardarNuevoUsuario(nuevoUsuario));

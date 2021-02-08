@@ -10,26 +10,26 @@
         <mat-tab>
             <ng-template mat-tab-label>
                 <mat-icon class="example-tab-icon">book_online</mat-icon>
-                Turnos confirmados
+                Turnos confirmados ({{this.cantidadTurnosConfirmados}})
             </ng-template>
-            <app-listado-turnos-profesionales tipoFiltro="confirmados"></app-listado-turnos-profesionales>
+            <app-listado-turnos-profesionales tipoFiltro="confirmados" (cambioCantidadTurnos)="this.cantidadTurnosConfirmados = $event"></app-listado-turnos-profesionales>
         </mat-tab>
 
           
           <mat-tab>
               <ng-template mat-tab-label>
                   <mat-icon class="example-tab-icon color-pendiente">pending_actions</mat-icon>
-                  Pendientes de confirmar
+                  Pendientes de confirmar ({{this.cantidadTurnosPendientes}})
               </ng-template>
-              <app-listado-turnos-profesionales tipoFiltro="pendientes"></app-listado-turnos-profesionales>
+              <app-listado-turnos-profesionales tipoFiltro="pendientes" (cambioCantidadTurnos)="this.cantidadTurnosPendientes = $event"></app-listado-turnos-profesionales>
           </mat-tab>
 
           <mat-tab>
               <ng-template mat-tab-label>
                   <mat-icon class="example-tab-icon">history</mat-icon>
-                  Turnos anteriores y cancelados
+                  Turnos anteriores y cancelados ({{this.cantidadTurnosAnteriores}})
               </ng-template>
-              <app-listado-turnos-profesionales tipoFiltro="anteriores"></app-listado-turnos-profesionales>
+              <app-listado-turnos-profesionales tipoFiltro="anteriores" (cambioCantidadTurnos)="this.cantidadTurnosAnteriores = $event"></app-listado-turnos-profesionales>
           </mat-tab>
 
       </mat-tab-group>

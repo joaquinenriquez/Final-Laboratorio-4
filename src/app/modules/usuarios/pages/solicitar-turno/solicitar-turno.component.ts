@@ -1,3 +1,4 @@
+import { SpinnerService } from './../../../shared/services/spinner.service';
 import { SelectorEspecialidadDialogComponent } from './../../../turnos/components/selector-especialidad-dialog/selector-especialidad-dialog.component';
 import { TipoBusqueda } from './../../../turnos/models/tipo-busqueda.enum';
 import { DatosSolicitudTurno } from './../../../turnos/models/datos-solicitud-turno';
@@ -32,7 +33,7 @@ export class SolicitarTurnoComponent implements OnInit {
 
   datosDiaSeleccionado: DatosSolicitudTurno[];
   datosTurnoConfirmado: DatosSolicitudTurno;
-  
+
   profesionalSeleccionado: Profesional;
   especialidadSeleccionada: Especialidad;
   horarioSeleccionado: string;
@@ -45,12 +46,13 @@ export class SolicitarTurnoComponent implements OnInit {
   datosUsuarioActual;
 
 
-  constructor(private usuarioDataService: UsuarioDataService, 
-              private authService: AuthService, 
-              private _formBuilder: FormBuilder,
-              private turnosDataService: TurnosDataService,
-              private router: Router,
-              private dialog: MatDialog) {
+  constructor(private usuarioDataService: UsuarioDataService,
+    private authService: AuthService,
+    private _formBuilder: FormBuilder,
+    private turnosDataService: TurnosDataService,
+    private router: Router,
+    private dialog: MatDialog,
+    private spinnerService: SpinnerService) {
 
     this.authService.datosUsuario.subscribe(datosUsuario => {
       let usuario = datosUsuario as firebase.User;
@@ -78,27 +80,27 @@ export class SolicitarTurnoComponent implements OnInit {
   }
 
   seleccionarProfesional(profesional: Profesional) {
-    
+
     this.profesionalSeleccionado = profesional;
-    
+
     let especialidad = <Especialidad>{};
 
     // Si el profesional tiene una sola especialidad
     if (this.profesionalSeleccionado.especialidades.length == 1) {
-      especialidad.nombreEspecialidad =  this.profesionalSeleccionado.especialidades[0];
-      this.especialidadSeleccionada = especialidad;  
+      especialidad.nombreEspecialidad = this.profesionalSeleccionado.especialidades[0];
+      this.especialidadSeleccionada = especialidad;
       this.stepper.next();
     } else {
 
-      const dialogoReg = this.dialog.open(SelectorEspecialidadDialogComponent, {width: '400px', data: profesional.especialidades});
+      const dialogoReg = this.dialog.open(SelectorEspecialidadDialogComponent, { width: '400px', data: profesional.especialidades });
 
       dialogoReg.afterClosed().subscribe(resultadoDialogo => {
-      
-        if (resultadoDialogo != undefined ) {
+
+        if (resultadoDialogo != undefined) {
           especialidad.nombreEspecialidad = resultadoDialogo;
           this.stepper.next();
-          this.especialidadSeleccionada = especialidad;  
-        } 
+          this.especialidadSeleccionada = especialidad;
+        }
       })
     }
   }
@@ -133,17 +135,27 @@ export class SolicitarTurnoComponent implements OnInit {
       nombreUsuario: this.datosUsuarioActual.displayName
     }
 
-    console.log(nuevoTurno);
     this.turnosDataService.nuevaTurno(nuevoTurno).then(resultado => {
-      Swal.fire({
-        title: 'Ya reservamos tu turno!',
-        text: 'Ahora tenés aguardar que el profesional lo confirme',
-        icon: 'success',
-        confirmButtonText: 'Aceptar'
-      }).then(() => this.router.navigate(['/mis-turnos']));
+
+      this.spinnerService.mostrarSpinner(2000);
+
+      setTimeout(() => {
+
+        this.router.navigate(['/mis-turnos']);
+
+        Swal.fire({
+          title: 'Ya reservamos tu turno!',
+          text: 'Ahora tenés aguardar que el profesional lo confirme',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        });
+
+      }, 2300);
+
+
+
     });
 
-    console.log(this.datosTurnoConfirmado);
 
   }
 

@@ -7,8 +7,8 @@
     <div fxLayout="row">
 
         <mat-card class="container">
-            <mat-icon *ngIf="!datosUsuarioActual?.imagen1">account_circle</mat-icon><img
-                *ngIf="datosUsuarioActual?.imagen1" [src]="datosUsuarioActual?.imagen1" />
+            <mat-icon *ngIf="!this.usuarioTurno?.imagen1">account_circle</mat-icon>
+            <img *ngIf="this.usuarioTurno?.imagen1" [src]="this.usuarioTurno?.imagen1"/>
         </mat-card>
 
         <mat-card fxFlex class="container">
@@ -22,14 +22,28 @@
             </div>
 
             <div fxLayout="row">
-                <mat-label class="fila" fxFlex="20%">{{turnoSeleccionado?.nombreUsuario}}</mat-label>
-                <mat-label class="fila" fxFlex="20%">{{usuarioTurno?.dni}}</mat-label>
-                <mat-label class="fila" fxFlex="20%">{{usuarioTurno?.nroAfiliado}}</mat-label>
+                <mat-label class="fila" fxFlex="20%">{{turnoSeleccionado?.nombreUsuario || "El perfil del usuario está incompleto" }}</mat-label>
+                <mat-label class="fila" fxFlex="20%">{{usuarioTurno?.dni || "El perfil del usuario está incompleto"}}</mat-label>
+                <mat-label class="fila" fxFlex="20%">{{usuarioTurno?.nroAfiliado || "El perfil del usuario está incompleto"}}</mat-label>
             </div>
 
         </mat-card>
 
     </div>
+
+    <div>
+        <mat-card>
+            <mat-card-title>Historia clínica</mat-card-title>
+        </mat-card>
+        
+        <mat-card-content>
+            <app-listado-historial-turno-por-paciente [idUsuario]="this.turnoSeleccionado?.idUsuario"></app-listado-historial-turno-por-paciente>
+        </mat-card-content>
+        
+    </div>
+
+
+
 
 
     <div fxLayout="row">
@@ -58,7 +72,7 @@
                             <span>Casilla verificación</span>
                         </button>
                         <button mat-menu-item (click)="agregarDato(TipoComponente.Numerico)">
-                            <mat-icon>format_list_numbered</mat-icon>
+                            <mat-icon svgIcon="numeral"></mat-icon>
                             <span>Númerico</span>
                         </button>
                         <button mat-menu-item (click)="agregarDato(TipoComponente.Rango)">

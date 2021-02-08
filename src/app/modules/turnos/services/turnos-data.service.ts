@@ -31,7 +31,7 @@ export class TurnosDataService {
     return this.db.modificarDocumentoPorId(this.nombreColeccion, turno.idTurno, turno);
   }
 
-  public traerTurnosPorUsuario(idUsuario: string) {
+  public traerTurnosPorUsuario(idUsuario: string): Observable<Turno[]> {
     return this.db.traerDocumentosPorValorPropiedad(this.nombreColeccion, 'idUsuario', idUsuario, this.campoId);
   }
 

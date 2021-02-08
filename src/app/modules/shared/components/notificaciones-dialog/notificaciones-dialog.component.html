@@ -1,0 +1,62 @@
+<!-- <mat-card>
+
+    <mat-card-title-group>
+        <mat-card-title mat-dialog-title>Notificaciones</mat-card-title>
+    </mat-card-title-group>
+    <mat-divider></mat-divider>
+
+
+    <mat-card-content>
+
+        <div mat-dialog-content>
+
+            
+            
+
+
+        
+        
+        
+            </div>
+
+
+
+    </mat-card-content>
+
+
+    <mat-card-actions>
+        <br>
+        <div mat-dialog-actions fxLayout fxLayoutAlign="center">
+            <button fxFlex="30%" type="submit" mat-raised-button color="primary" (click)="enviarEncuesta()">Aceptar</button>
+            <button fxFlex="30%" type="button" class="boton-cancelar" mat-raised-button color="primary" (click)="cancelarEnvioEncuesta()">Cancelar</button>
+        </div>
+    </mat-card-actions>
+
+
+</mat-card> -->
+
+<mat-card *ngIf="this.datosNotificaciones.datos?.length == 0">Sin notificaciones</mat-card>
+
+
+<div *ngFor="let unaNotificacion of this.datosNotificaciones.datos">
+
+    <mat-card class="example-card" [style.border-color]="unaNotificacion.colorNotificacion"> 
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image" [style.background-image]="this.getImagenPerfil(unaNotificacion.fotoUsuarioOrigen)"></div>
+          <mat-card-title>{{unaNotificacion.nombreUsuarioOrigen}}</mat-card-title>
+          <mat-card-subtitle>{{unaNotificacion.fechaCreacion.toDate() | date:'dd/MM/yyyy'}}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p [style.color]="unaNotificacion.colorNotificacion">{{unaNotificacion.textoNotificacion}}</p>
+        </mat-card-content>
+        <mat-card-actions style="justify-content:flex-end; display: flex;">
+          <button  mat-button color="primary" appearance="outline" (click)="marcarComoLeeida(unaNotificacion)"><mat-icon>done_all</mat-icon>Marcar como leida</button>
+        </mat-card-actions>
+    </mat-card>
+
+    <mat-divider></mat-divider>
+
+    <br>    
+
+</div>

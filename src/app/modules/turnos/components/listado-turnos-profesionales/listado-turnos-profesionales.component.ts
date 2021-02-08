@@ -1,6 +1,7 @@
+import { NotificacionesService } from './../../../shared/services/notificaciones.service';
 import { Orden } from './../../../shared/components/tabla/orden.enum';
 import { Router } from '@angular/router';
-import { Component, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,7 +15,8 @@ import { TurnosDataService } from 'src/app/modules/turnos/services/turnos-data.s
 import Swal from 'sweetalert2';
 import { ModificarDuracionTurnoDialogComponent } from '../modificar-duracion-turno-dialog/modificar-duracion-turno-dialog.component';
 import { VisualizarEncuestaUsuarioDialogComponent } from 'src/app/modules/usuarios/pages/visualizar-encuesta-usuario-dialog/visualizar-encuesta-usuario-dialog.component';
-
+import { Notificacion } from 'src/app/modules/shared/models/notificacion';
+import firebase from 'firebase/app';
 
 @Component({
   selector: 'app-listado-turnos-profesionales',
@@ -33,12 +35,14 @@ export class ListadoTurnosProfesionalesComponent implements OnInit, AfterViewIni
 
   cargaTablaPrimeraVez: boolean = true;
 
+  @Output() cambioCantidadTurnos: EventEmitter<number> = new EventEmitter();
 
   constructor(private turnosDataService: TurnosDataService,
     private toastManager: MatSnackBar,
     private authService: AuthService, 
     private dialog: MatDialog,
-    private router: Router) { }
+    private router: Router,
+    private notificacionService: NotificacionesService) { }
 
   ngOnInit(): void { }
 
@@ -76,6 +80,7 @@ export class ListadoTurnosProfesionalesComponent implements OnInit, AfterViewIni
       if (resultadoDialogo.isConfirmed) {
         turno.estadoTurno = EstadoTurno.Cancelado;
         this.turnosDataService.modificarTurno(turno);
+        this.crearNotificacionDeTurnoCancelado(turno);
         this.mostrarToast('El turno fue cancelado con éxito', 2000);
       }
     })
@@ -140,7 +145,8 @@ export class ListadoTurnosProfesionalesComponent implements OnInit, AfterViewIni
             }
         }
 
-
+        this.cambioCantidadTurnos.emit(this.dataSource.data.length);
+        
         this.dataSource.sort = this.sort;
 
         // Ordenamos por default
@@ -170,6 +176,24 @@ export class ListadoTurnosProfesionalesComponent implements OnInit, AfterViewIni
 
     });
 
+  }
+
+  crearNotificacionDeTurnoCancelado(turno: Turno) {
+    
+    let  opcionesFormatoFecha = { year: 'numeric', month: 'long', day: 'numeric' };
+    let fechaTurnoString = turno.fechaTurno.toDate().toLocaleDateString("es-AR", opcionesFormatoFecha);
+
+    let notificacionCancelarTurno: Notificacion = {
+      idUsuarioDestino: turno.idUsuario,
+      idUsuarioOrigen:  turno.idProfesional,
+      nombreUsuarioOrigen: turno.nombreUsuario,
+      fechaCreacion: firebase.firestore.Timestamp.now(),
+      textoNotificacion: `${turno.nombreProfesional} canceló el turno para el día ${fechaTurnoString}`,
+      notificacionLeida: false,
+      colorNotificacion: "#F44336"
+    }
+
+    this.notificacionService.GuardarNuevaNotificacionConIdAutomatico(notificacionCancelarTurno);
   }
 
   verEncuesta(turno: Turno): void {

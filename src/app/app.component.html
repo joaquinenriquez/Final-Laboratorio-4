@@ -5,8 +5,28 @@
   </div>
 
 
-  <div fxFlex [@routeAnimations]="o && o.activatedRouteData 
-      && o.activatedRouteData['animation']">
+  <div fxFlex [@routeAnimations]="o && o.activatedRouteData && o.activatedRouteData['animation']">
+
+
+    <div>
+      <ngx-spinner bdColor = "rgba(0, 15, 0, 0.6)" size = "medium" color = "#EAD032 " type = "line-scale-pulse-out" [fullScreen] = "true">
+        
+        <div>
+          <img class="img-logo" src="/assets/fra2.png">
+        </div>
+        
+        <div>
+          <p class="txt-cargando">{{'Cargando...' | translate}}</p>
+        </div>
+
+        
+      </ngx-spinner>
+    </div> 
+    
+      
+
+
+
     <router-outlet #o="outlet"></router-outlet>
 </div>
 

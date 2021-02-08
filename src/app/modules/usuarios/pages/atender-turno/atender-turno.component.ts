@@ -1,3 +1,4 @@
+import { SpinnerService } from './../../../shared/services/spinner.service';
 import { EncuestaProfesionalDialogComponent } from './../encuesta-profesional-dialog/encuesta-profesional-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { IComponente, TipoComponente } from './../../../turnos/components/DatosAdicionales/icomponente';
@@ -15,8 +16,7 @@ import { Usuario } from '../../models/usuario';
 import { DefinirTituloDialogComponent } from 'src/app/modules/turnos/components/DatosAdicionales/definir-titulo-dialog/definir-titulo-dialog.component';
 import { EstadoTurno } from 'src/app/modules/turnos/models/estado-turno.enum';
 import Swal from 'sweetalert2';
-import { Encuesta, PreguntaEncuesta } from 'src/app/modules/turnos/models/encuesta';
-import { EncuestaUsuarioDialogComponent } from '../encuesta-usuario-dialog/encuesta-usuario-dialog.component';
+
 
 @Component({
   selector: 'app-atender-turno',
@@ -52,7 +52,8 @@ export class AtenderTurnoComponent implements OnInit {
     private activateRoute: ActivatedRoute,
     private turnoDataService: TurnosDataService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private spinnerService: SpinnerService
   ) {
 
     this.idTurnoSeleccionado = this.activateRoute.snapshot.params.id;
@@ -143,6 +144,7 @@ export class AtenderTurnoComponent implements OnInit {
 
   finalizarTurno(resultado: boolean) {
 
+
     if (!resultado) {
       this.turnoSeleccionado.estadoTurno = EstadoTurno.Confirmado;
       this.turnoDataService.modificarTurno(this.turnoSeleccionado).then(() => this.router.navigate(['/gestion-turnos']));
@@ -151,7 +153,19 @@ export class AtenderTurnoComponent implements OnInit {
 
     // Agregamos datos adionales al turno
     this.componentesAdicionales.forEach(unComponente => {
+
+      if (unComponente.tipoComponente == TipoComponente.CasillaVerificacion) {
+
+        if (unComponente.valor == true) {
+          unComponente.valor = 'Si'
+        } else {
+          unComponente.valor = 'No'
+        }
+
+      }
+
       this.turnoSeleccionado[`CA_${unComponente.titulo}`] = unComponente.valor
+
     });
 
     this.turnoSeleccionado['edad'] = this.formDatosTurno.value.edad;
@@ -170,6 +184,8 @@ export class AtenderTurnoComponent implements OnInit {
 
         if (resultadoDialogo != undefined) {
 
+          this.spinnerService.mostrarSpinner(1000);
+
           this.turnoSeleccionado.resena = resultadoDialogo.resena
           this.turnoSeleccionado.estadoTurno = EstadoTurno.Finalizado;
           this.turnoSeleccionado.contestoEncuesta = false;
@@ -184,12 +200,16 @@ export class AtenderTurnoComponent implements OnInit {
           this.usuarioDataService.modificarUsuario(this.usuarioTurno);
           this.turnoDataService.modificarTurno(this.turnoSeleccionado).then(() => {
 
-            Swal.fire({
-              title: 'Turno finalizado con éxito!',
-              text: 'El turno fue finalizado. Gracias!',
-              icon: 'success',
-              confirmButtonText: 'Aceptar'
-            });
+            setTimeout(() => {
+              Swal.fire({
+                title: 'Turno finalizado con éxito!',
+                text: 'El turno fue finalizado. Gracias!',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+              });
+            }, 1000);
+
+
 
           }).then(() => this.router.navigate(['/gestion-turnos']));
 
