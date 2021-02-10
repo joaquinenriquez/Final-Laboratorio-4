@@ -8,14 +8,14 @@
         <br>
         <mat-card-content >
           <mat-card-title>{{ this.datosTurnoConfirmado?.profesionalSeleccionado.displayName}}</mat-card-title>
-          <mat-card-subtitle>{{ this.datosTurnoConfirmado?.especialidadSeleccionada.nombreEspecialidad }}</mat-card-subtitle>
+          <mat-card-subtitle class="datos-especialidad">{{ this.datosTurnoConfirmado?.especialidadSeleccionada.nombreEspecialidad }}</mat-card-subtitle>
           <br>
           <h3 style="text-align: center;"><strong>{{this.datosTurnoConfirmado?.diaSeleccionado | date:'fullDate'}} a las {{ this.datosTurnoConfirmado?.horarioSeleccionado }}</strong></h3>
         
           <br>
           <br>
 
-            <button fxFlexAlign="center" mat-raised-button color="primary" class="btn-confirmar" (click)="confirmarTurno()">Quiero confirmar mi turno</button>
+            <button fxFlexAlign="center" mat-raised-button color="primary" [disabled]="deshabilitarBotonConfirmar" class="btn-confirmar" (click)="confirmarTurno()">Quiero confirmar mi turno</button>
 
         </mat-card-content>
 

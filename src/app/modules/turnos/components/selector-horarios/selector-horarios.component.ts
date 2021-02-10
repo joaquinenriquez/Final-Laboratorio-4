@@ -209,7 +209,6 @@ export class SelectorHorariosComponent implements OnInit {
   confirmarTurno(datosTurno: DatosSolicitudTurno, horarioSeleccionado:string) {
     this.datosTurnoConfirmado = datosTurno;
     this.datosTurnoConfirmado.horarioSeleccionado = horarioSeleccionado;
-    console.log('asdsad', datosTurno);
     this.horarioSeleccionado.emit(this.datosTurnoConfirmado);
   }
 

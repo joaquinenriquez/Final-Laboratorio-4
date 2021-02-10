@@ -71,7 +71,8 @@ export class RegistroPacienteComponent implements OnInit {
           icon: 'info',
           title: 'Gracias por registrarte',
           html: `Vamos a enviarte un correo a <strong>${this.formRegistro.get('email').value}</strong> para que verifiques tu cuenta`,
-          confirmButtonText: 'Acpetar'
+          confirmButtonText: 'Acpetar',
+          confirmButtonColor: '#558B2F'
         }).then(async registroExitoso => {
           await this.authService.enviarEmailDeVerificacion();
           this.authService.cerrarSesion();
@@ -89,7 +90,7 @@ export class RegistroPacienteComponent implements OnInit {
             break;
         }
 
-        Swal.fire({ icon: 'error', title: this.translateService.instant('Error al crear el usuario'), text: mensajeError, confirmButtonText: 'Acpetar' })
+        Swal.fire({ icon: 'error', title: this.translateService.instant('Error al crear el usuario'), text: mensajeError, confirmButtonText: 'Acpetar', confirmButtonColor: '#558B2F'})
 
         console.log(error)
       });

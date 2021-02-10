@@ -16,10 +16,10 @@
           </div>
 
 
-          <div fxFlex=40% fxLayout="row" fxLayoutAlign="flex-end center">
+          <div fxFlex="20%" fxLayout="row" fxLayoutAlign="flex-end center" fxLayoutGap="5px">
 
-            <div fxFlexAlign="end">
-              <mat-form-field class="example-form-field" appearance="outline">
+            
+              <mat-form-field appearance="outline">
                 <mat-label>Período</mat-label>
                 <mat-date-range-input [formGroup]="dtPerido" [rangePicker]="campaignOnePicker"
                   [max]="this.fechaMaximaFiltro">
@@ -29,21 +29,22 @@
                 <mat-datepicker-toggle matSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
                 <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
               </mat-form-field>
-            </div>
+
+              <div fxFlex="30%">
+                <button color="primary" appearance="outline" mat-stroked-button (click)="filtrarPorFecha()">
+                  <mat-icon>filter_alt</mat-icon>Filtrar
+                </button>
+                <button mat-icon-button color="warn"  (click)="limpiarFiltros()"
+                  [disabled]="this.dtPerido.controls['fechaInicio'].value == null && this.dtPerido.controls['fechaFin'].value == null">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+
+            
 
 
-            <div fxFlex="30%" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end">
-              <button color="primary" appearance="outline" mat-stroked-button (click)="filtrarPorFecha()">
-                <mat-icon>filter_alt</mat-icon>Filtrar
-              </button>
-              <button color="primary" appearance="outline" mat-stroked-button (click)="limpiarFiltros()"
-                [disabled]="this.dtPerido.controls['fechaInicio'].value == null && this.dtPerido.controls['fechaFin'].value == null">
-                <mat-icon>close</mat-icon>Limpiar Filtros
-              </button>
-            </div>
 
           </div>
-
 
 
         </div>
@@ -109,7 +110,7 @@
 
           </table>
 
-          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
         </div>
       </div>

@@ -27,6 +27,8 @@ export class ListadoTurnosProfesionalesComponent implements OnInit, AfterViewIni
 
   @Input() tipoFiltro: string;
 
+  @Input() datosUsuarioActual;
+
   displayedColumns: string[];
   dataSource: MatTableDataSource<Turno>;
   
@@ -72,7 +74,7 @@ export class ListadoTurnosProfesionalesComponent implements OnInit, AfterViewIni
         `a las <b>${turno.horarioTurno}</b>?`,
       showCancelButton: true,
       focusConfirm: false,
-      confirmButtonColor: '#F44336',
+      confirmButtonColor: '#558B2F',
       confirmButtonText: '<i>Si, estoy seguro!</i>',
       cancelButtonText: '<b>No cancelar</b>',
     }).then(resultadoDialogo => {
@@ -185,11 +187,12 @@ export class ListadoTurnosProfesionalesComponent implements OnInit, AfterViewIni
     let notificacionCancelarTurno: Notificacion = {
       idUsuarioDestino: turno.idUsuario,
       idUsuarioOrigen:  turno.idProfesional,
-      nombreUsuarioOrigen: turno.nombreUsuario,
+      nombreUsuarioOrigen: turno.nombreProfesional,
       fechaCreacion: firebase.firestore.Timestamp.now(),
       textoNotificacion: `${turno.nombreProfesional} canceló el turno para el día ${fechaTurnoString}`,
       notificacionLeida: false,
-      colorNotificacion: "#F44336"
+      colorNotificacion: "#F44336",
+      fotoUsuarioOrigen: this.datosUsuarioActual?.imagen1
     }
 
     this.notificacionService.GuardarNuevaNotificacionConIdAutomatico(notificacionCancelarTurno);

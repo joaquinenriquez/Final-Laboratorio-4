@@ -136,24 +136,7 @@ export class SolicitarTurnoComponent implements OnInit {
     }
 
     this.turnosDataService.nuevaTurno(nuevoTurno).then(resultado => {
-
-      this.spinnerService.mostrarSpinner(2000);
-
-      setTimeout(() => {
-
-        this.router.navigate(['/mis-turnos']);
-
-        Swal.fire({
-          title: 'Ya reservamos tu turno!',
-          text: 'Ahora tenés aguardar que el profesional lo confirme',
-          icon: 'success',
-          confirmButtonText: 'Aceptar'
-        });
-
-      }, 2300);
-
-
-
+      this.router.navigate(['/mis-turnos']);
     });
 
 

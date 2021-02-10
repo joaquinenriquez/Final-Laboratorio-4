@@ -1,4 +1,3 @@
-import { DatosSolicitudTurnoPorEspecialidad } from './../../models/datos-solicitud-turno-por-especialidad';
 import { TipoBusqueda } from './../../models/tipo-busqueda.enum';
 import { Especialidad } from './../../../usuarios/models/especialidad';
 import { Profesional } from './../../../usuarios/models/profesional';
@@ -7,7 +6,7 @@ import { Turno } from './../../models/turno';
 import { TurnosDataService } from './../../services/turnos-data.service';
 import { Usuario } from './../../../usuarios/models/usuario';
 import { Component, Input, OnInit, Output, EventEmitter, SimpleChanges } from '@angular/core';
-import { first, mergeMap, map } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 import { Rol } from 'src/app/modules/usuarios/models/rol.enum';
 import { EstadoTurno } from '../../models/estado-turno.enum';
 import { DatosSolicitudTurno } from '../../models/datos-solicitud-turno';
@@ -25,10 +24,8 @@ export class SelectorDiasComponent implements OnInit {
 
   @Input() tipoBusqueda: TipoBusqueda;
 
-
   @Input() profesionalSeleccionado: Profesional
   @Input() especialidadSeleccionada: Especialidad;
-
 
   @Output() CambioDia: EventEmitter<DatosSolicitudTurno[]> = new EventEmitter<DatosSolicitudTurno[]>();
 
@@ -93,10 +90,15 @@ export class SelectorDiasComponent implements OnInit {
 
     this.usuariosDataService.TraerTodosLosUsuariosPorRol(Rol.Profesional).pipe(first()).subscribe(todosLosProfesionales => {
 
-      profesionalesPorEspecialidad = todosLosProfesionales.filter(unProfesional => {
-        return unProfesional.especialidades.filter(unaEspecialidad => unaEspecialidad == this.especialidadSeleccionada.nombreEspecialidad);
+
+      todosLosProfesionales.forEach(unProfesional => {
+        let aux = unProfesional.especialidades.filter(unaEspecialidad => unaEspecialidad == this.especialidadSeleccionada.nombreEspecialidad);
+        if (aux.length > 0) {
+          profesionalesPorEspecialidad.push(unProfesional);
+        }
       });
 
+      
       while (auxFecha <= fechaMaximaTurnos) {
 
         profesionalesPorEspecialidad.forEach(unProfesional => {
@@ -139,11 +141,10 @@ export class SelectorDiasComponent implements OnInit {
     return promesa;
   }
 
-  traerTurnosPorEspecialidad(nombreEspecialidad: string): Promise<DatosSolicitudTurno[]> 
-  {
+  traerTurnosPorEspecialidad(nombreEspecialidad: string): Promise<DatosSolicitudTurno[]> {
     let auxDatosSolicitudTurno: DatosSolicitudTurno[] = [];
 
-    return new Promise<DatosSolicitudTurno[]> ((result, reject) => {
+    return new Promise<DatosSolicitudTurno[]>((result, reject) => {
 
       this.usuariosDataService.TraerTodosLosUsuariosPorRol(Rol.Profesional).pipe(first()).subscribe(profesionales => {
 
@@ -157,10 +158,10 @@ export class SelectorDiasComponent implements OnInit {
 
           this.turnosDataService.traerTurnosPorProfesional(unProfesional.idUsuario).pipe(first()).subscribe(turnos => {
 
-              auxDatosTurnos.turnosSolicitados = turnos.filter(unTurno => unTurno.estadoTurno != EstadoTurno.Cancelado && unTurno.estadoTurno != EstadoTurno.Finalizado && unTurno.estadoTurno != EstadoTurno.Suspendido);
+            auxDatosTurnos.turnosSolicitados = turnos.filter(unTurno => unTurno.estadoTurno != EstadoTurno.Cancelado && unTurno.estadoTurno != EstadoTurno.Finalizado && unTurno.estadoTurno != EstadoTurno.Suspendido);
 
             auxDatosSolicitudTurno.push(auxDatosTurnos);
-          
+
             if (auxDatosSolicitudTurno.length == profesionales.length) result(auxDatosSolicitudTurno);
 
           });
@@ -168,8 +169,8 @@ export class SelectorDiasComponent implements OnInit {
         });
 
       });
-    
-    
+
+
     });
   }
 
@@ -200,8 +201,8 @@ export class SelectorDiasComponent implements OnInit {
       case TipoBusqueda.Especialidades:
 
         this.traerTurnosPorEspecialidad(this.especialidadSeleccionada.nombreEspecialidad).then(datosTurnos => {
-          datosTurnos.forEach(datosDeUnProfesional => {  
-            
+          datosTurnos.forEach(datosDeUnProfesional => {
+
             let auxDatos: DatosSolicitudTurno =
             {
               diaSeleccionado: dia,
@@ -209,9 +210,9 @@ export class SelectorDiasComponent implements OnInit {
               turnosSolicitados: datosDeUnProfesional.turnosSolicitados.filter(unTurnoSolicitado => unTurnoSolicitado.fechaTurno.toDate().getTime() == dia.getTime()),
               horariosDisponibles: []
             }
-    
+
             datosDiaSeleccionado.push(auxDatos);
-    
+
             if (datosDiaSeleccionado.length == datosTurnos.length) this.CambioDia.emit(datosDiaSeleccionado);
           });
         });

@@ -72,7 +72,7 @@ export class NuevoUsuarioAdminDialogComponent implements OnInit {
             break;
         }
 
-        Swal.fire({ icon: 'error', title: 'Error al crear el usuario', text: mensajeError, confirmButtonText: 'Acpetar' })
+        Swal.fire({ icon: 'error', title: 'Error al crear el usuario', text: mensajeError, confirmButtonText: 'Acpetar', confirmButtonColor: '#558B2F' })
 
         console.log(error)
       });

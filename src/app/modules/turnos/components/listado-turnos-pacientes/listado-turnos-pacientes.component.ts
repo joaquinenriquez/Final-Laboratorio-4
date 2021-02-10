@@ -1,3 +1,4 @@
+import { SpinnerService } from './../../../shared/services/spinner.service';
 import { Notificacion } from './../../../shared/models/notificacion';
 import { NotificacionesService } from './../../../shared/services/notificaciones.service';
 import { VisualizarResenaUsuarioDialogComponent } from './../../../usuarios/pages/visualizar-resena-usuario-dialog/visualizar-resena-usuario-dialog.component';
@@ -14,10 +15,11 @@ import { mergeMap } from 'rxjs/operators';
 import { EstadoTurno } from '../../models/estado-turno.enum';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Encuesta } from '../../models/encuesta';
 import firebase from 'firebase/app';
+import { Orden } from 'src/app/modules/shared/components/tabla/orden.enum';
 
 
 
@@ -41,13 +43,15 @@ export class ListadoTurnosPacientesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  cargaTablaPrimeraVez: boolean = true;
 
   constructor(private turnosDataService: TurnosDataService,
     private toastManager: MatSnackBar,
     private authService: AuthService,
     private dialog: MatDialog,
     private encuestaDataService: EncuestasDataService,
-    private notificacionService: NotificacionesService) { }
+    private notificacionService: NotificacionesService,
+    private spinnerService: SpinnerService) { }
 
   ngOnInit(): void { }
 
@@ -68,7 +72,7 @@ export class ListadoTurnosPacientesComponent implements OnInit {
         `a las <b>${turno.horarioTurno}</b>?`,
       showCancelButton: true,
       focusConfirm: false,
-      confirmButtonColor: '#F44336',
+      confirmButtonColor: '#558B2F',
       confirmButtonText: '<i>Si, estoy seguro!</i>',
       cancelButtonText: '<b>No cancelar</b>',
     }).then(resultadoDialogo => {
@@ -137,6 +141,13 @@ export class ListadoTurnosPacientesComponent implements OnInit {
 
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+
+        if (this.cargaTablaPrimeraVez) {
+          this.ordernarTabla('fechaTurno', Orden.Descendente);
+          this.cargaTablaPrimeraVez = false;
+        }
+
+
       });
   }
 
@@ -144,7 +155,7 @@ export class ListadoTurnosPacientesComponent implements OnInit {
 
     this.dialog.open(EncuestaUsuarioDialogComponent,
       {
-        width: '400px',
+        width: '600px',
         height: '600px',
         data: { turno: turnoSeleccionado },
         panelClass: 'horarios-profesional-dialog-container'
@@ -166,13 +177,17 @@ export class ListadoTurnosPacientesComponent implements OnInit {
           turnoSeleccionado.contestoEncuesta = true;
           this.turnosDataService.modificarTurno(turnoSeleccionado);
 
-          Swal.fire({
-            title: 'Gracias por elegirnos!',
-            text: 'Sus datos fueron guardos con éxito',
-            icon: 'success',
-            confirmButtonText: 'Aceptar'
-          });
+          this.spinnerService.mostrarSpinner(2000);
 
+          setTimeout(() => {
+            Swal.fire({
+              title: 'Gracias por elegirnos!',
+              text: 'Sus datos fueron guardos con éxito',
+              icon: 'success',
+              confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#558B2F'
+            });
+          }, 2000);
         }
       });
 
@@ -194,6 +209,16 @@ export class ListadoTurnosPacientesComponent implements OnInit {
       }
 
     });
+  }
+
+
+  ordernarTabla(nombreColumna: string, orden: Orden) {
+    const sortState: Sort = { active: nombreColumna, direction: orden };
+    this.dataSource.paginator = this.paginator;
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);
+    console.log('Ordenado');
   }
 
 

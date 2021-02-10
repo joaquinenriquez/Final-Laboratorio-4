@@ -73,7 +73,8 @@ export class RegistroProfesionalComponent implements OnInit {
           icon: 'info',
           title: 'Gracias por registrarte',
           html: `Nuestro staff debe aprobar su cuenta. Por favor intente ingresar en unos momentos`,
-          confirmButtonText: 'Acpetar'
+          confirmButtonText: 'Acpetar',
+          confirmButtonColor: '#558B2F'
         }).then(async registroExitoso => {
           this.authService.cerrarSesion();
           //Mostrar spinner
@@ -89,7 +90,7 @@ export class RegistroProfesionalComponent implements OnInit {
             break;
         }
 
-        Swal.fire({ icon: 'error', title: 'Error al crear el usuario', text: mensajeError, confirmButtonText: 'Acpetar' })
+        Swal.fire({ icon: 'error', title: 'Error al crear el usuario', text: mensajeError, confirmButtonText: 'Acpetar', confirmButtonColor: '#558B2F' })
 
         console.log(error)
       });

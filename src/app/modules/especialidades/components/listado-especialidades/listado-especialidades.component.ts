@@ -73,7 +73,7 @@ export class ListadoEspecialidadesComponent implements OnInit, AfterViewInit {
         title: 'Eliminar especialidad',
         html: `¿Estas seguro que querés eliminar la especialidad <strong>${especialidad.nombreEspecialidad}?</strong>`,
         icon: 'warning',
-        confirmButtonColor: '#d33',
+        confirmButtonColor: '#558B2F',
         confirmButtonText: 'Si, eliminar!',
         showCancelButton: true,
         cancelButtonText: 'Cancelar'

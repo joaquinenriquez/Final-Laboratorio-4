@@ -205,13 +205,12 @@ export class AtenderTurnoComponent implements OnInit {
                 title: 'Turno finalizado con éxito!',
                 text: 'El turno fue finalizado. Gracias!',
                 icon: 'success',
-                confirmButtonText: 'Aceptar'
-              });
-            }, 1000);
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#558B2F'
+              }).then(() => this.router.navigate(['/gestion-turnos']));
+            }, 2000)
 
-
-
-          }).then(() => this.router.navigate(['/gestion-turnos']));
+          })
 
         }
       });

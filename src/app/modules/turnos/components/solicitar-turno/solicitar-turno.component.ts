@@ -245,7 +245,8 @@ export class SolicitarTurnoComponent implements OnInit {
         title: 'Ya reservamos tu turno!',
         text: 'Ahora tenés aguardar que el profesional lo confirme',
         icon: 'success',
-        confirmButtonText: 'Aceptar'
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#558B2F'
       }).then(() => this.router.navigate(['/login']));
     });
   }

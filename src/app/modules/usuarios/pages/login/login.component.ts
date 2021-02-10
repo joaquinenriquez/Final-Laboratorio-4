@@ -60,7 +60,8 @@ export class LoginComponent implements OnInit {
           icon: 'error',
           title: 'Error al intentar iniciar sesión',
           html: mensajeError,
-          confirmButtonText: 'Acpetar'
+          confirmButtonText: 'Acpetar',
+          confirmButtonColor: '#558B2F'
         })
 
         console.log(error)
@@ -155,7 +156,7 @@ export class LoginComponent implements OnInit {
       html: "Te enviamos un email para que verifiques tu cuenta.<br>¿Aún no te llegó? Probemos enviartelo nuevamente",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#558B2F',
       cancelButtonColor: '#d33',
       cancelButtonText: 'Cancelar',
       confirmButtonText: 'Reenviar email de verificación!'
@@ -178,7 +179,7 @@ export class LoginComponent implements OnInit {
       title: 'Tu cuenta todavía no fue aprobada',
       html: "Aún ningún administrador pudo aprobar tu cuenta. Por favor volvé a intentar mas tarde",
       icon: 'warning',
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#558B2F',
       confirmButtonText: 'Aceptar'
     });
   }
@@ -188,7 +189,7 @@ export class LoginComponent implements OnInit {
       title: 'Tu cuenta se encuentra deshabilitada',
       html: "Por favor volvé a intentar mas tarde",
       icon: 'warning',
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#558B2F',
       confirmButtonText: 'Aceptar'
     });
   }

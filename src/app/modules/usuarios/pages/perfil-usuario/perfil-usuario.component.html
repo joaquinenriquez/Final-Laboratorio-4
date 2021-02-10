@@ -24,7 +24,7 @@
         <div fxLayout="row" fxFlexFill fxLayoutGap = "5%">
 
             <div class="imagen-perfil" fxFlex="25%" fxLayout="column" fxLayoutAlign="center center">
-                <div><img fxFlex="200px" class="img-perfil" *ngIf="(datosUsuarioActual$ |async)?.imagen1" [src]="datosUsuario?.imagen1" /></div>
+                <div><img class="img-perfil" [src]="datosUsuario?.imagen1 || '/assets/img/no-profile-picture.jpg'" /></div>
                 <div><button (click)="fileInput.click()" type="button" mat-raised-button color="accent">Cambiar foto</button></div>
                 <input hidden (change)="subirFoto($event)" #fileInput type="file" accept=".png, .jpg" id="file">
             </div>
@@ -67,7 +67,7 @@
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field class="datos-usuario" *ngIf="(this.datosUsuarioActual$ | async)?.rol == (Rol.Paciente || Rol.Profesional)">
+                <mat-form-field class="datos-usuario" *ngIf="(this.datosUsuarioActual$ | async)?.rol == Rol.Paciente || (this.datosUsuarioActual$ | async)?.rol == Rol.Profesional">
                     <mat-label *ngIf="(this.datosUsuarioActual$ | async)?.rol == Rol.Paciente">Nro. de afiliado</mat-label>
                     <mat-label *ngIf="(this.datosUsuarioActual$ | async)?.rol == Rol.Profesional">Nro. de matricula</mat-label>
                     <input type="text" matInput formControlName="nroAfiliado" placeholder="Ingrese su nro de afiliado, por favor">
@@ -84,8 +84,13 @@
                 <br>
                 <br>
 
-                <div fxLayoutAlign="end">
-                    <button type="button" [disabled]="this.formPerfil.invalid" mat-raised-button color="primary" (click)="guardarDatos(formPerfil.value)"><mat-icon class="icono-boton">save</mat-icon>Guardar datos</button>
+                <div fxLayoutAlign="end" fxLayoutGap="5%">
+                    <div *ngIf="(this.datosUsuarioActual$ | async)?.rol == Rol.Profesional">
+                        <button type="button" mat-raised-button color="accent" (click)="verHorarios(this.datosUsuario.idUsuario)"><mat-icon class="icono-boton">calendar_today</mat-icon>Ver horarios</button>
+                    </div>
+                    <div>
+                        <button type="button" [disabled]="this.formPerfil.invalid" mat-raised-button color="primary" (click)="guardarDatos(formPerfil.value)"><mat-icon class="icono-boton">save</mat-icon>Guardar datos</button>
+                    </div>                    
                 </div>
         
             </div>

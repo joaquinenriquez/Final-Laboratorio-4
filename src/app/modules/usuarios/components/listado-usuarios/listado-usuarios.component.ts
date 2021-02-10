@@ -85,7 +85,7 @@ export class ListadoUsuariosComponent implements OnInit {
         `a las <b>${turno.horarioTurno}</b>?`,
       showCancelButton: true,
       focusConfirm: false,
-      confirmButtonColor: '#F44336',
+      confirmButtonColor: '#558B2F',
       confirmButtonText: '<i>Si, estoy seguro!</i>',
       cancelButtonText: '<b>No cancelar</b>',
     }).then(resultadoDialogo => {

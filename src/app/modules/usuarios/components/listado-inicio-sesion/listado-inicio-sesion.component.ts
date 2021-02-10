@@ -1,19 +1,16 @@
 import { Log } from './../../models/log';
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatSort } from "@angular/material/sort";
+import { MatSort, Sort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
-import { Router } from "@angular/router";
-import { AuthService } from "src/app/modules/shared/services/auth.service";
 import { LogDataService } from "../../services/log.service";
 import { FormControl, FormGroup } from '@angular/forms';
-
 import { DatePipe } from '@angular/common';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PdfCreator } from 'src/app/modules/shared/tools/pdf-creator';
+import { Orden } from 'src/app/modules/shared/components/tabla/orden.enum';
 
 
 @Component({
@@ -36,15 +33,14 @@ export class ListadoInicioSesionComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  cargaTablaPrimeraVez: boolean = true;
+
 
   /* #endregion */
 
 
   constructor(private logDataService: LogDataService,
     private toastManager: MatSnackBar,
-    private authService: AuthService,
-    private dialog: MatDialog,
-    private router: Router,
     private datePipe: DatePipe,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer) {
@@ -75,6 +71,12 @@ export class ListadoInicioSesionComponent implements OnInit {
       this.dataSource = new MatTableDataSource(todosLosLogs);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+
+      if (this.cargaTablaPrimeraVez) {
+        this.ordernarTabla('fechaLog', Orden.Descendente);
+        this.cargaTablaPrimeraVez = false;
+      }
+
     });
   }
 
@@ -155,6 +157,15 @@ export class ListadoInicioSesionComponent implements OnInit {
 
   getDate() {
     return this.datePipe.transform(new Date, "yyyy-MM-dd hh:mm:ss");
+  }
+
+  ordernarTabla(nombreColumna: string, orden: Orden) {
+    const sortState: Sort = { active: nombreColumna, direction: orden };
+    this.dataSource.paginator = this.paginator;
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);
+    console.log('Ordenado');
   }
 
 

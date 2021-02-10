@@ -1,3 +1,4 @@
+import { ToastService } from './../../../shared/services/toast.service';
 import { SpinnerService } from './../../../shared/services/spinner.service';
 import { Rol } from './../../models/rol.enum';
 import { AuthService } from './../../../shared/services/auth.service';
@@ -8,6 +9,9 @@ import { Usuario } from '../../models/usuario';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
+import Swal from 'sweetalert2';
+import { ListadoHorariosProfesionalesComponent } from '../../components/listado-horarios-profesionales/listado-horarios-profesionales.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -27,7 +31,7 @@ export class PerfilUsuarioComponent implements OnInit {
   formPerfil: FormGroup = new FormGroup({
     nombre: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.\'-]+$')]),
     apellido: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.\'-]+$')]),
-    nroAfiliado: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.\'-]+$')]),
+    nroAfiliado: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(4)]),
     dni: new FormControl('', [Validators.required,   Validators.pattern("^[0-9]*$"), Validators.minLength(8)]),
 
   });
@@ -35,7 +39,9 @@ export class PerfilUsuarioComponent implements OnInit {
   constructor(private usuarioDataService: UsuarioDataService,
               private auth: AuthService,
               private storage: AngularFireStorage,
-              private spinnerService: SpinnerService) { }
+              private spinnerService: SpinnerService,
+              private dialog: MatDialog,
+              private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.auth.auth.onAuthStateChanged((user) => {
@@ -71,12 +77,16 @@ export class PerfilUsuarioComponent implements OnInit {
     setTimeout(() => {
       this.datosUsuario.displayName = `${datos.nombre} ${datos.apellido}`;
 
+      this.datosUsuario.nroAfiliado = datos.nroAfiliado;
       this.datosUsuario.nombre = datos.nombre;
       this.datosUsuario.apellido = datos.apellido;
       this.datosUsuario.dni = datos.dni;
   
       this.usuarioDataService.modificarUsuario(this.datosUsuario);
-    });
+
+      this.toastService.MostrarToast('Actualizaste tu perfil con éxito', 2000);
+
+    }, 2000);
   }
 
 
@@ -94,14 +104,21 @@ export class PerfilUsuarioComponent implements OnInit {
 
       ref.getDownloadURL().subscribe(datos => this.datosUsuario.imagen1 = datos);
 
-      //this.inputFile.nativeElement.value = '';
-      console.log('finalizo subida');
 
     })).subscribe();
 
+  }
 
 
-    console.log(event);
+  verHorarios(idUsuario: string): void {
+
+    this.dialog.open(ListadoHorariosProfesionalesComponent,
+      {
+        width: '500px',
+        data: { idUsuario: idUsuario },
+        panelClass: 'horarios-profesional-dialog-container'
+      });
+
   }
 
 }
