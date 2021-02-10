@@ -1,5 +1,11 @@
-<div fxLayout="row" fxLayoutGap="5%" fxLayoutAlign="center">
+<div class="contenedor-selector-dias">
     
+    <mat-card-header>
+        <mat-card-title>Elegí que día te queda mejor</mat-card-title>
+    </mat-card-header>
+    
+    <br>
+
     <mat-button-toggle-group>
         <mat-button-toggle *ngFor="let dia of this.proximasFechasTrabajables" (click)="seleccionarDia(dia)" [value]="dia">{{dia | date:"EEEE d " | titlecase}} de {{dia | date: " MMMM" | titlecase}}</mat-button-toggle>
     </mat-button-toggle-group>

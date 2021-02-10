@@ -1,75 +1,39 @@
-.wrapper {
-    height: 400px;
-  }
-  
-  table {
-    width: 100%;
-  }
+table {
+  width: 100%;
+}
 
-  .example-tab-icon {
-    margin-right: 8px;
-    font-weight: bold;
-  }
+.table-container {
+  max-height: calc(70vh - 155px); // or height: calc(100vh - 155px); depending on your need  change
+  overflow: auto;
+}
 
-  .turno-cancelado {
-    color: #F44336;
-    font-weight: bold;
-  }
+// Lleva seleccionar hacia a la derecha
+.mat-column-seleccionar {
+  text-align: right;
+  justify-content: center;
+}
 
-  .turno-confirmado {
-    color: #3BAF55;
-    font-weight: bold;
-  }
-
-  .turno-pendiente-confirmacion {
-    color: #FFC925;
-    font-weight: bold;
-  }
-
-  .turno-finalizado {
-    color: #17A2B8;
-    font-weight: bold;
-  }
-
-  .turno-atendiendo {
-    color: #007BFF;
-    font-weight: bold;
-  }
-
-  .turno-suspendido {
-    color: #8E959B;
-    font-weight: bold;
-  }
-
-
-  table {
-    width: 100%;
-  }
-  
-  th.mat-sort-header-sorted {
-    color: black;
-  }
-
-  table {
-    width: 100%;
-  }
-  
-  .mat-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
-
-  .sin-datos {
-    font-size: 16px;
-    text-align: center;
-    color:#8BC34A;
-  }
-
-  .icono {
+  .fieldset {
     position: relative;
-    /* Adjust these values accordingly */
-    top: 5px;
-    color:#8BC34A;
-    // left: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px 8px 15px 10px;
+    width: 100%;
   }
   
+  .fieldset h1 {
+    position: absolute;
+    top: 0;
+    font-size: 12px;
+    line-height: 1;
+    margin: -9px 0 0; /* half of font-size */
+    background: #fff;
+    padding: 0 3px;
+    opacity: 	0.8;
+  }
+
+  .mat-paginator-sticky {
+    bottom: 0px;
+    position: sticky;
+    z-index: 10;
+  }

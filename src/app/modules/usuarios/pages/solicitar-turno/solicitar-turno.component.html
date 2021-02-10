@@ -1,68 +1,54 @@
-<div class="container" fxLayout="column" fxFlexFill>
+<div class="container">
 
     <app-datos-usuario-bar [usuario]="this.datosUsuarioActual"></app-datos-usuario-bar>
-
 
     <mat-horizontal-stepper linear #stepper>
 
         <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
-            <form [formGroup]="firstFormGroup">
 
-                
-                <div fxLayout fxLayoutAlign="center">
-                    <fieldset>
-                        <legend>Buscar por...</legend>
-                        <mat-radio-group aria-label="Select an option" (change)="cambiarTipoBusqueda($event)">
-                            <mat-radio-button value="Profesional" checked>Profesional</mat-radio-button>
-                            <mat-radio-button value="Especialidades">Especialidad</mat-radio-button>
-                        </mat-radio-group>
-                    </fieldset>
-                </div>
+            <ng-template matStepLabel>Elegir {{tipoBusqueda}}</ng-template>
 
-                <ng-template matStepLabel>Elegir {{tipoBusqueda}}</ng-template>
+            <form [formGroup]="firstFormGroup" fxLayout="row" fxLayoutAlign="center">
 
-                <div fxLayout fxLayoutAlign="center">
-
-
-                    <div fxFlex="60%" [hidden]="this.tipoBusqueda != 'Profesional'">
-                        <app-tabla-seleccion-profesionales (filaSeleccionada)="seleccionarProfesional($event)"></app-tabla-seleccion-profesionales>
-                    </div>
-
-                    <div fxFlex="60%" [hidden]="this.tipoBusqueda != 'Especialidades'">
-                        <app-tabla-seleccion-especialidades (filaSeleccionada)="seleccionarEspecialidad($event)"></app-tabla-seleccion-especialidades>
-                    </div>
-
+                <div fxFlex="50%">
+                    <app-listado-seleccion-turno (profesionalSeleccionado)="seleccionarProfesional($event)"
+                        (especialidadSeleccionada)="seleccionarEspecialidad($event)"
+                        (cambioTipoBusqueda)="cambiarTipoBusqueda($event)"></app-listado-seleccion-turno>
                 </div>
 
             </form>
+
         </mat-step>
 
-        <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
-            <form [formGroup]="secondFormGroup">
-                <ng-template matStepLabel>Seleccionar día del turno</ng-template>
 
-                <div fxLayout="column" fxLayoutGap="5%">
+        <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+            <ng-template matStepLabel>Seleccionar día del turno</ng-template>
+
+            <form [formGroup]="secondFormGroup" fxLayout="column" fxLayoutAlign="center">
+
+                <mat-card fxLayout="column">    
+
                     <br>
-                    <div fxFlex style="margin-bottom: 20px;">
-                        <app-selector-dias 
-                            [tipoBusqueda]="this.tipoBusqueda"
+
+                    <div fxLayout="row" fxLayoutAlign="center center">
+
+                        <app-selector-dias fxFlexAlign="center" fxFlex="50%" [tipoBusqueda]="this.tipoBusqueda"
                             [profesionalSeleccionado]="this.profesionalSeleccionado"
                             [especialidadSeleccionada]="this.especialidadSeleccionada"
                             (CambioDia)="mostrarHorarios($event)">
                         </app-selector-dias>
+
                     </div>
 
-                    <div fxFlex style="margin-bottom: 20px;">
-                        <app-selector-horarios 
-                        [datosDiaSeleccionado]="datosDiaSeleccionado"
-                        [tipoBusqueda]="tipoBusqueda" 
-                        (horarioSeleccionado)="this.seleccionarHorario($event)">
+                    <br>
+
+                    <div fxLayout="row" fxLayoutAlign="center">
+                        <app-selector-horarios fxFlex="50%" [datosDiaSeleccionado]="datosDiaSeleccionado"
+                            [tipoBusqueda]="tipoBusqueda" (horarioSeleccionado)="this.seleccionarHorario($event)">
                         </app-selector-horarios>
                     </div>
 
-
-                </div>
-
+                </mat-card>
 
             </form>
         </mat-step>
@@ -70,13 +56,16 @@
         <mat-step>
             <ng-template matStepLabel>Confirmación del turno</ng-template>
 
+            <br>
+            
             <div>
-                <app-confirmacion-solicitud-turno [datosTurnoConfirmado]="this.datosTurnoConfirmado" (turnoConfirmado)="confirmarTurno()"></app-confirmacion-solicitud-turno>
+                <app-confirmacion-solicitud-turno [datosTurnoConfirmado]="this.datosTurnoConfirmado"
+                    (turnoConfirmado)="confirmarTurno()"></app-confirmacion-solicitud-turno>
             </div>
 
         </mat-step>
 
+
+
     </mat-horizontal-stepper>
-
-
 </div>

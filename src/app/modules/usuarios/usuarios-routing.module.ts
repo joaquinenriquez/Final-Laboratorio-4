@@ -1,3 +1,4 @@
+import { PerfilUsuarioComponent } from './pages/perfil-usuario/perfil-usuario.component';
 import { InformeTurnosPorPacientesComponent } from './pages/informe-turnos-por-pacientes/informe-turnos-por-pacientes.component';
 import { InformeDetalleRespuestasEncuestasComponent } from './pages/informe-detalle-respuestas-encuestas/informe-detalle-respuestas-encuestas.component';
 import { InformePacientesPorEspecialidadComponent } from './pages/informe-pacientes-por-especialidad/informe-pacientes-por-especialidad.component';
@@ -50,6 +51,7 @@ const routes: Routes = [
       { path: 'informe-pacientes-por-especialidad', component: InformePacientesPorEspecialidadComponent, canActivate: [VerificarLoginGuard]},
       { path: 'informe-detalle-respuestas-encuestas', component: InformeDetalleRespuestasEncuestasComponent, canActivate: [VerificarLoginGuard]},
       { path: 'informe-turnos-por-paciente', component: InformeTurnosPorPacientesComponent, canActivate: [VerificarLoginGuard]},
+      { path: 'perfil-usuario', component: PerfilUsuarioComponent, canActivate: [VerificarLoginGuard]},
       { path: '', component: HomeComponent, canActivate: [VerificarLoginGuard]},
       { path: '**', redirectTo: '', pathMatch: 'full', canActivate: [VerificarLoginGuard]} 
     ]

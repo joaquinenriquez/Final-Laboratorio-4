@@ -1,108 +1,119 @@
-import { Notificacion } from './../../../shared/models/notificacion';
-import { NotificacionesService } from './../../../shared/services/notificaciones.service';
-import { VisualizarResenaUsuarioDialogComponent } from './../../../usuarios/pages/visualizar-resena-usuario-dialog/visualizar-resena-usuario-dialog.component';
-import { EncuestasDataService } from './../../services/encuestas-data.service';
-import { PreguntaEncuesta } from './../../models/encuesta';
-import { MatDialog } from '@angular/material/dialog';
-import { EncuestaUsuarioDialogComponent } from './../../../usuarios/pages/encuesta-usuario-dialog/encuesta-usuario-dialog.component';
-import { Turno } from './../../models/turno';
-import Swal from 'sweetalert2';
-import { AuthService } from './../../../shared/services/auth.service';
-import { TurnosDataService } from './../../services/turnos-data.service';
-import { Component, Input, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
-import { mergeMap } from 'rxjs/operators';
-import { EstadoTurno } from '../../models/estado-turno.enum';
+import { SpinnerService } from './../../../shared/services/spinner.service';
+import { TipoBusqueda } from './../../models/tipo-busqueda.enum';
+import { Orden } from './../../../shared/components/tabla/orden.enum';
+import { Usuario } from 'src/app/modules/usuarios/models/usuario';
+import { UsuarioDataService } from './../../../usuarios/services/usuario-data.service';
+import { EspecialidadesDataService } from 'src/app/modules/especialidades/services/especialidades-data.service';
+import { Component, OnInit, Output, ViewChild, EventEmitter, AfterViewInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { Encuesta } from '../../models/encuesta';
-import firebase from 'firebase/app';
+import { Especialidad } from 'src/app/modules/usuarios/models/especialidad';
+import { Rol } from 'src/app/modules/usuarios/models/rol.enum';
 
 @Component({
   selector: 'app-listado-seleccion-turno',
   templateUrl: './listado-seleccion-turno.component.html',
   styleUrls: ['./listado-seleccion-turno.component.scss']
 })
-export class ListadoSeleccionTurnoComponent implements OnInit {
+export class ListadoSeleccionTurnoComponent implements OnInit, AfterViewInit {
 
-  @Input() tipoFiltro: string;
-
-  @Input() datosUsuarioActual;
-
-  @Output() cambioCantidadTurnos: EventEmitter<number> = new EventEmitter();
+  @Output() profesionalSeleccionado: EventEmitter<any> = new EventEmitter<any>();
+  @Output() especialidadSeleccionada: EventEmitter<any> = new EventEmitter<any>();
+  @Output() cambioTipoBusqueda: EventEmitter<any> = new EventEmitter<any>();
 
   displayedColumns: string[];
-  dataSource: MatTableDataSource<Turno>;
+  dataSource: MatTableDataSource<object>;
+
+  especialidades: Especialidad[];
+  profesionales: Usuario[];
+
+  tipoBusquedaSeleccionada: TipoBusqueda = TipoBusqueda.Especialidades;
+
+  cargaTablaPrimeraVezProfesionales: boolean = true;
+  cargaTablaPrimeraVezEspecialidades: boolean = true;
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
 
-  constructor(private turnosDataService: TurnosDataService,
-    private toastManager: MatSnackBar,
-    private authService: AuthService,
-    private dialog: MatDialog,
-    private encuestaDataService: EncuestasDataService,
-    private notificacionService: NotificacionesService) { }
+  constructor(private toastManager: MatSnackBar,
+    private especialidadesService: EspecialidadesDataService,
+    private ususariosService: UsuarioDataService,
+    private spinnerService: SpinnerService) { }
 
   ngOnInit(): void { }
 
 
   ngAfterViewInit() {
-    this.traerTurnos();
+    this.traerEspecialidades();
   }
 
+  private traerEspecialidades(): void {
+    this.especialidadesService.traerTodasLasEspecialidades().subscribe(datosEspecialidades => {
+      this.especialidades = datosEspecialidades;
+      this.dataSource = new MatTableDataSource(this.especialidades);
+      this.displayedColumns = ['nombreEspecialidad', 'seleccionar'];
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
 
-  cancelarTurno(turno: Turno) {
-
-    Swal.fire({
-      title: '<strong>Cancelar turno</strong>',
-      icon: 'warning',
-      html:
-        `¿Estas seguro que queres cancelar el turno con <b><i>${turno.nombreProfesional}</i></b>, ` +
-        `para el día <b>${turno.fechaTurno.toDate().toLocaleDateString()}</b> ` +
-        `a las <b>${turno.horarioTurno}</b>?`,
-      showCancelButton: true,
-      focusConfirm: false,
-      confirmButtonColor: '#F44336',
-      confirmButtonText: '<i>Si, estoy seguro!</i>',
-      cancelButtonText: '<b>No cancelar</b>',
-    }).then(resultadoDialogo => {
-      if (resultadoDialogo.isConfirmed) {
-        turno.estadoTurno = EstadoTurno.Cancelado;
-        this.turnosDataService.modificarTurno(turno);
-        this.crearNotificacionDeTurnoCancelado(turno);
-        this.mostrarToast('El turno fue cancelado con éxito', 2000);
+      if (this.cargaTablaPrimeraVezEspecialidades) {
+        this.ordernarTabla('especialidades', Orden.Ascendente);
+        this.cargaTablaPrimeraVezEspecialidades = false;
       }
-    })
+    });
   }
 
+  private traerProfesionales(): void {
+    this.ususariosService.TraerTodosLosUsuariosPorRol(Rol.Profesional).subscribe(datosProfesionales => {
+      this.profesionales = datosProfesionales;
+      this.dataSource = new MatTableDataSource(this.profesionales);
+      this.displayedColumns = ['displayName', 'especialidades', 'seleccionar'];
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+
+      if (this.cargaTablaPrimeraVezProfesionales) {
+        this.ordernarTabla('profesionales', Orden.Ascendente);
+        this.cargaTablaPrimeraVezProfesionales = false;
+      }
+      
+    });
+  }
+
+  cambiarDataSource(event): void {
+
+    this.spinnerService.mostrarSpinner(1000);
+
+    setTimeout(() => {
+
+      if (event.value == TipoBusqueda.Profesional){
+        this.traerProfesionales();
+      }
+  
+      if (event.value == TipoBusqueda.Especialidades) {
+        this.traerEspecialidades();
+      }
+  
+      this.tipoBusquedaSeleccionada = event.value;
+      this.cambioTipoBusqueda.emit(event);
+
+    }, 1000);
+
+  }
+
+  ordernarTabla(nombreColumna: string, orden: Orden) {
+    const sortState: Sort = { active: nombreColumna, direction: orden };
+    this.dataSource.paginator = this.paginator;
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);
+    console.log('Ordenado');
+  }
 
   mostrarToast(mensaje: string, duracion: number) {
     this.toastManager.open(mensaje, '', { duration: duracion, panelClass: ['toast-confirmado'] })
   }
-
-  crearNotificacionDeTurnoCancelado(turno: Turno) {
-
-    let  opcionesFormatoFecha = { year: 'numeric', month: 'long', day: 'numeric' };
-    let fechaTurnoString = turno.fechaTurno.toDate().toLocaleDateString("es-AR", opcionesFormatoFecha);
-
-    let notificacionCancelarTurno: Notificacion = {
-
-      idUsuarioDestino: turno.idProfesional,
-      idUsuarioOrigen:  turno.idUsuario,
-      nombreUsuarioOrigen: turno.nombreUsuario,
-      fechaCreacion: firebase.firestore.Timestamp.now(),
-      textoNotificacion: `${turno.nombreUsuario} canceló el turno para el día ${fechaTurnoString}`,
-      notificacionLeida: false,
-      fotoUsuarioOrigen: this.datosUsuarioActual?.imagen1,
-      colorNotificacion: "#F44336"
-    }
-
-    this.notificacionService.GuardarNuevaNotificacionConIdAutomatico(notificacionCancelarTurno);
-  }
-
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -114,85 +125,22 @@ export class ListadoSeleccionTurnoComponent implements OnInit {
   }
 
 
-  traerTurnos() {
-
-    this.authService.datosUsuario.pipe(
-      mergeMap((usarioActual: any) => this.turnosDataService.traerTurnosPorUsuario(usarioActual?.uid))).subscribe(datos => {
-
-        let todosLosTurnos = datos as Turno[];
-
-        if (this.tipoFiltro == 'proximos') {
-          this.displayedColumns = ['fechaTurno', 'horarioTurno', 'especialidad', 'nombreProfesional', 'estadoTurno', 'cancelarTurno'];
-          this.dataSource = new MatTableDataSource(todosLosTurnos.filter(unTurno => unTurno.estadoTurno != EstadoTurno.Cancelado && unTurno.estadoTurno != EstadoTurno.Suspendido && unTurno.estadoTurno != EstadoTurno.Finalizado));
-
-        } else {
-          this.dataSource = new MatTableDataSource(todosLosTurnos.filter(unTurno => unTurno.estadoTurno == EstadoTurno.Finalizado || unTurno.estadoTurno == EstadoTurno.Suspendido || unTurno.estadoTurno == EstadoTurno.Cancelado));
-          this.displayedColumns = ['fechaTurno', 'horarioTurno', 'especialidad', 'nombreProfesional', 'estadoTurno', 'contestarEncuesta', 'verResena'];
-        }
-
-        this.cambioCantidadTurnos.emit(this.dataSource.data.length);
-
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      });
+  formatearArray(unArray: string[]): string {
+    return unArray?.join(" - ");
   }
 
-  mostrarEncuesta(turnoSeleccionado: Turno): void {
+  seleccionarFila(fila) {
 
-    this.dialog.open(EncuestaUsuarioDialogComponent,
-      {
-        width: '400px',
-        height: '600px',
-        data: { turno: turnoSeleccionado },
-        panelClass: 'horarios-profesional-dialog-container'
-      }).afterClosed().subscribe(resultadoDialogo => {
+    if (this.tipoBusquedaSeleccionada == TipoBusqueda.Especialidades) {
+      this.especialidadSeleccionada.emit(fila);
+    }
 
-        if (resultadoDialogo != undefined) {
-
-          let preguntasEncuesta = resultadoDialogo as PreguntaEncuesta[];
-
-          // Las respuestas de la encuesta
-          let nuevaEncuesta: Encuesta =
-          {
-            idTurno: turnoSeleccionado.idTurno,
-            preguntas: preguntasEncuesta
-          }
-
-          this.encuestaDataService.nuevaEncuesta(nuevaEncuesta);
-
-          turnoSeleccionado.contestoEncuesta = true;
-          this.turnosDataService.modificarTurno(turnoSeleccionado);
-
-          Swal.fire({
-            title: 'Gracias por elegirnos!',
-            text: 'Sus datos fueron guardos con éxito',
-            icon: 'success',
-            confirmButtonText: 'Aceptar'
-          });
-
-        }
-      });
+    if (this.tipoBusquedaSeleccionada == TipoBusqueda.Profesional) {
+      this.profesionalSeleccionado.emit(fila);
+    }
 
   }
-
-
-  mostrarResena(turnoSeleccionado: Turno): void {
-
-    const dialogoReg = this.dialog.open(VisualizarResenaUsuarioDialogComponent,
-      {
-        width: '400px',
-        data: turnoSeleccionado
-      });
-
-    dialogoReg.afterClosed().subscribe(resultadoDialogo => {
-
-      if (resultadoDialogo != undefined) {
-
-      }
-
-    });
-  }
-
+  
 
 }
 

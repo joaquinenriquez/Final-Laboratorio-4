@@ -55,11 +55,9 @@ export class RegistroPacienteComponent implements OnInit {
     private router: Router,
     private usuarioDataSvc: UsuarioDataService,
     private storage: AngularFireStorage,
-    private translateService: TranslateService,
-    private spinnerService: SpinnerService) { }
+    private translateService: TranslateService) { }
 
   ngOnInit(): void {
-    this.spinnerService.mostrarSpinner(10000);
   }
 
   registrarConEmail(nuevoUsuario: Usuario) {

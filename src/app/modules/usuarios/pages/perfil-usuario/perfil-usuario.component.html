@@ -1,0 +1,124 @@
+<div fxLayout="column" fxLayoutAlign="center center" style="height: calc(100vh - 20vh); width: 100%;">
+
+
+    <mat-card style="width: 80%;">
+
+
+
+    <mat-card-header>
+
+        <mat-card-title>
+            Perfil de usuario
+        </mat-card-title>
+
+        <mat-card-subtitle>
+            {{(this.datosUsuarioActual$ | async)?.rol}}
+        </mat-card-subtitle>
+
+    </mat-card-header>
+
+
+    <mat-card-content fxLayout="column">
+
+
+        <div fxLayout="row" fxFlexFill fxLayoutGap = "5%">
+
+            <div class="imagen-perfil" fxFlex="25%" fxLayout="column" fxLayoutAlign="center center">
+                <div><img fxFlex="200px" class="img-perfil" *ngIf="(datosUsuarioActual$ |async)?.imagen1" [src]="datosUsuario?.imagen1" /></div>
+                <div><button (click)="fileInput.click()" type="button" mat-raised-button color="accent">Cambiar foto</button></div>
+                <input hidden (change)="subirFoto($event)" #fileInput type="file" accept=".png, .jpg" id="file">
+            </div>
+
+            <div fxLayout="column" class="campos" fxFlex="50%">
+
+                <form [formGroup]="formPerfil" (ngSubmit)="guardarDatos(formPerfil.value)">
+                
+
+                <mat-form-field class="datos-usuario">
+                    <mat-label>Nombre</mat-label>
+                    <input type="text" matInput formControlName="nombre" placeholder="Ingrese su nombre, por favor">
+                    <mat-error
+                        *ngIf="formPerfil.controls['nombre'].hasError('pattern') && !formPerfil.controls['nombre'].hasError('required')">
+                        El nombre no puede contener números ni caractéres especiales</mat-error>
+                    <mat-error *ngIf="formPerfil.controls['nombre'].hasError('required')">Es
+                        <strong>obligatorio</strong>ingresar su nombre
+                    </mat-error>
+                </mat-form-field>
+        
+                <mat-form-field class="datos-usuario">
+                    <mat-label>Apellido</mat-label>
+                    <input type="text" matInput formControlName="apellido" placeholder="Ingrese su apellido, por favor">
+                    <mat-error
+                        *ngIf="formPerfil.controls['apellido'].hasError('pattern') && !formPerfil.controls['apellido'].hasError('required')">
+                        El apellido no puede contener números ni caractéres especiales</mat-error>
+                    <mat-error *ngIf="formPerfil.controls['apellido'].hasError('required')">Es
+                        <strong>obligatorio</strong>ingresar su apellido
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="datos-usuario">
+                    <mat-label>DNI</mat-label>
+                    <input type="text" matInput formControlName="dni" placeholder="Ingrese su nro de DNI, por favor">
+                    <mat-error
+                        *ngIf="formPerfil.controls['dni'].hasError('pattern') && !formPerfil.controls['dni'].hasError('required')">
+                        El número de documento no puede contener letras ni caractéres especiales</mat-error>
+                    <mat-error *ngIf="formPerfil.controls['dni'].hasError('required')">Es
+                        <strong>obligatorio</strong>ingresar su DNI
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="datos-usuario" *ngIf="(this.datosUsuarioActual$ | async)?.rol == (Rol.Paciente || Rol.Profesional)">
+                    <mat-label *ngIf="(this.datosUsuarioActual$ | async)?.rol == Rol.Paciente">Nro. de afiliado</mat-label>
+                    <mat-label *ngIf="(this.datosUsuarioActual$ | async)?.rol == Rol.Profesional">Nro. de matricula</mat-label>
+                    <input type="text" matInput formControlName="nroAfiliado" placeholder="Ingrese su nro de afiliado, por favor">
+                    <mat-error
+                        *ngIf="formPerfil.controls['nroAfiliado'].hasError('pattern') && !formPerfil.controls['nroAfiliado'].hasError('required')">
+                        El nro. debe ser solo números</mat-error>
+                    <mat-error *ngIf="formPerfil.controls['nroAfiliado'].hasError('required')">Es
+                        <strong>obligatorio</strong>
+                    </mat-error>
+                </mat-form-field>
+        
+            </form>
+
+                <br>
+                <br>
+
+                <div fxLayoutAlign="end">
+                    <button type="button" [disabled]="this.formPerfil.invalid" mat-raised-button color="primary" (click)="guardarDatos(formPerfil.value)"><mat-icon class="icono-boton">save</mat-icon>Guardar datos</button>
+                </div>
+        
+            </div>
+
+        </div>
+
+
+
+    </mat-card-content>
+
+
+
+    <mat-card-actions fxLayout="row" fxLayoutAlign="center">
+        
+    </mat-card-actions>
+
+    <mat-card-footer >
+        
+        
+    
+    </mat-card-footer>
+
+
+
+
+
+    </mat-card>
+
+
+
+
+</div>
+
+
+
+

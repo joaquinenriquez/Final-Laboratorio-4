@@ -1,114 +1,93 @@
-
 <div class="contenedor-principal" fxLayout="column">
 
-    <mat-card>
-  
-      <mat-card-content>
-  
-        <div>
-  
-          <mat-form-field>
-            <mat-label>Buscar</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Nombre del profesional" #input>
-          </mat-form-field>
-  
-          <div class="mat-elevation-z8">
-  
-            <table mat-table [dataSource]="dataSource" matSort>
-  
-              <!-- ID Column -->
-              <ng-container matColumnDef="fechaTurno">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
-                <td mat-cell *matCellDef="let row"> {{row.fechaTurno?.toDate() | date:'dd/MM/yyyy' }} </td>
-              </ng-container>
-  
-              <!-- Progress Column -->
-              <ng-container matColumnDef="horarioTurno">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Horario </th>
-                <td mat-cell *matCellDef="let row"> {{row.horarioTurno}} </td>
-              </ng-container>
-  
-              <!-- Name Column -->
-              <ng-container matColumnDef="especialidad">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Especialidad </th>
-                <td mat-cell *matCellDef="let row"> {{row.especialidadProfesional}} </td>
-              </ng-container>
-  
-              <!-- Color Column -->
-              <ng-container matColumnDef="nombreProfesional">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Profesional </th>
-                <td mat-cell *matCellDef="let row"> {{row.nombreProfesional}} </td>
-              </ng-container>
-  
-              <ng-container matColumnDef="estadoTurno">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
-                <td mat-cell *matCellDef="let row" [ngClass]="{
-                      'turno-cancelado': 'Cancelado' == row.estadoTurno, 
-                      'turno-finalizado': 'Finalizado' == row.estadoTurno,
-                      'turno-pendiente-confirmacion': 'Pendiente Confirmación' == row.estadoTurno,
-                      'turno-confirmado': 'Confirmado' == row.estadoTurno,
-                      'turno-atendiendo': 'Atendiendo' == row.estadoTurno,
-                      'turno-suspendido': 'Suspendido' == row.estadoTurno}"> {{row.estadoTurno}} </td>
-              </ng-container>
-  
-              <ng-container matColumnDef="cancelarTurno" *ngIf="this.tipoFiltro == 'proximos'">
-                <th mat-header-cell *matHeaderCellDef> Cancelar </th>
-                <td mat-cell *matCellDef="let element">
-                  <button mat-icon-button color="warn" (click)="cancelarTurno(element)">
-                    <mat-icon class="mat-18">cancel </mat-icon>
-                  </button>
-                </td>
-              </ng-container>
-  
-              <ng-container matColumnDef="contestarEncuesta" *ngIf="this.tipoFiltro == 'anteriores'">
-                <th mat-header-cell *matHeaderCellDef>Calificar</th>
-                <td mat-cell *matCellDef="let element">
-                  <button mat-icon-button color="accent"
-                    [disabled]="(element.estadoTurno != 'Finalizado') || element.contestoEncuesta == true"
-                    (click)="mostrarEncuesta(element)">
-                    <mat-icon class="mat-18">stars</mat-icon>
-                  </button>
-                </td>
-              </ng-container>
-  
-              <ng-container matColumnDef="verResena" *ngIf="this.tipoFiltro == 'anteriores'">
-                <th mat-header-cell *matHeaderCellDef>Ver Reseña</th>
-                <td mat-cell *matCellDef="let element">
-                  <button mat-icon-button color="accent"
-                    [disabled]="(element.estadoTurno != 'Finalizado')"
-                    (click)="mostrarResena(element)">
-                    <mat-icon class="mat-18">view_headline</mat-icon>
-                  </button>
-                </td>
-              </ng-container>
-  
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  
-  
-  
-              <!-- Row shown when there is no matching data. -->
-              <tr class="mat-row" *matNoDataRow>
-                <td *ngIf="input?.value?.length > 0 && dataSource.data?.length > 0" class="mat-cell"
-                  [attr.colspan]="displayedColumns?.length">No existe resultados para "{{input.value}}"</td>
-                <td class="mat-cell sin-datos" *ngIf="dataSource.data?.length == 0"
-                  [attr.colspan]="displayedColumns?.length">
-                  <mat-icon class="icono">insert_emoticon</mat-icon>No tenés turnos en este estado
-                </td>
-              </tr>
-  
-  
-            </table>
-  
-            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-  
+  <mat-card style="padding: 10px; min-height: 70vh;">
+
+    <mat-card-header>
+      <mat-card-title>Seleccione una especialidad</mat-card-title>
+    </mat-card-header>
+
+    <br>
+
+    <mat-card-content>
+
+      <div>
+
+        <div fxLayout="row" fxLayoutGap="7%">
+
+          <div fxFlex="50">
+            <mat-form-field style="width: 100%;" class="txtBuscador" appearance="outline">
+              <mat-label>Buscar</mat-label>
+              <input matInput (keyup)="applyFilter($event)" placeholder="Ingresa el texto que queres buscar..." #input>
+            </mat-form-field>
           </div>
+
+
+          <div fxFlex="40%" fxFlexAlign="start end">
+            <section class="fieldset">
+              <h1>Buscar por...</h1>
+              <mat-radio-group fxLayout="row" fxLayoutGap="10%" (change)="cambiarDataSource($event)" aria-label="Select an option">
+                <mat-radio-button checked fxFlex="40%" value="Especialidades">Especialidad</mat-radio-button>
+                <mat-radio-button fxFlex="40%" value="Profesional">Profesional</mat-radio-button>
+              </mat-radio-group>
+            </section>
+          </div>
+
+
+
         </div>
+
+
+        <div class="mat-elevation-z8 table-container">
+
+
+          <mat-table #table [dataSource]="dataSource" matSort>
   
-  
-  
-      </mat-card-content>
-    </mat-card>
-  
-  
-  </div>
+            <ng-container matColumnDef="displayName" color="primary">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Profesionales </mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{row.displayName}} </mat-cell>
+            </ng-container>
+    
+            <ng-container matColumnDef="especialidades">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Especialidades </mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{this.formatearArray(row.especialidades)}} </mat-cell>
+            </ng-container>
+    
+            <ng-container matColumnDef="nombreEspecialidad">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Especialidades </mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{row.nombreEspecialidad}} </mat-cell>
+            </ng-container>
+    
+            <ng-container matColumnDef="seleccionar">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Seleccionar</mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <button mat-icon-button class="boton-ver-encuesta" (click)="this.seleccionarFila(row)">
+                  <mat-icon class="mat-18">check</mat-icon>
+                </button>
+              </mat-cell>
+            </ng-container>  
+    
+    
+            <mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    
+    
+          </mat-table>
+          <mat-paginator class="mat-paginator-sticky" #paginator [pageSize]="50" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true"></mat-paginator>
+
+
+
+
+
+
+        </div>
+
+
+      </div>
+
+
+
+    </mat-card-content>
+  </mat-card>
+
+
+</div>

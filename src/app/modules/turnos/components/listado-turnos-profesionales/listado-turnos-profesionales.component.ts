@@ -58,7 +58,6 @@ export class ListadoTurnosProfesionalesComponent implements OnInit, AfterViewIni
     this.sort.active = sortState.active;
     this.sort.direction = sortState.direction;
     this.sort.sortChange.emit(sortState);
-    console.log('Ordenado');
   }
 
 

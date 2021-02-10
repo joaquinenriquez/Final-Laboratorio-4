@@ -3,11 +3,12 @@ import { Especialidad } from './../../models/especialidad';
 import { AltaModificacionEspecialidadDialogComponent } from './../alta-modificacion-especialidad-dialog/alta-modificacion-especialidad-dialog.component';
 import Swal from 'sweetalert2';
 import { EspecialidadesDataService } from './../../services/especialidades-data.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Orden } from 'src/app/modules/shared/components/tabla/orden.enum';
 
 export interface DatosDialogo {
   titulo: string;
@@ -23,12 +24,13 @@ export interface DatosDialogo {
   templateUrl: './listado-especialidades.component.html',
   styleUrls: ['./listado-especialidades.component.scss']
 })
-export class ListadoEspecialidadesComponent implements OnInit {
+export class ListadoEspecialidadesComponent implements OnInit, AfterViewInit {
 
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  cargaTablaPrimeraVez: boolean = true;
 
   public displayedColumns: string[] = ['nombreEspecialidad', 'modificar', 'eliminar'];
 
@@ -37,7 +39,21 @@ export class ListadoEspecialidadesComponent implements OnInit {
     private toastManager: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.especialidadesDataServices.traerTodasLasEspecialidades().subscribe(datos => this.dataSource = new MatTableDataSource(datos));
+  }
+
+  traerDatos() {
+    this.especialidadesDataServices.traerTodasLasEspecialidades().subscribe(datos => {
+      this.dataSource = new MatTableDataSource(datos)
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+
+      // Ordenamos por default
+      if (this.cargaTablaPrimeraVez) {
+        this.ordernarTabla('nombreEspecialidad', Orden.Ascendente);
+        this.cargaTablaPrimeraVez = false;
+      }
+
+    });
   }
 
   applyFilter(event: Event) {
@@ -47,8 +63,7 @@ export class ListadoEspecialidadesComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.traerDatos();
   }
 
   eliminarEspecialidad(especialidad: Especialidad) {
@@ -129,6 +144,15 @@ export class ListadoEspecialidadesComponent implements OnInit {
   mostrarToast(mensaje: string, duracion: number) {
     this.toastManager.open(mensaje, '', { duration: duracion, panelClass: ['toast-confirmado'] })
   }
+
+  ordernarTabla(nombreColumna: string, orden: Orden) {
+    const sortState: Sort = { active: nombreColumna, direction: orden };
+    this.dataSource.paginator = this.paginator;
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);
+  }
+
 
 
 }

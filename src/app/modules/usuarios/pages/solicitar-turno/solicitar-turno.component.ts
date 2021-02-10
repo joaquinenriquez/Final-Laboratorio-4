@@ -29,7 +29,7 @@ export class SolicitarTurnoComponent implements OnInit {
   secondFormGroup: FormGroup;
   isEditable = true;
 
-  tipoBusqueda = TipoBusqueda.Profesional;
+  tipoBusqueda = TipoBusqueda.Especialidades;
 
   datosDiaSeleccionado: DatosSolicitudTurno[];
   datosTurnoConfirmado: DatosSolicitudTurno;
@@ -158,9 +158,6 @@ export class SolicitarTurnoComponent implements OnInit {
 
 
   }
-
-
-
 
 }
 
