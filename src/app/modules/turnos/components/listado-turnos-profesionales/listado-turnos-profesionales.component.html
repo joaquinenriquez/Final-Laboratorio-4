@@ -7,8 +7,8 @@
       <div>
 
         <mat-form-field>
-          <mat-label>Buscar</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Nombre del profesional" #input>
+          <mat-label> {{ 'Buscar' | translate }}</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="{{'ngresa el texto que queres buscar...' | translate}}" #input>
         </mat-form-field>
 
         <div class="mat-elevation-z8">
@@ -17,19 +17,19 @@
 
             <!-- ID Column -->
             <ng-container matColumnDef="fechaTurno">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Fecha' | translate }} </th>
               <td mat-cell *matCellDef="let row"> {{row.fechaTurno?.toDate() | date:'dd/MM/yyyy' }} </td>
             </ng-container>
 
             <!-- Progress Column -->
             <ng-container matColumnDef="horarioTurno">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Horario </th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'Horario' | translate }} </th>
               <td mat-cell *matCellDef="let row"> {{row.horarioTurno}} </td>
             </ng-container>
 
             <!-- Progress Column -->
             <ng-container matColumnDef="duracionEstimada" *ngIf="tipoFiltro == 'confirmados'">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Duración Estimada </th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'Duración estimada' | translate }} </th>
               <td mat-cell *matCellDef="let row"> {{row.duracionEstimada }} minutos 
 
                 <button mat-icon-button class="boton-atender" (click)="modificarDuracionTurno (row)">
@@ -41,30 +41,30 @@
 
             <!-- Name Column -->
             <ng-container matColumnDef="especialidad">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Especialidad </th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'Espacialidad' | translate }} </th>
               <td mat-cell *matCellDef="let row"> {{row.especialidadProfesional}} </td>
             </ng-container>
 
             <!-- Color Column -->
             <ng-container matColumnDef="nombreUsuario">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Paciente </th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Paciente' | translate }} </th>
               <td mat-cell *matCellDef="let row"> {{row.nombreUsuario }} </td>
             </ng-container>
 
             <ng-container matColumnDef="estadoTurno">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'Estado' | translate }} </th>
               <td mat-cell *matCellDef="let row" [ngClass]="{
                     'turno-cancelado': 'Cancelado' == row.estadoTurno, 
                     'turno-finalizado': 'Finalizado' == row.estadoTurno,
                     'turno-pendiente-confirmacion': 'Pendiente Confirmación' == row.estadoTurno,
                     'turno-confirmado': 'Confirmado' == row.estadoTurno,
                     'turno-atendiendo': 'Atendiendo' == row.estadoTurno,
-                    'turno-suspendido': 'Suspendido' == row.estadoTurno}"> {{row.estadoTurno}} </td>
+                    'turno-suspendido': 'Suspendido' == row.estadoTurno}"> {{row.estadoTurno | translate }} </td>
             </ng-container>
 
 
             <ng-container matColumnDef="confirmarTurno" *ngIf="this.tipoFiltro == 'pendientes'">
-              <th mat-header-cell *matHeaderCellDef> <strong>Confirmar</strong></th>
+              <th mat-header-cell *matHeaderCellDef> <strong> {{ 'Confirmar' | translate }}</strong></th>
               <td mat-cell *matCellDef="let element">
                 <button mat-icon-button class="sucess" (click)="confirmarTurno(element)">
                   <mat-icon class="mat-18">check_circle</mat-icon>
@@ -74,7 +74,7 @@
 
             <ng-container matColumnDef="cancelarTurno"
               *ngIf="this.tipoFiltro == 'pendientes' || this.tipoFiltro == 'confirmados'">
-              <th mat-header-cell *matHeaderCellDef><strong> Cancelar </strong></th>
+              <th mat-header-cell *matHeaderCellDef><strong> {{ 'Cancelar' | translate }} </strong></th>
               <td mat-cell *matCellDef="let element">
                 <button mat-icon-button color="warn" (click)="cancelarTurno(element)">
                   <mat-icon class="mat-18">cancel </mat-icon>
@@ -84,7 +84,7 @@
 
             <ng-container matColumnDef="atenderTurno"
               *ngIf="this.tipoFiltro == 'pendientes' || this.tipoFiltro == 'confirmados'">
-              <th mat-header-cell *matHeaderCellDef> <strong>Atender</strong></th>
+              <th mat-header-cell *matHeaderCellDef> <strong>{{ 'Atender' | translate }}</strong></th>
               <td mat-cell *matCellDef="let element">
                 <button mat-icon-button class="boton-atender" (click)="atenderTurno(element)">
                   <mat-icon class="mat-18">launch</mat-icon>
@@ -93,7 +93,7 @@
             </ng-container>
 
             <ng-container matColumnDef="verEncuesta" *ngIf= "this.tipoFiltro == 'anteriores'">
-            <th mat-header-cell *matHeaderCellDef> <strong>Ver encuesta</strong></th>
+            <th mat-header-cell *matHeaderCellDef> <strong> {{ 'Ver encuesta' | translate }}</strong></th>
             <td mat-cell *matCellDef="let element">
               <button mat-icon-button class="boton-ver-encuesta" [disabled]="element.contestoEncuesta == false || element.estadoTurno != 'Finalizado'" (click)="verEncuesta(element)">
                 <mat-icon class="mat-18">playlist_add_check</mat-icon>
@@ -104,7 +104,7 @@
             
             <ng-container matColumnDef="loading">
               <mat-footer-cell *matFooterCellDef [attr.colspan]="displayedColumns?.length">
-                Cargando datos, espere por favor...
+                {{ 'Cargando datos, espere por favor...' | translate }}
               </mat-footer-cell>
             </ng-container>
 
@@ -119,7 +119,7 @@
                 [attr.colspan]="displayedColumns?.length">No existe resultados para "{{input.value}}"</td>
               <td class="mat-cell sin-datos" *ngIf="dataSource.data?.length == 0"
                 [attr.colspan]="displayedColumns?.length">
-                <mat-icon class="icono">insert_emoticon</mat-icon>No tenés turnos en este estado
+                <mat-icon class="icono">insert_emoticon</mat-icon> {{ 'No tenés turnos en este estado' | translate }}
               </td>
             </tr>
 

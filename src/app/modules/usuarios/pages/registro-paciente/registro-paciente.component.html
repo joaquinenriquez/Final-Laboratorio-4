@@ -1,6 +1,6 @@
 <mat-card>
 
-    <mat-card-title>Bienvenido</mat-card-title>
+    <mat-card-title>{{ 'Bienvenido' | translate }}</mat-card-title>
 
     <mat-card-content>
 
@@ -8,26 +8,26 @@
 
             <p>
                 <mat-form-field class="datos-login">
-                    <mat-label>Nombre</mat-label>
-                    <input type="text" matInput formControlName="nombre" placeholder="Ingrese su nombre, por favor">
+                    <mat-label>{{ 'Nombre' | translate }}</mat-label>
+                    <input type="text" matInput formControlName="nombre" placeholder="{{ 'Ingrese su nombre, por favor' | translate }}">
                     <mat-error
                         *ngIf="formRegistro.controls['nombre'].hasError('pattern') && !formRegistro.controls['nombre'].hasError('required')">
-                        El nombre no puede contener números ni caractéres especiales</mat-error>
+                        {{ 'El nombre no puede contener números ni caractéres especiales' | translate }}</mat-error>
                     <mat-error *ngIf="formRegistro.controls['nombre'].hasError('required')">Es
-                        <strong>obligatorio</strong>ingresar su nombre
+                        <strong>{{ 'obligatorio' | translate }}</strong>{{ 'ingresar su nombre' | translate }}
                     </mat-error>
                 </mat-form-field>
             </p>
 
             <p>
                 <mat-form-field class="datos-login">
-                    <mat-label>Apellido</mat-label>
-                    <input type="text" matInput formControlName="apellido" placeholder="Ingrese su apellido, por favor">
+                    <mat-label>{{ 'Apellido' | translate }}</mat-label>
+                    <input type="text" matInput formControlName="apellido" placeholder="{{ 'Ingrese su apellido, por favor' | translate }}">
                     <mat-error
                         *ngIf="formRegistro.controls['apellido'].hasError('pattern') && !formRegistro.controls['apellido'].hasError('required')">
-                        El apellido no puede contener números ni caractéres especiales</mat-error>
+                        {{ 'El apellido no puede contener números ni caractéres especiales' | translate }}</mat-error>
                     <mat-error *ngIf="formRegistro.controls['apellido'].hasError('required')">Es
-                        <strong>obligatorio</strong>ingresar su apellido
+                        <strong>{{ 'obligatorio' | translate }} </strong> {{ 'ingresar su apellido' | translate }}
                     </mat-error>
                 </mat-form-field>
             </p>
@@ -39,16 +39,16 @@
                     <input type="email" matInput formControlName="email" placeholder="Ej. tito@uolsinectis.com.ar">
                     <mat-error
                         *ngIf="formRegistro.controls['email'].hasError('email') && !formRegistro.controls['email'].hasError('required')">
-                        Vas a necesitar ingresar tu email para iniciar sesión</mat-error>
-                    <mat-error *ngIf="formRegistro.controls['email'].hasError('required')">La dirección de email es
-                        <strong>obligatoria</strong>
+                        {{ 'Vas a necesitar ingresar tu email para iniciar sesión' | translate }}</mat-error>
+                    <mat-error *ngIf="formRegistro.controls['email'].hasError('required')">{{ 'La dirección de email es' | translate }}
+                        <strong>{{ 'obligatoria' | translate }}</strong>
                     </mat-error>
                 </mat-form-field>
             </p>
 
             <p>
                 <mat-form-field class="datos-login">
-                    <mat-label>Contraseña</mat-label>
+                    <mat-label>{{ 'Contraseña' | translate }}</mat-label>
                     <input [type]="ocultarPassword ? 'password': 'text'" matInput formControlName="password"
                         autocomplete="on">
                     <mat-icon matSuffix (click)="ocultarPassword = !ocultarPassword">
@@ -73,7 +73,7 @@
 
                 <button type="button" class="btn-login" mat-raised-button color="accent"
                     [disabled]="this.imagenes.length > 1" (click)="fileInput.click()">
-                    <mat-icon class="icono-boton">photo</mat-icon>Elegir fotos de perfil
+                    <mat-icon class="icono-boton">photo</mat-icon>{{ 'Elegir fotos de perfil' | translate }}
                 </button>
                 <input hidden (change)="subirFoto($event)" #fileInput type="file" accept=".png, .jpg" id="file">
 
@@ -90,7 +90,7 @@
             <br>
 
             <button type="button" mat-raised-button color="primary" class="btn-login"
-                [disabled]="formRegistro.invalid" (click)="registrarConEmail(formRegistro.value)">Registrarse</button>
+                [disabled]="formRegistro.invalid" (click)="registrarConEmail(formRegistro.value)">{{ 'Registrarse' | translate }}</button>
 
 
         </form>
@@ -100,7 +100,7 @@
 
 
     <div class="toggle-captcha">
-        <mat-slide-toggle checked (change)="deshabilitarCaptcha()">Habilitar CAPTCHA</mat-slide-toggle>
+        <mat-slide-toggle checked (change)="deshabilitarCaptcha()">{{ 'Habilitar CAPTCHA' | translate }}</mat-slide-toggle>
     </div>
 
 

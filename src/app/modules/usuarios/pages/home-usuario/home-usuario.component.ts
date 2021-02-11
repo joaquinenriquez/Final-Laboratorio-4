@@ -1,11 +1,9 @@
-import { Columna } from './../../../shared/components/tabla/columna';
 import { SelectorHorariosComponent } from './../../../turnos/components/selector-horarios/selector-horarios.component';
 import firebase from 'firebase/app';
 import { AuthService } from './../../../shared/services/auth.service';
 import { UsuarioDataService } from './../../services/usuario-data.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CurrencyPipe, DecimalPipe, PercentPipe } from '@angular/common';
-import { Sort } from '@angular/material/sort';
+
 
 @Component({
   selector: 'app-home-usuario',

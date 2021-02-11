@@ -19,8 +19,6 @@ import { TablaComponent } from './components/tabla/tabla.component';
 import { ObtenerPropiedadPipePipe } from './components/tabla/obtener-propiedad-pipe.pipe';
 import { CalificacionEstrellasComponent } from './components/calificacion-estrellas/calificacion-estrellas.component';
 import { SiNoPipe } from './pipes/si-no.pipe';
-import { DatosProfesionalBarComponent } from './components/datos-profesional-bar/datos-profesional-bar.component';
-import { DatosAdminBarComponent } from './components/datos-admin-bar/datos-admin-bar.component';
 import { MiCaptchaComponent } from './mi-captcha/mi-captcha.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { CardComponent } from './components/card/card.component';
@@ -28,7 +26,7 @@ import { NotificacionesDialogComponent } from './components/notificaciones-dialo
 
 
 @NgModule({
-  declarations: [ToolbarComponent, MultiSelectConBuscadorComponent, DatosUsuarioBarComponent, TablaComponent, ObtenerPropiedadPipePipe, CalificacionEstrellasComponent, SiNoPipe, DatosProfesionalBarComponent, DatosAdminBarComponent, MiCaptchaComponent, CardComponent, NotificacionesDialogComponent],
+  declarations: [ToolbarComponent, MultiSelectConBuscadorComponent, DatosUsuarioBarComponent, TablaComponent, ObtenerPropiedadPipePipe, CalificacionEstrellasComponent, SiNoPipe, MiCaptchaComponent, CardComponent, NotificacionesDialogComponent],
   imports: [
     CommonModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -43,7 +41,7 @@ import { NotificacionesDialogComponent } from './components/notificaciones-dialo
 
   providers: [AuthService],
 
-  exports: [ToolbarComponent, MultiSelectConBuscadorComponent, DatosUsuarioBarComponent, TablaComponent, CalificacionEstrellasComponent, SiNoPipe, DatosProfesionalBarComponent, DatosAdminBarComponent, MiCaptchaComponent, CardComponent]
+  exports: [ToolbarComponent, MultiSelectConBuscadorComponent, DatosUsuarioBarComponent, TablaComponent, CalificacionEstrellasComponent, SiNoPipe, MiCaptchaComponent, CardComponent]
 
 })
 export class SharedModule { }

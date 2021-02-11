@@ -2,15 +2,19 @@
     <mat-card fxFlex="100%" class="container">
         
         <div fxLayout="row">
-            <mat-label class="encabezado" fxFlex="20%">Paciente</mat-label>
+            <mat-label class="encabezado" fxFlex="20%">{{ (this.datosUsuarioActual | async)?.rol | translate }}</mat-label>
             <mat-label class="encabezado" fxFlex="20%">DNI</mat-label>
-            <mat-label class="encabezado" fxFlex="20%">Nro Afiliado</mat-label>
+            <mat-label class="encabezado" fxFlex="20%" *ngIf="(this.datosUsuarioActual | async)?.rol == Rol.Paciente">{{ 'Nro Afiliado' | translate }}</mat-label>
+            <mat-label class="encabezado" fxFlex="20%" *ngIf="(this.datosUsuarioActual | async)?.rol == Rol.Profesional">{{ 'Nro. Matricula' | translate }}</mat-label>
         </div>
 
         <div fxLayout="row">
-            <mat-label class="fila" fxFlex="20%">{{usuario?.displayName  || "Tu perfil esta incompleto"}}</mat-label>
-            <mat-label class="fila" fxFlex="20%">{{usuario?.dni || "Tu perfil esta incompleto"}}</mat-label>
-            <mat-label class="fila" fxFlex="20%">{{usuario?.nroAfiliado || "Tu perfil esta incompleto"}}</mat-label>
+            <mat-label class="fila" fxFlex="20%">{{ (this.datosUsuarioActual | async)?.displayName  || 'Tu perfil esta incompleto' | translate}}</mat-label>
+            <mat-label class="fila" fxFlex="20%">{{ (this.datosUsuarioActual | async)?.dni || 'Tu perfil esta incompleto' | translate}}</mat-label>
+            <mat-label class="fila" fxFlex="20%" 
+            *ngIf="(this.datosUsuarioActual | async)?.rol == Rol.Paciente || (this.datosUsuarioActual | async)?.rol == Rol.Profesional">
+            {{ (this.datosUsuarioActual | async)?.nroAfiliado || 'Tu perfil esta incompleto' | translate}}
+        </mat-label>
         </div>
 
     </mat-card>

@@ -27,7 +27,7 @@ import { BuscadorComponent } from './components/buscador/buscador.component';
 import { RangoComponent } from './components/DatosAdicionales/rango/rango.component';
 import { ListadoHistorialTurnoPorPacienteComponent } from './components/listado-historial-turno-por-paciente/listado-historial-turno-por-paciente.component';
 import { ListadoSeleccionTurnoComponent } from './components/listado-seleccion-turno/listado-seleccion-turno.component';
-
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -40,7 +40,8 @@ import { ListadoSeleccionTurnoComponent } from './components/listado-seleccion-t
     ReactiveFormsModule,
     RouterModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    TranslateModule
   ],
   exports: [SolicitarTurnoComponent, ListadoTurnosPacientesComponent, ListadoTurnosProfesionalesComponent, SelectorDiasComponent, SelectorHorariosComponent, TablaSeleccionProfesionalesComponent, TablaSeleccionEspecialidadesComponent, ConfirmacionSolicitudTurnoComponent, DatosTurnosBarComponent, GeneradorCamposDinamicoComponent, BuscadorComponent, ListadoHistorialTurnoPorPacienteComponent, ListadoSeleccionTurnoComponent]
 })

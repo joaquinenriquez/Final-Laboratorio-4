@@ -8,12 +8,13 @@
     <mat-card-header>
 
         <mat-card-title>
-            Perfil de usuario
+            {{'Perfil de usuario' | translate}}
         </mat-card-title>
 
         <mat-card-subtitle>
-            {{(this.datosUsuarioActual$ | async)?.rol}}
+            {{((this.datosUsuarioActual$ | async)?.rol) | translate }}  ({{(this.datosUsuarioActual$ | async)?.email}})
         </mat-card-subtitle>
+        
 
     </mat-card-header>
 
@@ -25,7 +26,7 @@
 
             <div class="imagen-perfil" fxFlex="25%" fxLayout="column" fxLayoutAlign="center center">
                 <div><img class="img-perfil" [src]="datosUsuario?.imagen1 || '/assets/img/no-profile-picture.jpg'" /></div>
-                <div><button (click)="fileInput.click()" type="button" mat-raised-button color="accent">Cambiar foto</button></div>
+                <div><button (click)="fileInput.click()" type="button" mat-raised-button color="accent">{{'Cambiar foto' |  translate}}</button></div>
                 <input hidden (change)="subirFoto($event)" #fileInput type="file" accept=".png, .jpg" id="file">
             </div>
 
@@ -35,47 +36,47 @@
                 
 
                 <mat-form-field class="datos-usuario">
-                    <mat-label>Nombre</mat-label>
-                    <input type="text" matInput formControlName="nombre" placeholder="Ingrese su nombre, por favor">
+                    <mat-label>{{'Nombre' | translate}}</mat-label>
+                    <input type="text" matInput formControlName="nombre" placeholder="{{'Ingrese su nombre, por favor' | translate}}">
                     <mat-error
                         *ngIf="formPerfil.controls['nombre'].hasError('pattern') && !formPerfil.controls['nombre'].hasError('required')">
-                        El nombre no puede contener números ni caractéres especiales</mat-error>
+                        {{'El nombre no puede contener números ni caractéres especiales' | translate}}</mat-error>
                     <mat-error *ngIf="formPerfil.controls['nombre'].hasError('required')">Es
-                        <strong>obligatorio</strong>ingresar su nombre
+                        <strong>{{'obligatorio' | translate}}</strong>{{'ingresar su nombre' | translate}}
                     </mat-error>
                 </mat-form-field>
         
                 <mat-form-field class="datos-usuario">
-                    <mat-label>Apellido</mat-label>
-                    <input type="text" matInput formControlName="apellido" placeholder="Ingrese su apellido, por favor">
+                    <mat-label>{{'Apellido' | translate}}</mat-label>
+                    <input type="text" matInput formControlName="apellido" placeholder="{{'Ingrese su apellido, por favor' | translate}}">
                     <mat-error
                         *ngIf="formPerfil.controls['apellido'].hasError('pattern') && !formPerfil.controls['apellido'].hasError('required')">
-                        El apellido no puede contener números ni caractéres especiales</mat-error>
+                        {{'El apellido no puede contener números ni caractéres especiales' | translate}}</mat-error>
                     <mat-error *ngIf="formPerfil.controls['apellido'].hasError('required')">Es
-                        <strong>obligatorio</strong>ingresar su apellido
+                        <strong>{{'obligatorio' | translate}}</strong>{{'ingresar su apellido' | translate}}
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="datos-usuario">
                     <mat-label>DNI</mat-label>
-                    <input type="text" matInput formControlName="dni" placeholder="Ingrese su nro de DNI, por favor">
+                    <input type="text" matInput formControlName="dni" placeholder="{{'Ingrese su nro de DNI, por favor' | translate}}">
                     <mat-error
                         *ngIf="formPerfil.controls['dni'].hasError('pattern') && !formPerfil.controls['dni'].hasError('required')">
-                        El número de documento no puede contener letras ni caractéres especiales</mat-error>
+                        {{'El número de documento no puede contener letras ni caractéres especiales' | translate}}</mat-error>
                     <mat-error *ngIf="formPerfil.controls['dni'].hasError('required')">Es
-                        <strong>obligatorio</strong>ingresar su DNI
+                        <strong>{{'obligatorio' | translate}}</strong>{{'ingresar su DNI' | translate }}
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="datos-usuario" *ngIf="(this.datosUsuarioActual$ | async)?.rol == Rol.Paciente || (this.datosUsuarioActual$ | async)?.rol == Rol.Profesional">
-                    <mat-label *ngIf="(this.datosUsuarioActual$ | async)?.rol == Rol.Paciente">Nro. de afiliado</mat-label>
-                    <mat-label *ngIf="(this.datosUsuarioActual$ | async)?.rol == Rol.Profesional">Nro. de matricula</mat-label>
-                    <input type="text" matInput formControlName="nroAfiliado" placeholder="Ingrese su nro de afiliado, por favor">
+                    <mat-label *ngIf="(this.datosUsuarioActual$ | async)?.rol == Rol.Paciente">{{'Nro. de afiliado' | translate}}</mat-label>
+                    <mat-label *ngIf="(this.datosUsuarioActual$ | async)?.rol == Rol.Profesional">{{'Nro. de matricula' | translate}}</mat-label>
+                    <input type="text" matInput formControlName="nroAfiliado" placeholder="{{'Ingrese su nro de afiliado, por favor' | translate}}">
                     <mat-error
                         *ngIf="formPerfil.controls['nroAfiliado'].hasError('pattern') && !formPerfil.controls['nroAfiliado'].hasError('required')">
-                        El nro. debe ser solo números</mat-error>
+                        {{'El nro. debe ser solo números' | translate}}</mat-error>
                     <mat-error *ngIf="formPerfil.controls['nroAfiliado'].hasError('required')">Es
-                        <strong>obligatorio</strong>
+                        <strong>{{'obligatorio'}}</strong>
                     </mat-error>
                 </mat-form-field>
         
@@ -86,10 +87,10 @@
 
                 <div fxLayoutAlign="end" fxLayoutGap="5%">
                     <div *ngIf="(this.datosUsuarioActual$ | async)?.rol == Rol.Profesional">
-                        <button type="button" mat-raised-button color="accent" (click)="verHorarios(this.datosUsuario.idUsuario)"><mat-icon class="icono-boton">calendar_today</mat-icon>Ver horarios</button>
+                        <button type="button" mat-raised-button color="accent" (click)="verHorarios(this.datosUsuario.idUsuario)"><mat-icon class="icono-boton">calendar_today</mat-icon>{{'Ver horarios' | translate}}</button>
                     </div>
                     <div>
-                        <button type="button" [disabled]="this.formPerfil.invalid" mat-raised-button color="primary" (click)="guardarDatos(formPerfil.value)"><mat-icon class="icono-boton">save</mat-icon>Guardar datos</button>
+                        <button type="button" [disabled]="this.formPerfil.invalid" mat-raised-button color="primary" (click)="guardarDatos(formPerfil.value)"><mat-icon class="icono-boton">save</mat-icon>{{'Guardar datos' | translate}}</button>
                     </div>                    
                 </div>
         

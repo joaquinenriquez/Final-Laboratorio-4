@@ -2,6 +2,10 @@
     "GESTIÓN DE TURNOS": "APPOINTMENT MANAGER",
     "BÚSQUEDAS": "SERACH",
     "INFORMES": "REPORTS",
+
+    "GESTIÓN DE USUARIOS": "USER MANAGMENT",
+    "ESPECIALIDADES": "SPECIALITYS",
+
     
     "Inicios de sesión" : "Logins history",
     "Operaciones por especialidad" : "Appointments per speciality",
@@ -19,7 +23,123 @@
     "Error al crear el usuario" : "Error creating user",
 
 
-    "Cargando...": "Loading..."
+    "Cargando...": "Loading...",
 
+
+    "Perfil de usuario": "User profile",
+    "Administrador": "Administrator",
+
+    "Nombre": "Name",
+    "Apellido": "Surname",
+    "Cambiar foto": "Choose a photo",
+    "Guardar datos": "Save data",
+    "Ingrese su nombre, por favor":  "Enter your name, please",
+    "Ingrese su apellido, por favor":  "Enter your surname, please",
+    "Ingrese su nro de DNI, por favor":  "Enter your DNI number, please",
+
+    "Profesionales": "Professionals",
+    "Pacientes" : "Patients",
+    "Administradores" : "Administrators",
+    "Especialidades" : "Specialties",
+    "Estado" : "State",
+    "Ver horarios" : "See schedules",
+    "VER HORARIOS...": "SEE SCHEDULES...",
+    "Habilitado" : "Active",
+    "Deshabilitado" : "Disabled",
+    "Pendiente Aprobación" : "Pending approval",
+    "CAMBIAR ESTADO..."  : "CHANGE STATE...",
+    "Fecha de alta": "Creation date",
+    "Nuevo usuario administrador..." : "Add new administrator user...",
+
+    "Disponibilidad Horaria" : "Schedules",
+    "Día": "Day",
+    "Horario inicio" : "Start time",
+    "Horario finalización" : "End time",
+    "Aceptar" : "Aceppt",
+    "Lunes" : "Monday",
+    "Martes" : "Tuesday",
+    "Miércoles" : "Wednesday",
+    "Jueves" : "Thursday",
+    "Viernes" : "Friaday",
+    "Sábado" : "Saturday",
+
+    "Estado Actual:" : "Current state",
+    "Cambiar a:" :  "Change to",
+    "Cambiar estado" : "Change state",
+    "Cancelar": "Cancel",
+    "Cambiar": "Change",
+
+    "Usuario": "User name",
+
+    "Ingresa el texto que queres buscar..." : "Enter text to find...",
+    "Buscar" : "Search",
+
+    "Espacialidad" : "Spaciality",
+    "Modificar" : "Update",
+    "Eliminar" : "Delete",
+    "Nueva Especialidad" : "New speciality",
+    "¿Cómo se llama la nueva especialidad?": "What is the name of the new specialty?",
+    "Si, eliminar!" : "Yes, delete!",
+    "Se eliminó la especialidad!": "Speciality deleted",
+
+    "Modificar Especialidad" : "Update speciality",
+    "Crear" : "Create",
+    "Especialidad modificada!" : "Speciality updated",
+    "Eliminar especialidad" : "Delete speciality",
+    "¿Estas seguro que querés eliminar la especialidad" : "Are you sure you want to eliminate the specialty",
+
+    "Fecha" : "Date",
+    "Horario" : "Schedule",
+    "Profesional": "Porfessional",
+    "Duración estimada": "Estimated duration",
+    "Paciente" : "Patient",
+    "Edad" : "Age",
+    "Peso" : "Weight",
+    "Temperatura" : "Temperature",
+    "Reseña" : "Review",
+    "Filtros avanzados..." : "Advance filters...",
+
+    "Nro. Matricula" : "NO. Enrollment",
+    "Nro. Afiliado" : "NO. Affiliate",
+    "Tu perfil esta incompleto" : "Your profile is incomplete",
+
+    "Turnos confirmados" : "Confirmed appoitment",
+    "Pendiente Confirmación" : "Confirmation pending",
+    "Cancelado": "Cancelled",
+    "Pendientes de confirmar" : "Confirmation pending",
+    "Finalizado" : "Finished",
+    "Turnos anteriores y cancelados" : "Previous and canceled appoitment",
+
+    "Cargando datos, espere por favor..." : "Loading data... please wait",
+    "Atender" : "Attend",
+    "No tenés turnos en este estado" : "You have no appoitment in this state",
+
+    "Confirmar" : "Confirm",
+    "Ver encuesta" : "View survey",
+
+    "Resultado de la encuesta de" :  "Result of the survey of",
+    "Pregunta" : "Question",
+    "Respuesta" : "Answer",
+
+    "Iniciar sesión" : "Login",
+    "Contrasñea" : "Password",
+    "Ingresar" : "Enter",
+    "La dirección de email es": "Email is",
+    "obligatoria" : "required",
+    "obligatorio" : "requeired",
+    "Ingresa tu contraseña para poder iniciar sesión" : "Enter your password to log in",
+    "Vas a necesitar ingresar tu email para iniciar sesión" : "You will need to enter your email to log in",
+    "La contraseña es muy corta": "Password is too short",
+    "Contraseña" : "Password",
+
+    "Bienvenido" : "Welcome",
+    "El nombre no puede contener números ni caractéres especiales": "The name cannot contain numbers or special characters",
+    "ingresar su nombre" : "enter your name",
+    "El apellido no puede contener números ni caractéres especiales" : "The last name cannot contain numbers or special characters",
+    "ingresar su apellido" : "enter your last name",
+    "Elegir fotos de perfil": "Choose profile photos",
+    "Registrarse" : "Sign in",
+    "Habilitar CAPTCHA" : "Enable CAPTCHA",
+    "¿Sos profesional?" : "Are you a professional?"
 
 }

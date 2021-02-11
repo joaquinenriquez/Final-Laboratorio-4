@@ -7,6 +7,7 @@ import { EspecialidadesRoutingModule } from './especialidades-routing.module';
 import { MaterialModule } from './../material/material.module';
 import { AltaModificacionEspecialidadDialogComponent } from './components/alta-modificacion-especialidad-dialog/alta-modificacion-especialidad-dialog.component';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [ListadoEspecialidadesComponent, AltaModificacionEspecialidadDialogComponent],
@@ -16,7 +17,8 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
     MaterialModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
   providers: [MatSnackBar]
 })

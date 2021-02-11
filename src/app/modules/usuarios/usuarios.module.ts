@@ -71,6 +71,8 @@ import { InformeTurnosPorPacientesComponent } from './pages/informe-turnos-por-p
 import { EstadoUsuarioDirective } from './directives/estado-usuario.directive';
 import { PerfilUsuarioComponent } from './pages/perfil-usuario/perfil-usuario.component';
 
+import { TranslateModule } from '@ngx-translate/core';
+
 
 @NgModule({
   declarations: [LoginComponent, RegistroPacienteComponent, RegistroProfesionalComponent, ConfirmacionRegistroComponent, HomeUsuarioComponent, MisTurnosComponent, GestionTurnosProfesionalComponent, GestionUsuariosComponent, ListadoUsuariosComponent, ListadoHorariosProfesionalesComponent, CambiarEstadoUsuarioDialogComponent, NuevoUsuarioAdminDialogComponent, SolicitarTurnoComponent, AtenderTurnoComponent, EncuestaUsuarioComponent, EncuestaUsuarioDialogComponent, VisualizarEncuestaUsuarioDialogComponent, EncuestaProfesionalDialogComponent, VisualizarResenaUsuarioDialogComponent, BusquedasComponent, ListadoInicioSesionComponent, InformeInicioSesionComponent, InformeOperacionesPorEspecialidadComponent, ListadoOperacionesPorEspecialidadComponent, WidgetOperacionesPorEspecialidadComponent, InformeTurnosPorDiaSemanaComponent, InformeProfesionalesPorTurnosComponent, InformeProfesionalesPorDiasTrabajadosComponent, ListadoProfesionalesPorDiasTrabajadosComponent, ListadoProfesionalesPorEspecialidadComponent, ListadoTurnosPorDiaSemanaComponent, ListadoProfesionalesPorTurnosComponent, ListadoPacientesPorEspecialidadComponent, InformePacientesPorEspecialidadComponent, InformeDetalleRespuestasEncuestasComponent, ListadoCantidadRespuestasEncuestaComponent, InformeTurnosPorPacientesComponent, EstadoUsuarioDirective, PerfilUsuarioComponent],
@@ -90,7 +92,8 @@ import { PerfilUsuarioComponent } from './pages/perfil-usuario/perfil-usuario.co
     HttpClientModule,
     MatTableExporterModule,
     HighchartsChartModule,
-    GraficosModule
+    GraficosModule,
+    TranslateModule
 
     
   ],

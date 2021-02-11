@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { MatSelect } from '@angular/material/select';
 import { EstadoUsuario } from './../../models/estado-usuario.enum';
 import { Usuario } from './../../models/usuario';
@@ -15,8 +16,10 @@ export class CambiarEstadoUsuarioDialogComponent implements OnInit {
   opcionesEstado: EstadoUsuario[];
   nuevoEstado: EstadoUsuario;
 
+
   constructor(@Inject(MAT_DIALOG_DATA) public usuario: Usuario,
-              public dialogRef: MatDialogRef<CambiarEstadoUsuarioDialogComponent>,) { }
+              public dialogRef: MatDialogRef<CambiarEstadoUsuarioDialogComponent>,
+              private translateService: TranslateService) { }
 
   ngOnInit(): void {
 

@@ -11,15 +11,15 @@
 
 
         <mat-form-field class="txtBuscador" appearance="outline" fxFlexAlign="center">
-          <mat-label>Buscar</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Ingresa el texto que queres buscar..." #input>
+          <mat-label>{{ 'Buscar' | translate }}</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="{{ 'Ingresa el texto que queres buscar...' | translate }}" #input>
         </mat-form-field>
 
 
         <div fxFlexAlign="center" *ngIf="tipoFiltro == Rol.Administrador">
           <button type="button" class="btn-nuevo-usuario-admin" mat-raised-button color="primary"
             (click)="nuevoUsuarioAdmin()">
-            <mat-icon class="icono-boton">person_add</mat-icon>Nuevo usuario administrador...
+            <mat-icon class="icono-boton">person_add</mat-icon>{{ 'Nuevo usuario administrador...' | translate }}
           </button>
         </div>
 
@@ -35,41 +35,41 @@
       <mat-table #table [dataSource]="dataSource" matSort>
 
         <ng-container matColumnDef="fechaAlta">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de alta </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'Fecha de alta' | translate }} </mat-header-cell>
           <mat-cell *matCellDef="let usuario"> {{usuario.fechaAlta?.toDate() | date:'dd/MM/yyyy' }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="displayName">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'Nombre' | translate }} </mat-header-cell>
           <mat-cell *matCellDef="let usuario"> {{usuario.displayName}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="email" color="primary">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'Email' | translate }} </mat-header-cell>
           <mat-cell *matCellDef="let usuario"> {{usuario.email}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="especialidad">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Especialidades </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'Especialidades' | translate }} </mat-header-cell>
           <mat-cell *matCellDef="let usuario"> {{this.formatearArray(usuario.especialidades)}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="horarios">
-          <mat-header-cell *matHeaderCellDef mat-sort-header class="centrar-celda"> Ver Horarios </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="centrar-celda"> {{ 'Ver horarios' | translate }} </mat-header-cell>
           <mat-cell *matCellDef="let usuario" class="centrar-celda">
             <button mat-stroked-button color="primary" (click)="verHorarios(usuario.idUsuario)">
-              <mat-icon class="icono-boton">access_time</mat-icon>VER HORARIOS...
+              <mat-icon class="icono-boton">access_time</mat-icon> {{ 'VER HORARIOS...' | translate }}
             </button>
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="estado">
-          <mat-header-cell *matHeaderCellDef mat-sort-header class="centrar-celda"> Estado </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="centrar-celda"> {{ 'Estado' | translate }} </mat-header-cell>
           <mat-cell *matCellDef="let usuario" class="centrar-celda"><span style="display: inline-block; width: 90px;"
-              [appEstadoUsuario]="usuario.estado">{{usuario.estado}}</span>
+              [appEstadoUsuario]="usuario.estado">{{ usuario.estado | translate }}</span>
 
             <button mat-stroked-button color="accent" style="margin-left: 2em;" (click)="cambiarEstado(usuario)">
-              <mat-icon class="icono-boton">published_with_changes</mat-icon>CAMBIAR ESTADO...
+              <mat-icon class="icono-boton">published_with_changes</mat-icon> {{ 'CAMBIAR ESTADO...' | translate }}
             </button>
 
           </mat-cell>

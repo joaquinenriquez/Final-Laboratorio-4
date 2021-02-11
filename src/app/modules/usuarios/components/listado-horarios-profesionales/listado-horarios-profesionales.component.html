@@ -1,7 +1,7 @@
 <mat-card>
 
   <mat-card-title-group>
-    <mat-card-title mat-dialog-title>Disponibilidad Horaria</mat-card-title>
+    <mat-card-title mat-dialog-title> {{ 'Disponibilidad Horaria' | translate }}</mat-card-title>
   </mat-card-title-group>
   <mat-divider></mat-divider>
   <mat-card-content>
@@ -11,19 +11,19 @@
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <ng-container matColumnDef="nombreDia">
-          <th mat-header-cell *matHeaderCellDef><strong>Día</strong></th>
-          <td mat-cell *matCellDef="let element;">{{element.nombreDia}}</td>
+          <th mat-header-cell *matHeaderCellDef><strong>{{ 'Día' | translate }}</strong></th>
+          <td mat-cell *matCellDef="let element;">{{element.nombreDia | translate}}</td>
         </ng-container>
 
 
         <ng-container matColumnDef="horarioInicio">
-          <th mat-header-cell *matHeaderCellDef><strong>Horario inicio</strong></th>
+          <th mat-header-cell *matHeaderCellDef><strong>{{ 'Horario inicio' | translate }}</strong></th>
           <td mat-cell *matCellDef="let element"> {{element.horarioInicio}} </td>
         </ng-container>
 
 
         <ng-container matColumnDef="horarioFin">
-          <th mat-header-cell *matHeaderCellDef><strong>Horario finalización</strong></th>
+          <th mat-header-cell *matHeaderCellDef><strong>{{ 'Horario finalización' | translate }}</strong></th>
           <td mat-cell *matCellDef="let element"> {{element.horarioFin}} </td>
         </ng-container>
 
@@ -41,7 +41,7 @@
   <mat-card-actions>
     <br>
     <div mat-dialog-actions fxLayout fxLayoutAlign="center">
-      <button fxFlex="30%" type="submit" mat-raised-button color="primary" cdkFocusInitial mat-dialog-close>Aceptar</button>
+      <button fxFlex="30%" type="submit" mat-raised-button color="primary" cdkFocusInitial mat-dialog-close>{{ 'Aceptar' | translate }}</button>
     </div>
   </mat-card-actions>
 

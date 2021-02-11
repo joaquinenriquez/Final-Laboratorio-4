@@ -1,12 +1,10 @@
 import { TipoGrafico } from './../../../graficos/widget-general/widget-general.component';
 import { EncuestasDataService } from './../../../turnos/services/encuestas-data.service';
-import { EspecialidadesDataService } from 'src/app/modules/especialidades/services/especialidades-data.service';
 import { ListadoProfesionalesPorTurnosComponent } from './../../components/listado-profesionales-por-turnos/listado-profesionales-por-turnos.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { WidgetTartaComponent } from 'src/app/modules/graficos/components/widget-tarta/widget-tarta.component';
 import { DatosGrafico } from 'src/app/modules/graficos/models/datos-grafico';
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
-import { TurnosDataService } from 'src/app/modules/turnos/services/turnos-data.service';
 import { UsuarioDataService } from '../../services/usuario-data.service';
 import firebase from 'firebase/app';
 import { Encuesta, PreguntaEncuesta } from 'src/app/modules/turnos/models/encuesta';

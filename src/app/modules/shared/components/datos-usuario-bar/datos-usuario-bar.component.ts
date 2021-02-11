@@ -1,5 +1,9 @@
+import { Rol } from 'src/app/modules/usuarios/models/rol.enum';
+import { Observable } from 'rxjs';
+import { UsuarioDataService } from './../../../usuarios/services/usuario-data.service';
+import { AuthService } from 'src/app/modules/shared/services/auth.service';
 import { Usuario } from './../../../usuarios/models/usuario';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-datos-usuario-bar',
@@ -8,12 +12,19 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class DatosUsuarioBarComponent implements OnInit {
 
-  @Input() usuario: Usuario;
+  datosUsuarioActual: Observable<Usuario>;
+  Rol = Rol;
   
-  constructor() { }
+  constructor(private auth: AuthService,
+              private usuarioDataService: UsuarioDataService) { }
 
   ngOnInit(): void {
-    console.log('usuario', this.usuario);
+
+    this.auth.auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.datosUsuarioActual = this.usuarioDataService.TraerUsuarioPorId(user.uid);
+      }
+    });
   }
 
 }

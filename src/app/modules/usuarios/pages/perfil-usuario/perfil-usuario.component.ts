@@ -9,9 +9,9 @@ import { Usuario } from '../../models/usuario';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
-import Swal from 'sweetalert2';
 import { ListadoHorariosProfesionalesComponent } from '../../components/listado-horarios-profesionales/listado-horarios-profesionales.component';
 import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-perfil-usuario',

@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Especialidad } from './../../models/especialidad';
 import { AltaModificacionEspecialidadDialogComponent } from './../alta-modificacion-especialidad-dialog/alta-modificacion-especialidad-dialog.component';
@@ -9,6 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Orden } from 'src/app/modules/shared/components/tabla/orden.enum';
+import { templateJitUrl } from '@angular/compiler';
 
 export interface DatosDialogo {
   titulo: string;
@@ -36,7 +38,8 @@ export class ListadoEspecialidadesComponent implements OnInit, AfterViewInit {
 
   constructor(private especialidadesDataServices: EspecialidadesDataService,
     private dialog: MatDialog,
-    private toastManager: MatSnackBar) { }
+    private toastManager: MatSnackBar,
+    private translateService: TranslateService) { }
 
   ngOnInit(): void {
   }
@@ -70,18 +73,18 @@ export class ListadoEspecialidadesComponent implements OnInit, AfterViewInit {
     Swal.fire(
       {
 
-        title: 'Eliminar especialidad',
-        html: `¿Estas seguro que querés eliminar la especialidad <strong>${especialidad.nombreEspecialidad}?</strong>`,
+        title: this.translateService.instant('Eliminar especialidad'),
+        html: this.translateService.instant("¿Estas seguro que querés eliminar la especialidad") + `<strong>${especialidad.nombreEspecialidad}?</strong>`,
         icon: 'warning',
         confirmButtonColor: '#558B2F',
-        confirmButtonText: 'Si, eliminar!',
+        confirmButtonText: this.translateService.instant('Si, eliminar!'),
         showCancelButton: true,
-        cancelButtonText: 'Cancelar'
+        cancelButtonText: this.translateService.instant('Cancelar')
 
       }).then(resultadoConfirmacion => {
         if (resultadoConfirmacion.isConfirmed) {
           this.especialidadesDataServices.eliminarEspecialidad(especialidad.idEspecialidad).then(() => {
-            this.mostrarToast('Se eliminó la especialidad!', 2000);
+            this.mostrarToast(this.translateService.instant('Se eliminó la especialidad!'), 2000);
           });
         }
       });
@@ -93,10 +96,10 @@ export class ListadoEspecialidadesComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(AltaModificacionEspecialidadDialogComponent, {
       width: '500px',
       data: {
-        titulo: 'Nueva Especialidad',
-        mensaje: '¿Cómo se llama la nueva especialidad?',
+        titulo: this.translateService.instant('Nueva Especialidad'),
+        mensaje: this.translateService.instant('¿Cómo se llama la nueva especialidad?'),
         listaAutoCompletar: this.dataSource.data,
-        textoBotonAceptar: 'Crear'
+        textoBotonAceptar: this.translateService.instant('Crear')
       },
       panelClass: 'alta-modificacion-dialog'
     });
@@ -121,11 +124,11 @@ export class ListadoEspecialidadesComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(AltaModificacionEspecialidadDialogComponent, {
       width: '500px',
       data: {
-        titulo: 'Modificar Especialidad',
-        mensaje: '¿Cómo se llama la nueva especialidad?',
+        titulo: this.translateService.instant('Modificar Especialidad'),
+        mensaje: this.translateService.instant('¿Cómo se llama la nueva especialidad?'),
         listaAutoCompletar: this.dataSource.data,
         nombreEspecialidad: especialidad.nombreEspecialidad,
-        textoBotonAceptar: 'Modificar'
+        textoBotonAceptar: this.translateService.instant('Modificar')
       },
       panelClass: 'alta-modificacion-dialog'
     });
@@ -134,7 +137,7 @@ export class ListadoEspecialidadesComponent implements OnInit, AfterViewInit {
 
       if (resultadoDialogo != undefined) {
         especialidad.nombreEspecialidad = resultadoDialogo.nombreEspecialidad;
-        this.especialidadesDataServices.modificarEspecialidad(especialidad).then(() => this.mostrarToast('Especialidad modificada!', 2000));
+        this.especialidadesDataServices.modificarEspecialidad(especialidad).then(() => this.mostrarToast(this.translateService.instant('Especialidad modificada!'), 2000));
       }
 
 

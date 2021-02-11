@@ -1,6 +1,6 @@
 <mat-card>
 
-    <mat-card-title>Iniciar sesión</mat-card-title>
+    <mat-card-title> {{ 'Iniciar sesión' | translate }}</mat-card-title>
 
     <mat-card-content>
 
@@ -14,25 +14,24 @@
                     <input type="email" matInput formControlName="email" placeholder="Ej. tito@uolsinectis.com.ar">
                     <mat-error
                         *ngIf="formLogin.controls['email'].hasError('email') && !formLogin.controls['email'].hasError('required')">
-                        Vas a necesitar ingresar tu email para iniciar sesión</mat-error>
-                    <mat-error *ngIf="formLogin.controls['email'].hasError('required')">La dirección de email es
-                        <strong>obligatoria</strong></mat-error>
+                        {{ 'Vas a necesitar ingresar tu email para iniciar sesión' | translate }}</mat-error>
+                    <mat-error *ngIf="formLogin.controls['email'].hasError('required')"> {{ 'La dirección de email es' | translate }}
+                        <strong>{{'obligatoria' | translate }}</strong></mat-error>
                 </mat-form-field>
             </p>
 
             <p>
                 <mat-form-field class="datos-login">
-                    <mat-label>Contraseña</mat-label>
-                    <input type="password" matInput formControlName="password" placeholder="tu password" autocomplete="on">
+                    <mat-label>{{ 'Contraseña' | translate }}</mat-label>
+                    <input type="password" matInput formControlName="password" placeholder="{{'tu password' | translate }}" autocomplete="on">
                     <mat-error
                         *ngIf="formLogin.controls['password'].hasError('minlength') && !formLogin.controls['password'].hasError('required')">
-                        La contraseña es muy corta</mat-error>
-                    <mat-error *ngIf="formLogin.controls['password'].hasError('required')">Ingresa tu contraseña para
-                        poder iniciar sesión</mat-error>
+                        {{ 'La contraseña es muy corta' | translate }}</mat-error>
+                    <mat-error *ngIf="formLogin.controls['password'].hasError('required')">{{ 'Ingresa tu contraseña para poder iniciar sesión' | translate }}</mat-error>
                 </mat-form-field>
             </p>
 
-            <button type="submit" mat-raised-button color="primary" class="btn-login" [disabled]="formLogin.invalid">Ingresar</button>
+            <button type="submit" mat-raised-button color="primary" class="btn-login" [disabled]="formLogin.invalid">{{ 'Ingresar' | translate }}</button>
 
 
         </form>

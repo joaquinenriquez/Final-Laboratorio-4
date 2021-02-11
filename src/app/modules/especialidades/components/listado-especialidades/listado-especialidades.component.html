@@ -6,15 +6,15 @@
     <div fxFlexFill  fxFlex="50%" fxLayoutGap="20%">
 
       <mat-form-field fxFlex="40%">
-        <mat-label>Buscar</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Otorrinolaringólogue" #input>
+        <mat-label>{{'Buscar' | translate }}</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="{{'Ej. Otorrinolaringólogue' | translate }}" #input>
       </mat-form-field>
     
     
     <div fxFlex="30%"  fxFlexAlign="center">
       <button mat-raised-button color="primary" (click)="nuevaEspecialidad()">
         <mat-icon>local_hospital</mat-icon>
-        <span class="texto-boton">Nueva Especialidad</span>
+        <span class="texto-boton">{{ 'Nueva Especialidad' | translate }}</span>
       </button>
     </div>
 
@@ -34,12 +34,12 @@
     <table mat-table [dataSource]="dataSource" matSort>
 
       <ng-container matColumnDef="nombreEspecialidad">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Espacialidad</th>
-        <td mat-cell *matCellDef="let element"> {{element.nombreEspecialidad}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'Espacialidad' | translate }}</th>
+        <td mat-cell *matCellDef="let element"> {{element.nombreEspecialidad | translate }} </td>
       </ng-container>
 
       <ng-container matColumnDef="modificar">
-        <th mat-header-cell *matHeaderCellDef>Modificar </th>
+        <th mat-header-cell *matHeaderCellDef>{{ 'Modificar' | translate }} </th>
         <td mat-cell *matCellDef="let element">
           <button mat-icon-button color="primary" (click)="modificarEspecialidad(element)">
             <mat-icon class="mat-18">edit</mat-icon>
@@ -48,7 +48,7 @@
       </ng-container>
 
       <ng-container matColumnDef="eliminar">
-        <th mat-header-cell *matHeaderCellDef>Eliminar</th>
+        <th mat-header-cell *matHeaderCellDef>{{ 'Eliminar' | translate }}</th>
         <td mat-cell *matCellDef="let element" class="w-75">
           <button mat-icon-button color="accent" (click)="eliminarEspecialidad(element)">
             <mat-icon class="mat-18">delete</mat-icon>
@@ -70,7 +70,7 @@
 
         <!-- Row shown when there is no matching data. -->      
         <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell text-center" colspan="4">No hay datos disponibles</td>
+        <td class="mat-cell text-center" colspan="4">{{ 'No hay datos disponibles' | translate }}</td>
 
         <!-- <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td> -->
       </tr>
