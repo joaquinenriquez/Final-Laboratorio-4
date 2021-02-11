@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { TranslateService } from '@ngx-translate/core';
@@ -13,11 +14,14 @@ import { slideInAnimation } from './route-animation';
 export class AppComponent implements OnInit {
   
   title = 'ClinicaOnline';
+  mostrarBarraUsuario: boolean = true;
 
   constructor(private translateService: TranslateService,
               private matIconRegistry: MatIconRegistry,
-              private domSanitizer: DomSanitizer
-              ) {}
+              private domSanitizer: DomSanitizer,
+              public router: Router) {
+
+              }
 
   
   
@@ -42,6 +46,8 @@ export class AppComponent implements OnInit {
     this.matIconRegistry.addSvgIcon('numeral', this.domSanitizer.bypassSecurityTrustResourceUrl("/assets/icons/number.svg"));
     this.matIconRegistry.addSvgIcon('texto', this.domSanitizer.bypassSecurityTrustResourceUrl("/assets/icons/bx-text.svg"));
 
+    this.matIconRegistry.addSvgIcon(`archivo_pdf`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-pdf.svg"));
+    this.matIconRegistry.addSvgIcon(`archivo_excel`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-type-excel.svg"));
 
   }
 

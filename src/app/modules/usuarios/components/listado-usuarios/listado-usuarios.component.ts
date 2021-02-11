@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Rol } from './../../models/rol.enum';
 import { UsuarioDataService } from './../../services/usuario-data.service';
 import { Orden } from './../../../shared/components/tabla/orden.enum';
@@ -49,7 +50,8 @@ export class ListadoUsuariosComponent implements OnInit {
     private toastManager: MatSnackBar,
     private dialog: MatDialog,
     private router: Router,
-    private usuariosDataService: UsuarioDataService) { }
+    private usuariosDataService: UsuarioDataService,
+    private translateService: TranslateService) { }
 
   ngOnInit(): void { 
     this.definirColumnas();
@@ -203,7 +205,7 @@ export class ListadoUsuariosComponent implements OnInit {
     this.sort.active = sortState.active;
     this.sort.direction = sortState.direction;
     this.sort.sortChange.emit(sortState);
-    console.log('Ordenado');
+
   }
 
 
@@ -230,7 +232,7 @@ export class ListadoUsuariosComponent implements OnInit {
 
       if (resultadoDialogo != undefined) {
         usuario.estado = resultadoDialogo;
-        this.usuariosDataService.modificarUsuario(usuario).then(() => this.mostrarToast('Se cambió el estado del usuario', 2000));
+        this.usuariosDataService.modificarUsuario(usuario).then(() => this.mostrarToast(this.translateService.instant('Se cambió el estado del usuario'), 2000));
       }
 
     });

@@ -1,13 +1,10 @@
-import { WidgetTartaComponent } from './../../../graficos/components/widget-tarta/widget-tarta.component';
+import { EspecialidadesDataService } from 'src/app/modules/especialidades/services/especialidades-data.service';
+import { TipoGrafico } from './../../../graficos/widget-general/widget-general.component';
 import { DatosGrafico } from './../../../graficos/models/datos-grafico';
-import { EspecialidadesDataService } from './../../../especialidades/services/especialidades-data.service';
 import { TurnosDataService } from './../../../turnos/services/turnos-data.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { AuthService } from 'src/app/modules/shared/services/auth.service';
-import { UsuarioDataService } from '../../services/usuario-data.service';
-import firebase from 'firebase/app';
+import { Component, Input, OnInit } from '@angular/core';
 import { EstadoTurno } from 'src/app/modules/turnos/models/estado-turno.enum';
-import { ListadoOperacionesPorEspecialidadComponent } from '../../components/listado-operaciones-por-especialidad/listado-operaciones-por-especialidad.component';
+import { Turno } from 'src/app/modules/turnos/models/turno';
 
 @Component({
   selector: 'app-informe-operaciones-por-especialidad',
@@ -16,54 +13,57 @@ import { ListadoOperacionesPorEspecialidadComponent } from '../../components/lis
 })
 export class InformeOperacionesPorEspecialidadComponent implements OnInit {
 
+  TipoGrafico = TipoGrafico;
   datosUsuarioActual;
   datosInforme: DatosGrafico[] = [];
-  tituloInforme: string = 'Turnos por especialidad';
 
-  @ViewChild('listado') listado: ListadoOperacionesPorEspecialidadComponent;
-  @ViewChild('widget') widget: WidgetTartaComponent;
+  @Input() tituloInforme: string = 'Turnos por especialidad';
+  ocultarDatosCero: boolean = true;
 
-  constructor(
-    private usuarioDataService: UsuarioDataService,
-    private authService: AuthService,
-    private turnoDataService: TurnosDataService,
+
+  constructor(private turnoDataService: TurnosDataService,
     private especialidadesDataService: EspecialidadesDataService) { }
 
   ngOnInit(): void {
-
     this.traerDatos();
-
-    this.authService.datosUsuario.subscribe(datosUsuario => {
-      let usuario = datosUsuario as firebase.User;
-      this.usuarioDataService.TraerUsuarioPorId(usuario?.uid).subscribe(datosUsuario => {
-        this.datosUsuarioActual = datosUsuario;
-      });
-    })
-
-
   }
 
   traerDatos() {
     
-    this.turnoDataService.traerTodasLosTurnos().subscribe(todosLosTurnos => {
-      this.datosInforme = [];
-      this.especialidadesDataService.traerTodasLasEspecialidades().subscribe(todasLasEspecialidades => {
+    this.especialidadesDataService.traerTodasLasEspecialidades().subscribe(todasLasEspecialidades => {
+
+      this.turnoDataService.traerTodasLosTurnos().subscribe(todosLosTurnos => {
+
+        this.datosInforme = [];
 
         todasLasEspecialidades.forEach(unaEspecialidad => {
+
           let unDato: DatosGrafico;
-          unDato = {
+
+          unDato = 
+          {
             name: unaEspecialidad.nombreEspecialidad,
-            y: todosLosTurnos.filter(unTurno => unTurno.especialidadProfesional == unaEspecialidad.nombreEspecialidad && unTurno.estadoTurno != EstadoTurno.Cancelado && unTurno.estadoTurno != EstadoTurno.Suspendido).length
+            y: this.calcularTurnosPorEspecialidad(todosLosTurnos, unaEspecialidad.nombreEspecialidad)
           }
 
           this.datosInforme.push(unDato);
 
         });
 
-        this.datosInforme = this.datosInforme.filter(unDato => unDato.y > 0);
-        this.listado.cargarDatos(this.datosInforme);
+        if (this.ocultarDatosCero) {
+          this.datosInforme = this.datosInforme.filter(unDato => unDato.y > 0);
+        } 
 
-      })
+      });
+
     });
   }
+
+
+  calcularTurnosPorEspecialidad(todosLosTurnos: Turno[], nombreEspecialidad: string): number 
+  {
+    return todosLosTurnos.filter(unTurno => unTurno.especialidadProfesional == nombreEspecialidad && unTurno.estadoTurno != EstadoTurno.Cancelado && unTurno.estadoTurno && EstadoTurno.Suspendido).length;
+  }
+
+
 }

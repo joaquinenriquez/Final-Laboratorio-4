@@ -1,12 +1,13 @@
 import { PdfCreator } from './../../../shared/tools/pdf-creator';
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, Input, OnInit, SimpleChanges, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatSort } from "@angular/material/sort";
+import { MatSort, Sort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { DatePipe } from '@angular/common';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Orden } from 'src/app/modules/shared/components/tabla/orden.enum';
 
 @Component({
   selector: 'app-listado-operaciones-por-especialidad',
@@ -18,9 +19,10 @@ export class ListadoOperacionesPorEspecialidadComponent implements OnInit {
 
   /* #region  Atributos */
 
+  @Input() tituloListado = 'Sin titulo';
+  @Input() datos: any = [];
   displayedColumns: string[] = ['name', 'y'];
   dataSource: MatTableDataSource<any>;
-
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -30,26 +32,25 @@ export class ListadoOperacionesPorEspecialidadComponent implements OnInit {
 
   constructor(
     private toastManager: MatSnackBar,
-    private datePipe: DatePipe,
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer) {
-    this.agregarIconos();
-
+    private datePipe: DatePipe) {
   }
 
   ngOnInit(): void {}
 
   ngAfterViewInit() {}
 
-  public cargarDatos(datos) {
-    this.dataSource = new MatTableDataSource(datos);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  ngOnChanges(changes: SimpleChanges): void {
+    // Cuando cambia algun valor de los que recibimos por input se produce este evento
+    if (changes.datos?.currentValue != undefined) {
+      this.cargarDatos();
+    }
   }
 
-  agregarIconos() {
-    console.log(this.matIconRegistry.addSvgIcon(`archivo_pdf`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-pdf.svg")));
-    console.log(this.matIconRegistry.addSvgIcon(`archivo_excel`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-type-excel.svg")));
+  public cargarDatos() {
+    this.dataSource = new MatTableDataSource(this.datos);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.ordernarTabla('y', Orden.Descendente);
   }
 
   mostrarToast(mensaje: string, duracion: number) {
@@ -82,7 +83,8 @@ export class ListadoOperacionesPorEspecialidadComponent implements OnInit {
   /* #region  Exportar */
 
   crearPDF() {
-    PdfCreator.CrearPDF(['Especialidad', 'Cantidad'], `Informe turnos por especialidad`, this.convertirDatosEnArray(), true, false);
+    let columnasPDF = ['Nombre Profesional', 'Cantidad de turnos'];
+    PdfCreator.CrearPDF(columnasPDF, this.tituloListado, this.convertirDatosEnArray(), false, true);
   }
 
 
@@ -98,9 +100,19 @@ export class ListadoOperacionesPorEspecialidadComponent implements OnInit {
     return arrayDatos;
   }
 
+
   getDate() {
     return this.datePipe.transform(new Date, "yyyy-MM-dd hh:mm:ss");
   }
+
+  ordernarTabla(nombreColumna: string, orden: Orden) {
+    const sortState: Sort = { active: nombreColumna, direction: orden };
+    this.dataSource.paginator = this.paginator;
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);
+  }
+
 
   /* #endregion */
 

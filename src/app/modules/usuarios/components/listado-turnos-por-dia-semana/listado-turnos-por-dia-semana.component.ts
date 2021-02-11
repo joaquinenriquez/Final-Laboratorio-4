@@ -31,12 +31,7 @@ export class ListadoTurnosPorDiaSemanaComponent implements OnInit {
 
   constructor(
     private toastManager: MatSnackBar,
-    private datePipe: DatePipe,
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer) {
-    this.agregarIconos();
-
-  }
+    private datePipe: DatePipe) {}
 
   ngOnInit(): void {}
 
@@ -53,11 +48,6 @@ export class ListadoTurnosPorDiaSemanaComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.datos);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-  }
-
-  agregarIconos() {
-    console.log(this.matIconRegistry.addSvgIcon(`archivo_pdf`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-pdf.svg")));
-    console.log(this.matIconRegistry.addSvgIcon(`archivo_excel`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-type-excel.svg")));
   }
 
   mostrarToast(mensaje: string, duracion: number) {

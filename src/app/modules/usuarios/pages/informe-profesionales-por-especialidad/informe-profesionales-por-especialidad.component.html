@@ -1,9 +1,9 @@
-<div class="container" fxLayout="column" fxFlexFill>
+<div fxLayout="column">
 
     <div fxFlex style="margin-bottom: 20px;" fxLayout="row" fxLayoutGap="20px">
 
         <div fxFlex="50%">
-            <app-listado-operaciones-por-especialidad [datos]="datosInforme" [tituloListado]="tituloInforme"></app-listado-operaciones-por-especialidad>
+            <app-listado-profesionales-por-especialidad [datos]="datosInforme" [tituloListado]="this.tituloInforme"></app-listado-profesionales-por-especialidad>
             <br>
             <mat-checkbox class="check-ocultar-valores-cero" [(ngModel)]="ocultarDatosCero" (change)="this.traerDatos()">Ocultar datos con valor 0 (cero)</mat-checkbox>
             <br>
@@ -18,3 +18,5 @@
     </div>
 
 </div>
+
+

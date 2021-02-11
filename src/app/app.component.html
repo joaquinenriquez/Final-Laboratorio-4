@@ -4,7 +4,7 @@
     <app-toolbar></app-toolbar>
   </div>
 
-  <div>
+  <div *ngIf="this.router.url != '/login' && this.router.url != '/registro-profesionales' && this.router.url != '/registro-pacientes'">
     <app-datos-usuario-bar></app-datos-usuario-bar>
   </div>
 

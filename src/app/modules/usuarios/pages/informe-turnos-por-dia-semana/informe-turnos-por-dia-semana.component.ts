@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { WidgetTartaComponent } from 'src/app/modules/graficos/components/widget-tarta/widget-tarta.component';
+import { TipoGrafico } from './../../../graficos/widget-general/widget-general.component';
+import { Component, OnInit } from '@angular/core';
 import { DatosGrafico } from 'src/app/modules/graficos/models/datos-grafico';
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
 import { TurnosDataService } from 'src/app/modules/turnos/services/turnos-data.service';
-import { ListadoOperacionesPorEspecialidadComponent } from '../../components/listado-operaciones-por-especialidad/listado-operaciones-por-especialidad.component';
 import { UsuarioDataService } from '../../services/usuario-data.service';
 import firebase from 'firebase/app';
 import { EstadoTurno } from 'src/app/modules/turnos/models/estado-turno.enum';
@@ -15,6 +14,8 @@ import { Turno } from 'src/app/modules/turnos/models/turno';
   styleUrls: ['./informe-turnos-por-dia-semana.component.scss']
 })
 export class InformeTurnosPorDiaSemanaComponent implements OnInit {
+
+  TipoGrafico = TipoGrafico;
 
   datosUsuarioActual;
   datosInforme: DatosGrafico[] = 
@@ -30,8 +31,6 @@ export class InformeTurnosPorDiaSemanaComponent implements OnInit {
   tituloInforme: string = 'Turnos por día';
   ocultarDatosCero: boolean = true;
 
-  @ViewChild('listado') listado: ListadoOperacionesPorEspecialidadComponent;
-  @ViewChild('widget') widget: WidgetTartaComponent;
 
   constructor(
     private usuarioDataService: UsuarioDataService,

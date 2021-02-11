@@ -2,12 +2,11 @@ import { PdfCreator } from './../../../shared/tools/pdf-creator';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatSort } from "@angular/material/sort";
+import { MatSort, Sort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { DatePipe } from '@angular/common';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Orden } from 'src/app/modules/shared/components/tabla/orden.enum';
 
 
 @Component({
@@ -38,10 +37,8 @@ export class ListadoProfesionalesPorDiasTrabajadosComponent implements OnInit {
   constructor(
     private toastManager: MatSnackBar,
     private datePipe: DatePipe,
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer,
     private changeDetectorRefs: ChangeDetectorRef) {
-    this.agregarIconos();
+
 
     this.dtPerido = new FormGroup({
       fechaInicio: new FormControl(),
@@ -65,12 +62,7 @@ export class ListadoProfesionalesPorDiasTrabajadosComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.datos);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-  }
-
-
-  agregarIconos() {
-    this.matIconRegistry.addSvgIcon(`archivo_pdf`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-pdf.svg"));
-    this.matIconRegistry.addSvgIcon(`archivo_excel`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-type-excel.svg"));
+    this.ordernarTabla('y', Orden.Descendente);
   }
 
   mostrarToast(mensaje: string, duracion: number) {
@@ -145,6 +137,14 @@ export class ListadoProfesionalesPorDiasTrabajadosComponent implements OnInit {
     this.dtPerido.controls["fechaInicio"].setValue(null);
     this.dtPerido.controls["fechaFin"].setValue(null);
     this.filtrarPorFecha();
+  }
+
+  ordernarTabla(nombreColumna: string, orden: Orden) {
+    const sortState: Sort = { active: nombreColumna, direction: orden };
+    this.dataSource.paginator = this.paginator;
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);
   }
 
 }

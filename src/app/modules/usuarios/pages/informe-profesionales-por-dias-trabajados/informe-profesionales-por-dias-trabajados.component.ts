@@ -1,3 +1,4 @@
+import { TipoGrafico } from './../../../graficos/widget-general/widget-general.component';
 import { ListadoProfesionalesPorTurnosComponent } from './../../components/listado-profesionales-por-turnos/listado-profesionales-por-turnos.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { WidgetTartaComponent } from 'src/app/modules/graficos/components/widget-tarta/widget-tarta.component';
@@ -18,6 +19,8 @@ import { Rol } from '../../models/rol.enum';
 })
 export class InformeProfesionalesPorDiasTrabajadosComponent implements OnInit {
 
+  TipoGrafico = TipoGrafico;
+  
   datosUsuarioActual;
   datosInforme: DatosGrafico[] = [{name: 'sin datos', y:0}];
 

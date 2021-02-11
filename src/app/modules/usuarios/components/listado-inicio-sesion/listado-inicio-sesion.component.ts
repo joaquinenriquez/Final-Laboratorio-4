@@ -41,11 +41,9 @@ export class ListadoInicioSesionComponent implements OnInit {
 
   constructor(private logDataService: LogDataService,
     private toastManager: MatSnackBar,
-    private datePipe: DatePipe,
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer) {
+    private datePipe: DatePipe) {
 
-    this.agregarIconos();
+    
 
     this.dtPerido = new FormGroup({
       fechaInicio: new FormControl(),
@@ -61,10 +59,6 @@ export class ListadoInicioSesionComponent implements OnInit {
     this.traerLogs();
   }
 
-  agregarIconos() {
-    console.log(this.matIconRegistry.addSvgIcon(`archivo_pdf`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-pdf.svg")));
-    console.log(this.matIconRegistry.addSvgIcon(`archivo_excel`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-type-excel.svg")));
-  }
 
   traerLogs() {
     this.logDataService.traerTodosLosLogs().subscribe(todosLosLogs => {

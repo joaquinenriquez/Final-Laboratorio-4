@@ -31,11 +31,7 @@ export class ListadoCantidadRespuestasEncuestaComponent implements OnInit {
   constructor(
     private toastManager: MatSnackBar,
     private datePipe: DatePipe,
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer,
     private changeDetectorRefs: ChangeDetectorRef) {
-    this.agregarIconos();
-
   }
 
   ngOnInit(): void {}
@@ -53,12 +49,6 @@ export class ListadoCantidadRespuestasEncuestaComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.datos);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-  }
-
-
-  agregarIconos() {
-    this.matIconRegistry.addSvgIcon(`archivo_pdf`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-pdf.svg"));
-    this.matIconRegistry.addSvgIcon(`archivo_excel`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-type-excel.svg"));
   }
 
   mostrarToast(mensaje: string, duracion: number) {

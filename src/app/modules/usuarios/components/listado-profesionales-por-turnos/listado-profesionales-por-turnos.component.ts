@@ -2,11 +2,10 @@ import { PdfCreator } from './../../../shared/tools/pdf-creator';
 import { ChangeDetectorRef, Component, Input, OnInit, SimpleChanges, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatSort } from "@angular/material/sort";
+import { MatSort, Sort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { DatePipe } from '@angular/common';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Orden } from 'src/app/modules/shared/components/tabla/orden.enum';
 
 
 @Component({
@@ -32,11 +31,7 @@ export class ListadoProfesionalesPorTurnosComponent implements OnInit {
   constructor(
     private toastManager: MatSnackBar,
     private datePipe: DatePipe,
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer,
     private changeDetectorRefs: ChangeDetectorRef) {
-    this.agregarIconos();
-
   }
 
   ngOnInit(): void {}
@@ -54,12 +49,7 @@ export class ListadoProfesionalesPorTurnosComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.datos);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-  }
-
-
-  agregarIconos() {
-    this.matIconRegistry.addSvgIcon(`archivo_pdf`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-pdf.svg"));
-    this.matIconRegistry.addSvgIcon(`archivo_excel`, this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/file-type-excel.svg"));
+    this.ordernarTabla('y', Orden.Descendente);
   }
 
   mostrarToast(mensaje: string, duracion: number) {
@@ -117,6 +107,14 @@ export class ListadoProfesionalesPorTurnosComponent implements OnInit {
 
   getDate() {
     return this.datePipe.transform(new Date, "yyyy-MM-dd hh:mm:ss");
+  }
+
+  ordernarTabla(nombreColumna: string, orden: Orden) {
+    const sortState: Sort = { active: nombreColumna, direction: orden };
+    this.dataSource.paginator = this.paginator;
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);
   }
 
 
