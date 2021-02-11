@@ -27,27 +27,11 @@ export class InformeProfesionalesPorDiasTrabajadosComponent implements OnInit {
   tituloInforme: string = 'Profesionales por días trabajados';
   ocultarDatosCero: boolean = true;
 
-  @ViewChild('listado') listado: ListadoProfesionalesPorTurnosComponent;
-  @ViewChild('widget') widget: WidgetTartaComponent;
-
   constructor(
     private usuarioDataService: UsuarioDataService,
-    private authService: AuthService,
     private turnoDataService: TurnosDataService) { }
 
-  ngOnInit(): void {
-
-
-
-    this.authService.datosUsuario.subscribe(datosUsuario => {
-      let usuario = datosUsuario as firebase.User;
-      this.usuarioDataService.TraerUsuarioPorId(usuario?.uid).subscribe(datosUsuario => {
-        this.datosUsuarioActual = datosUsuario;
-      });
-    })
-
-
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit() {
     this.traerDatos();

@@ -1,0 +1,38 @@
+<div fxLayout="column">
+
+    <div fxFlex style="margin-bottom: 20px;" fxLayout="row" fxLayoutGap="20px">
+
+        <div fxFlex="50%">
+            <app-listado-profesionales-por-dias-trabajados [datos]="this.datosInformeUsuariosPorRol" [tituloListado]="this.tituloInformePorRol"></app-listado-profesionales-por-dias-trabajados>
+            <br>
+            <mat-checkbox class="check-ocultar-valores-cero" [(ngModel)]="ocultarDatosCero" (change)="this.traerDatos()">{{'Ocultar datos con valor 0 (cero)' | translate}}</mat-checkbox>
+            <br>
+            <br>
+            <mat-divider></mat-divider>
+        </div>
+
+        <div fxFlex="50%">
+            <app-widget-general [datos]="datosInformeUsuariosPorRol" [tituloGrafico]="this.tituloInformePorRol" [graficoSeleccionado]="TipoGrafico.Tartas"></app-widget-general>
+        </div>
+        
+    </div>
+
+    <div fxFlex style="margin-bottom: 20px;" fxLayout="row" fxLayoutGap="20px">
+
+        <div fxFlex="50%">
+            <app-listado-profesionales-por-dias-trabajados [datos]="this.datosInformeUsuariosPorEstado" [tituloListado]="this.tituloInformePorEstado"></app-listado-profesionales-por-dias-trabajados>
+            <br>
+            <mat-checkbox class="check-ocultar-valores-cero" [(ngModel)]="ocultarDatosCero" (change)="this.traerDatos()">{{'Ocultar datos con valor 0 (cero)' | translate}}</mat-checkbox>
+            <br>
+            <br>
+            <mat-divider></mat-divider>
+        </div>
+
+        <div fxFlex="50%">
+            <app-widget-general [datos]="datosInformeUsuariosPorEstado" [tituloGrafico]="this.tituloInformePorEstado" [graficoSeleccionado]="TipoGrafico.Tartas"></app-widget-general>
+        </div>
+        
+    </div>
+
+
+</div>

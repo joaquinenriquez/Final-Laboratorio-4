@@ -141,6 +141,18 @@
     "Elegir fotos de perfil": "Choose profile photos",
     "Registrarse" : "Sign in",
     "Habilitar CAPTCHA" : "Enable CAPTCHA",
-    "¿Sos profesional?" : "Are you a professional?"
+    "¿Sos profesional?" : "Are you a professional?",
+
+    "Cantidad de turnos": "Appoitments Qty. ",
+    "Exportar..." : "Export...",
+    "Ocultar datos con valor 0 (cero)" : "Hide data with value 0 (zero)",
+
+    "Cantidad de pacientes": "Patients Qty.",
+
+
+
+
+
+    "Usuarios": "Users"
 
 }

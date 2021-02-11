@@ -5,7 +5,7 @@
         <div fxFlex="50%">
             <app-listado-operaciones-por-especialidad [datos]="datosInforme" [tituloListado]="tituloInforme"></app-listado-operaciones-por-especialidad>
             <br>
-            <mat-checkbox class="check-ocultar-valores-cero" [(ngModel)]="ocultarDatosCero" (change)="this.traerDatos()">Ocultar datos con valor 0 (cero)</mat-checkbox>
+            <mat-checkbox class="check-ocultar-valores-cero" [(ngModel)]="ocultarDatosCero" (change)="this.traerDatos()">{{'Ocultar datos con valor 0 (cero)' | translate}}</mat-checkbox>
             <br>
             <br>
             <mat-divider></mat-divider>

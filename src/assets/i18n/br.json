@@ -5,6 +5,149 @@
     "Nombre": "Nome",
     "Apellido": "Sobrenome",
     "Guardar datos": "Salvar dados",
-    "Ingrese su nombre, por favor": "Digite seu nome, por favor"
+    "Ingrese su nombre, por favor": "Digite seu nome, por favor",
+
+    "BÚSQUEDAS": "PESQUISA",
+    "INFORMES": "RELATÓRIOS",
+
+    "GESTIÓN DE USUARIOS": "GESTÃO DE USUÁRIOS",
+    "ESPECIALIDADES": "ESPECIALIDADES",
+
+    
+    "Inicios de sesión" : "Login historial",
+    "Operaciones por especialidad" : "Operaciones por especialidad",
+    "Turnos por dia de la semana" : "Turnos por dia da semana",
+    "Profesionales por turnos" : "Profissionais de turno",
+    "Profesionales por días trabajados" : "Profissionais por dias trabalharam",
+    "Profesionales por especialidad" : "Profissionais por especialidade",
+    "Pacientes por especialidad" : "Pacientes por especialidade",
+    "Turnos por pacientes" : "Turnos por paciente",
+    "Respuestas de encuestas" : "Respostas da pesquisa",
+
+    "Mi perfil": "Meu perfil",
+    "Cerrar sesión": "Fechar Sessão",
+
+    "Error al crear el usuario" : "Falha ao criar usuário",
+
+
+    "Cargando...": "Carregando...",
+
+
+    "Administrador": "Administrador",
+
+    "Ingrese su apellido, por favor":  "Digite seu sobrenome, por favor",
+    "Ingrese su nro de DNI, por favor":  "Enter your DNI number, please",
+
+    "Profesionales": "Profissionais",
+    "Pacientes" : "Pacientes",
+    "Administradores" : "Administradores",
+    "Especialidades" : "Especialidades",
+    "Estado" : "Estado",
+    "Ver horarios" : "Veja horários",
+    "VER HORARIOS...": "VER HORÁRIOS...",
+    "Habilitado" : "Ativado",
+    "Deshabilitado" : "Desativado",
+    "Pendiente Aprobación" : "Aprovação pendente",
+    "CAMBIAR ESTADO..."  : "ALTERAR ESTADO...",
+    "Fecha de alta": "Data de alta",
+    "Nuevo usuario administrador..." : "Novo usuário administrador...",
+    "Se cambió el estado del usuario" : "Status do usuário alterado",
+
+    "Disponibilidad Horaria" : "Disponibilidade de tempo",
+    "Día": "Día",
+    "Horario inicio" : "Hora de início",
+    "Horario finalización" : "Fim do tempo",
+    "Aceptar" : "Aceitar",
+    "Lunes" : "Segunda-feira",
+    "Martes" : "Terça-feira",
+    "Miércoles" : "Quarta feira",
+    "Jueves" : "Quinta feira",
+    "Viernes" : "Sexta-feira",
+    "Sábado" : "Sábado",
+
+    "Estado Actual:" : "Estado Actual",
+    "Cambiar a:" :  "Troque para",
+    "Cambiar estado" : "Alterar status",
+    "Cancelar": "Cancelar",
+    "Cambiar": "Mudança",
+
+    "Usuario": "Do utilizador",
+
+    "Ingresa el texto que queres buscar..." : "Digite o texto que deseja pesquisar...",
+    "Buscar" : "Procurar",
+
+    "Espacialidad" : "Espacialidade",
+    "Modificar" : "Modificar",
+    "Eliminar" : "Remover",
+    "Nueva Especialidad" : "Nova Especialidade",
+    "¿Cómo se llama la nueva especialidad?": "Qual é o nome da nova especialidade?",
+    "Si, eliminar!" : "Sim, exclua!",
+    "Se eliminó la especialidad!": "Especialidade removida!",
+
+    "Modificar Especialidad" : "Modificar especialidade",
+    "Crear" : "Crio",
+    "Especialidad modificada!" : "Especialidade modificada!",
+    "Eliminar especialidad" : "Excluir especialidade",
+    "¿Estas seguro que querés eliminar la especialidad" : "Tem certeza que deseja eliminar a especialidade",
+
+    "Fecha" : "Encontro",
+    "Horario" : "Cronograma",
+    "Profesional": "Profissional",
+    "Duración estimada": "Duração estimada",
+    "Paciente" : "Paciente",
+    "Edad" : "Era",
+    "Peso" : "Peso",
+    "Temperatura" : "Temperatura",
+    "Reseña" : "Reveja",
+    "Filtros avanzados..." : "Filtros avançados...",
+
+    "Nro. Matricula" : "Nro. de registro",
+    "Nro. Afiliado" : "Nro. Afiliado",
+    "Tu perfil esta incompleto" : "Seu perfil está incompleto",
+
+    "Turnos confirmados" : "Turnos confirmados",
+    "Pendiente Confirmación" : "Confirmação pendente",
+    "Cancelado": "Cancelado",
+    "Pendientes de confirmar" : "A ser confirmado",
+    "Finalizado" : "Finalizado",
+    "Turnos anteriores y cancelados" : "Turnos anteriores e cancelados",
+
+    "Cargando datos, espere por favor..." : "Carregando dados, por favor aguarde",
+    "Atender" : "Comparecer",
+    "No tenés turnos en este estado" : "Você não tem turnos neste estado",
+
+    "Confirmar" : "confirme",
+    "Ver encuesta" : "Ver pesquisa",
+
+    "Resultado de la encuesta de" :  "Resultado da pesquisa",
+    "Pregunta" : "Questão",
+    "Respuesta" : "Responda",
+
+    "Iniciar sesión" : "Iniciar sessão",
+    "Contrasñea" : "Senha",
+    "Ingresar" : "Enterokay",
+    "La dirección de email es": "O endereço de email é",
+    "obligatoria" : "obrigatório",
+    "obligatorio" : "obrigatório",
+    "Ingresa tu contraseña para poder iniciar sesión" : "Digite sua senha para entrar",
+    "Vas a necesitar ingresar tu email para iniciar sesión" : "Você precisará inserir seu e-mail para fazer o login",
+    "La contraseña es muy corta": "A senha é muito curta",
+    "Contraseña" : "Senha",
+
+    "Bienvenido" : "Bem-vinda",
+    "El nombre no puede contener números ni caractéres especiales": "O nome não pode conter números ou caracteres especiais",
+    "ingresar su nombre" : "insira seu nome",
+    "El apellido no puede contener números ni caractéres especiales" : "O sobrenome não pode conter números ou caracteres especiais",
+    "ingresar su apellido" : "insira seu sobrenome",
+    "Elegir fotos de perfil": "Escolha as fotos do perfil",
+    "Registrarse" : "Check-in",
+    "Habilitar CAPTCHA" : "Ativar CAPTCHA",
+    "¿Sos profesional?" : "Você é profissional?",
+
+    "Cantidad de turnos": "Número de turnos",
+    "Exportar..." : "Exportar...",
+    "Ocultar datos con valor 0 (cero)" : "Ocultar dados com valor 0 (zero)",
+
+    "Cantidad de pacientes": "Número de pacientes"
 }
 

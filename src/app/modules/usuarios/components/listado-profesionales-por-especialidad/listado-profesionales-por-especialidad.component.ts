@@ -48,7 +48,9 @@ export class ListadoProfesionalesPorEspecialidadComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.datos);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.ordernarTabla('y', Orden.Descendente);
+    setTimeout(() => {
+      this.ordernarTabla('y', Orden.Descendente);
+    }, 1000); 
   }
 
   mostrarToast(mensaje: string, duracion: number) {

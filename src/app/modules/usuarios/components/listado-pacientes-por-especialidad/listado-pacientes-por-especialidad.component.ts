@@ -2,11 +2,10 @@ import { PdfCreator } from './../../../shared/tools/pdf-creator';
 import { ChangeDetectorRef, Component, Input, OnInit, SimpleChanges, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatSort } from "@angular/material/sort";
+import { MatSort, Sort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { DatePipe } from '@angular/common';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Orden } from 'src/app/modules/shared/components/tabla/orden.enum';
 
 
 @Component({
@@ -20,6 +19,7 @@ export class ListadoPacientesPorEspecialidadComponent implements OnInit {
 
   @Input() datos: any = [];
   @Input() tituloListado: string = 'Sin título';
+  
   displayedColumns: string[] = ['name', 'y'];
   dataSource: MatTableDataSource<any>;
 
@@ -52,6 +52,7 @@ export class ListadoPacientesPorEspecialidadComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.datos);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.ordernarTabla('y', Orden.Descendente);
   }
 
 
@@ -110,6 +111,14 @@ export class ListadoPacientesPorEspecialidadComponent implements OnInit {
 
   getDate() {
     return this.datePipe.transform(new Date, "yyyy-MM-dd hh:mm:ss");
+  }
+
+  ordernarTabla(nombreColumna: string, orden: Orden) {
+    const sortState: Sort = { active: nombreColumna, direction: orden };
+    this.dataSource.paginator = this.paginator;
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);
   }
 
 

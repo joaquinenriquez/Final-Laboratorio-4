@@ -5,8 +5,6 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatSort, Sort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { DatePipe } from '@angular/common';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Orden } from 'src/app/modules/shared/components/tabla/orden.enum';
 
 @Component({
@@ -50,7 +48,11 @@ export class ListadoOperacionesPorEspecialidadComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.datos);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.ordernarTabla('y', Orden.Descendente);
+    
+    setTimeout(() => {
+      this.ordernarTabla('y', Orden.Descendente);
+    }, 1000); 
+    
   }
 
   mostrarToast(mensaje: string, duracion: number) {

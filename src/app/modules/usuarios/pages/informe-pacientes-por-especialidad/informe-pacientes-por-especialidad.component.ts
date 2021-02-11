@@ -21,31 +21,16 @@ export class InformePacientesPorEspecialidadComponent implements OnInit {
   datosUsuarioActual;
   datosInforme: DatosGrafico[] = [{name: 'sin datos', y:0}];
 
-  tituloInforme: string = 'Profesionales por turnos';
+  tituloInforme: string = 'Pacientes por especialidad';
   ocultarDatosCero: boolean = true;
 
   @ViewChild('listado') listado: ListadoProfesionalesPorTurnosComponent;
   @ViewChild('widget') widget: WidgetTartaComponent;
 
-  constructor(
-    private usuarioDataService: UsuarioDataService,
-    private authService: AuthService,
-    private turnoDataService: TurnosDataService,
+  constructor(private turnoDataService: TurnosDataService,
     private especialidadDataService: EspecialidadesDataService) { }
 
-  ngOnInit(): void {
-
-
-
-    this.authService.datosUsuario.subscribe(datosUsuario => {
-      let usuario = datosUsuario as firebase.User;
-      this.usuarioDataService.TraerUsuarioPorId(usuario?.uid).subscribe(datosUsuario => {
-        this.datosUsuarioActual = datosUsuario;
-      });
-    })
-
-
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit() {
     this.traerDatos();
@@ -55,6 +40,7 @@ export class InformePacientesPorEspecialidadComponent implements OnInit {
 
   traerDatos() {
     
+
     this.turnoDataService.traerTodasLosTurnos().subscribe(todosLosTurnos => {
 
       this.especialidadDataService.traerTodasLasEspecialidades().subscribe(todasLasEspecialidades => {
@@ -79,11 +65,6 @@ calcularPacientesPorEspecialidad(todosLosTurnos: Turno[], nombreEspecialidad: st
   let pacientesUnicos = [...new Set(pacientesEspecialidadSeleccionada)];
   return pacientesUnicos.length;
 }
-
-  calcularTurnosPorProfesional(todosLosTurnos: Turno[], idProfesional: string): number 
-  {
-    return todosLosTurnos.filter(unTurno => unTurno.idProfesional == idProfesional && unTurno.estadoTurno != EstadoTurno.Cancelado && unTurno.estadoTurno && EstadoTurno.Suspendido).length;
-  }
 
 
 }

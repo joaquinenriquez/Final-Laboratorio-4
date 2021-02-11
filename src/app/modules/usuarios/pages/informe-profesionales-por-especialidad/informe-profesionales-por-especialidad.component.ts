@@ -19,7 +19,7 @@ export class InformeProfesionalesPorEspecialidadComponent implements OnInit {
   datosUsuarioActual;
   datosInforme: DatosGrafico[] = [{ name: 'sin datos', y: 0 }];
 
-  tituloInforme: string = 'Profesionales por turnos';
+  tituloInforme: string = 'Profesionales por especialidad';
   ocultarDatosCero: boolean = true;
 
   constructor(
