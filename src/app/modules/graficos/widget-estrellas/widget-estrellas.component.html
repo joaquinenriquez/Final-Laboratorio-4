@@ -2,7 +2,7 @@
 
     <div fxLayout="column" fxLayoutAlign="center center">
         <div>
-            <span class="promedio">{{promedioCalificacion}}</span>
+            <span class="promedio">{{promedioCalificacion | number: '1.0-2'}}</span>
         </div>
 
         <div #estrellas class="estrellas">

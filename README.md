@@ -10,7 +10,7 @@ Esta aplicación forma parte de la evalución final la materia Laboratorio de Pr
 * Octavio Villegas <[@octaviovillegas](https://github.com/octaviovillegas "Octavio Villegas")>
 * Matias Mirotta <[@mmirotta](https://github.com/mmirotta "Matias Mirotta")>
 
-## Alumno (osea yo :P) :rocket:
+## Alumno :rocket:
 * Joaquin Enriquez <[@joaquinenriquez](https://github.com/joaquinenriquez "Joaquin Enriquez")>
 
 
@@ -19,6 +19,13 @@ Esta aplicación forma parte de la evalución final la materia Laboratorio de Pr
 ## Tecnologías aplicadas :gear:
 * Angular: [*Framework Angular* (Versión: 10.1)](https://angular.io/ "Angular")
 * Backend y persistencia de datos: servicios de *[Google Firebase](https://firebase.google.com/ "Firebase")*
+
+## Algunos módulos de terceros :loudspeaker:
+
+* Layout: [Angular Flex Layout](https://www.npmjs.com/package/@angular/flex-layout)
+* Gráficos [Highcharts](https://www.highcharts.com/)
+* Traducciones [Ngx-Translate](http://www.ngx-translate.com/)
+
 <br />
 
 ## Requerimientos de la aplicación :hammer:
@@ -46,9 +53,33 @@ $ ng build
 ```
 
 ___
-## Demo / Sugerencias :basketball:
 
-[*Demo Online](https://clinicaonline-utnfra.web.app "Demo")
+## Algunas capturas de pantallas :framed_picture:
+
+<p align="center">
+<img src="https://i.ibb.co/3WRJSKR/registrarse.png">
+
+
+<p align="center">
+<img src="https://i.ibb.co/9yY6Xcb/Solicitar-turno.png">
+
+<p align="center">
+<img src="https://i.ibb.co/KrHdkw6/Atender-Turno.png">
+
+<p align="center">
+<img src="https://i.ibb.co/10DkKVF/gestion-usuarios.png">
+
+<p align="center">
+<img src="https://i.ibb.co/MRKpRhw/2021-02-11-163046.png">
+
+<p align="center">
+<img src="https://i.ibb.co/Dz7fmGk/2021-02-11-162144.png">
+
+
+## Demo :basketball:
+
+[Demo Online](https://clinicaonline-utnfra.web.app "Demo")
+
 ___
 ## Dudas / Sugerencias :speech_balloon:
 Envíenos sus comentarios o sugerencias a saraza@evilcorp.com
